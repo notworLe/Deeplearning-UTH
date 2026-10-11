@@ -1,0 +1,2 @@
+E2 is copied from Stage 4 (same seed, dataset normalization, architecture, lr, epochs, batch).
+No test metrics were used during its training or checkpoint selection.
