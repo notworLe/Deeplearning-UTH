@@ -1,0 +1,9 @@
+{
+  "split": "validation",
+  "checkpoint": "outputs\\best_model.pth",
+  "samples": 6000,
+  "validation_loss": 0.313020321448644,
+  "validation_accuracy": 0.8823333333333333,
+  "validation_accuracy_percent": 88.23333333333333,
+  "note": "Validation only; does not update weights or use the holdout test set."
+}
