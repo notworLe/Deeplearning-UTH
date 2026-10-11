@@ -1,0 +1,90 @@
+{
+  "raw_total_samples": 70000,
+  "raw_split_sizes": {
+    "train": 54000,
+    "validation": 6000,
+    "test": 10000
+  },
+  "effective_split_sizes": {
+    "train": 53981,
+    "validation": 6000,
+    "test": 10000
+  },
+  "exact_duplicate_image_groups_across_splits": {
+    "train_validation": 9,
+    "train_test": 10,
+    "validation_test": 0
+  },
+  "within_split_repeated_rows_by_image": {
+    "train": 33,
+    "validation": 1,
+    "test": 1
+  },
+  "train_rows_excluded_due_to_cross_split_duplicate": 19,
+  "policy": "remove only train images matching any validation/test image; never modify original CSV or val/test",
+  "post_cleaning_exact_cross_split_overlaps": 0,
+  "normalization": {
+    "method": "float32(pixel)/255; z-score using only effective training pixels",
+    "train_mean_0_to_1": 0.28614696800340705,
+    "train_std_0_to_1": 0.35276782399094836,
+    "used_validation_or_test_to_fit": false
+  },
+  "class_counts_by_split": {
+    "train": {
+      "0": 5399,
+      "1": 5398,
+      "2": 5394,
+      "3": 5396,
+      "4": 5398,
+      "5": 5400,
+      "6": 5396,
+      "7": 5400,
+      "8": 5400,
+      "9": 5400
+    },
+    "validation": {
+      "0": 600,
+      "1": 600,
+      "2": 600,
+      "3": 600,
+      "4": 600,
+      "5": 600,
+      "6": 600,
+      "7": 600,
+      "8": 600,
+      "9": 600
+    },
+    "test": {
+      "0": 1000,
+      "1": 1000,
+      "2": 1000,
+      "3": 1000,
+      "4": 1000,
+      "5": 1000,
+      "6": 1000,
+      "7": 1000,
+      "8": 1000,
+      "9": 1000
+    }
+  },
+  "pixel_range_original": [
+    0,
+    255
+  ],
+  "missing_values": 0,
+  "seed": 42,
+  "batch_size": 64,
+  "batch_test": {
+    "image_shape": [
+      64,
+      1,
+      28,
+      28
+    ],
+    "image_dtype": "torch.float32",
+    "label_shape": [
+      64
+    ],
+    "label_dtype": "torch.int64"
+  }
+}

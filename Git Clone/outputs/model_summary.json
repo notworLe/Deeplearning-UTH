@@ -1,0 +1,58 @@
+{
+  "stage": 3,
+  "status": "forward_pass_only_no_training",
+  "dataset": "one CSV; smoke test uses train split only",
+  "csv_path": "data/fashion_mnist_full.csv",
+  "seed": 42,
+  "batch_size": 64,
+  "hidden_dims": [
+    256,
+    128
+  ],
+  "num_classes": 10,
+  "model_class": "FashionMLP",
+  "input_shape": [
+    64,
+    1,
+    28,
+    28
+  ],
+  "output_logits_shape": [
+    64,
+    10
+  ],
+  "logits_dtype": "torch.float32",
+  "logits_all_finite": true,
+  "output_is_raw_logits": true,
+  "linear_layers": [
+    {
+      "layer": "network.1",
+      "in_features": 784,
+      "out_features": 256,
+      "weights": 200704,
+      "bias": 256,
+      "total": 200960
+    },
+    {
+      "layer": "network.3",
+      "in_features": 256,
+      "out_features": 128,
+      "weights": 32768,
+      "bias": 128,
+      "total": 32896
+    },
+    {
+      "layer": "network.5",
+      "in_features": 128,
+      "out_features": 10,
+      "weights": 1280,
+      "bias": 10,
+      "total": 1290
+    }
+  ],
+  "total_trainable_parameters": 235146,
+  "train_dataset_size_after_duplicate_audit": 53981,
+  "normalization_source": "effective train only",
+  "training_performed": false,
+  "test_set_used_for_model_selection": false
+}

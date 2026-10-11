@@ -1,0 +1,53 @@
+{
+  "stage": 6,
+  "method": "visualization from saved Stage-5 predictions; no training or model inference",
+  "selected_experiment": "E2",
+  "test_samples": 10000,
+  "test_correct": 8842,
+  "test_accuracy_percent": 88.42,
+  "correct_examples_test_indices": [
+    0,
+    1,
+    2,
+    10,
+    11,
+    8,
+    13,
+    25,
+    6,
+    36
+  ],
+  "wrong_examples_test_indices": [
+    38,
+    119,
+    5,
+    4,
+    12,
+    30,
+    7,
+    303,
+    506,
+    180
+  ],
+  "high_confidence_error_test_indices": [
+    4451,
+    6541,
+    3046,
+    8201,
+    3261,
+    5927,
+    5232,
+    5361,
+    2128,
+    5555,
+    612,
+    6147
+  ],
+  "selection_disclosure": "Per-class examples are the first matching samples; high-confidence errors are intentionally selected, not representative/random.",
+  "figures": [
+    "figures/predictions.png",
+    "figures/misclassified_examples.png",
+    "figures/per_class_recall.png"
+  ],
+  "predictions_vs_csv_labels_verified": true
+}
