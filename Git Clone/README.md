@@ -1,6 +1,6 @@
 # Practice 1 — PyTorch FashionMNIST Classification
 
-> **Trạng thái dự án (2026-10-11): HOÀN THÀNH CẢ 6/6 GIAI ĐOẠN.**  
+> **Trạng thái dự án HOÀN THÀNH CẢ 6/6 GIAI ĐOẠN.**  
 > **Kết quả của ZIP hiện tại:** E2 được chọn bằng validation loss (checkpoint tốt nhất ở epoch 4); **test accuracy 88,42% = 8.842/10.000 ảnh đúng**. Giai đoạn 6 đã có hình dự đoán và báo cáo cuối.  
 > **Dữ liệu đầu vào:** **một** file `data/fashion_mnist_full.csv` từ bộ FashionMNIST trên Kaggle.
 
