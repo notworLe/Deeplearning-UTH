@@ -55,3 +55,6 @@ làm gì" (2-3 câu).
 ## E. Kết thúc giai đoạn
 Chấm theo tiêu chí đạt (feedback-review). Đạt: tóm tắt đã làm được gì,
 ghi vào tiến độ, giới thiệu giai đoạn kế. Chưa đạt: áp dụng mục D.
+
+## F. Ràng buộc
+Không được tạo scripts sẵn, hãy đưa chatbot từng đoạn code chia ra từng giai đoạn, không đưa hết 1 lần, để người học trải nghiệm từng như code từ 0 đến thành quả.
