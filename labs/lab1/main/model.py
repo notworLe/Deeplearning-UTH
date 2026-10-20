@@ -4,8 +4,8 @@ import torch.nn as nn
 import config
 import torch.optim as optim
 import MyLog
-from object import MyMetricManage, MyMetric
-
+from object import MyMetric
+from MyVisualize import writer
 
 class FashionCNN(nn.Module):
     def __init__(self):
@@ -54,13 +54,17 @@ class FashionCNN(nn.Module):
         x = self.classifier(x)
         return x
 
-def training_phase(model, loss_func, optimizer, train_dataloader, test_dataloader, epoch=config.EPOCH):
+def training_phase(model, loss_func, optimizer, train_dataloader, test_dataloader, epoch=config.EPOCH) -> tuple[list[MyMetric], list[MyMetric]]:
+    list_metric_train_epoch: list[MyMetric] = []
+    list_metric_val_epoch: list[MyMetric] = []
 
     for i_epoch in range(epoch):
-        metric_batch = ()
+        MyLog.print_log("Epoch", i_epoch + 1)
+        print("=" * 20 + " Training " + "=" * 20)
 
         model.train()
-        MyLog.print_log("Epoch", i_epoch + 1)
+        epoch_metric = MyMetric()
+
         for batch, labels in train_dataloader:
             batch = batch.to(config.DEVICE)
             labels = labels.to(config.DEVICE)
@@ -71,28 +75,29 @@ def training_phase(model, loss_func, optimizer, train_dataloader, test_dataloade
             loss_value.backward()
             optimizer.step()
 
-            # Save metrics
-            predictions_arg = predictions.argmax(dim=1)
-            metric_batch.add(predictions_arg, labels, loss_value, len(batch))
+            # Save metric
+            epoch_metric.add(predictions, labels, loss_value, len(batch))
 
-        metric_batch.get_metric()
-        metric_batch.show_metric()
-        metric_epoch.add(
-            [x for batch in metric_batch.prediction for x in batch],
-            [x for batch in metric_batch.actual for x in batch],
-            metric_batch.total_loss,
-            metric_batch.total_image
-        )
+        epoch_metric.show_metric()
 
-        print("======= Evaluation ========")
-        evaluate_phase(model, loss_func, test_dataloader)
+        print("=" * 20 + " Evaluation " + "=" * 20)
+        eval_metric = evaluate_phase(model, loss_func, test_dataloader)
+        print()
 
-    return metric_epoch
+        writer.add_scalar("Loss/train", epoch_metric.average_loss, i_epoch)
+        writer.add_scalar("Acc/train", epoch_metric.accuracy, i_epoch)
+        writer.add_scalar("Loss/test", eval_metric.average_loss, i_epoch)
+        writer.add_scalar("Acc/test", eval_metric.accuracy, i_epoch)
+
+        list_metric_train_epoch.append(epoch_metric)
+        list_metric_val_epoch.append(eval_metric)
+
+    return list_metric_train_epoch, list_metric_val_epoch
 
 @torch.no_grad()
 def evaluate_phase(model, loss_func, test_dataloader):
     model.eval()
-    metric = MyMetric()
+    epoch_metric = MyMetric()
 
     for batch, labels in test_dataloader:
         batch = batch.to(config.DEVICE)
@@ -102,13 +107,11 @@ def evaluate_phase(model, loss_func, test_dataloader):
         loss_value = loss_func(predictions, labels)
 
         # Save metrics
-        predictions_arg = predictions.argmax(dim=1)
-        metric.add(predictions_arg, labels, loss_value, len(batch))
+        epoch_metric.add(predictions, labels, loss_value, len(batch))
 
-    metric.get_metric()
-    metric.show_metric()
+    epoch_metric.show_metric()
 
-    return metric
+    return epoch_metric
 
 def my_metric(predictions, actual, total_loss, total_samples):
     predictions = np.array(predictions)
