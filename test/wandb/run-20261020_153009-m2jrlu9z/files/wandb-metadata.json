@@ -1,0 +1,43 @@
+{
+  "os":  "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "python":  "CPython 3.12.11",
+  "startedAt":  "2026-10-20T08:30:09.448587Z",
+  "program":  "/home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/test/wandb_temp.py",
+  "codePath":  "test/wandb_temp.py",
+  "codePathLocal":  "wandb_temp.py",
+  "git":  {
+    "remote":  "git@github.com:notworLe/Deeplearning-UTH.git",
+    "commit":  "7de25ea841ef009fe66bca2f50fe6f4c53b7b06f"
+  },
+  "email":  "songohuy12345@gmail.com",
+  "root":  "/home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/test",
+  "host":  "Dai-jo-pu",
+  "executable":  "/home/notworle/.pyenv/versions/3.12.11/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  16,
+  "gpu":  "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "gpu_count":  1,
+  "disk":  {
+    "/":  {
+      "total":  "210241560576",
+      "used":  "60197941248"
+    }
+  },
+  "memory":  {
+    "total":  "12541169664"
+  },
+  "cpu":  {
+    "model":  "AMD Ryzen 7 7735H with Radeon Graphics"
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "memoryTotal":  "8585740288",
+      "architecture":  "Ada",
+      "uuid":  "GPU-b1166302-1ca1-8283-a1d7-10e021aef0b2",
+      "pciBusId":  "00000000:01:00.0"
+    }
+  ],
+  "cudaVersion":  "12.3",
+  "writerId":  "01a1586e-a82e-7a5c-b60c-9efaa8415522"
+}

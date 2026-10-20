@@ -1,33 +1,61 @@
-from config import DEVICE
-from utility import SEED
+import config
+import utility
 import torch
+from config import  MAX_LENGTH
 
-MAX_LENGTH = 10
-
-def print_log(name, value):
+def print_log(name, value, max_length = MAX_LENGTH):
     """
     Chuẩn hóa log terminal với MAX_LENGTH thống nhất
     :param name:
     :param value:
+    :param max_length:
     :return:
     """
     len_name = len(name)
-    if len_name > MAX_LENGTH:
+    if len_name > max_length:
         name = name[:-3] + "..."
 
-    space = " " * max(0, MAX_LENGTH - len_name)
-    print(f"{name[:MAX_LENGTH]}{space}: {value}")
+    space = " " * max(0, max_length - len_name)
+    print(f"{name[:max_length]}{space}: {value}")
 
 def log_device():
-    print_log("Device", DEVICE)
-    if DEVICE.type == "cuda":
-        print_log("Gpu", torch.cuda.get_device_name(DEVICE))
+    print_log("Device", config.DEVICE)
+    if config.DEVICE.type == "cuda":
+        print_log("Gpu", torch.cuda.get_device_name(config.DEVICE))
+
         vram = torch.cuda.get_device_properties(0).total_memory / 1e9
         print_log("VRAM", f"{vram:.1f} GB")
 
 def log_seed():
-    print_log("Seed", SEED)
+    print_log("Seed", utility.SEED)
+
+def log_dataset_config():
+    print_log("Workers", config.WOKER)
+    print_log("Batch size", config.BATCH_SIZE)
+
 
 def log_creation():
+    print("=" * 32 + " Configration " + "=" * 32)
     log_device()
     log_seed()
+    log_dataset_config()
+
+    print()
+
+
+def dataset_log(dataset, train_dataset, test_dataset, idx=0):
+    ## Medata
+    print_log("Dataset name", str(dataset), 20)
+    print_log("Training dataset size", len(train_dataset), 20)
+    print_log("Test dataset size", len(test_dataset), 20)
+
+    img, label = train_dataset[idx]
+    print_log("Label", label, 20)
+    print_log("Label name", dataset.classes[label], 20)
+    print_log("Image shape", img.shape, 20)
+    print_log("Min - max image", f"{img.min()}, {img.max()}", 20)
+
+def dataloader_log(train_dataloader, test_dataloader, max_length=20):
+    print()
+    print_log("Number of train batch:", len(train_dataloader), max_length)
+    print_log("Number of test batch:", len(test_dataloader), max_length)

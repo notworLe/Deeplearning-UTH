@@ -7,16 +7,14 @@
 
 ## 📌Overview
 
-Repository này chứa toàn bộ mã nguồn, dữ liệu thực nghiệm, bài tập tuần, và dự án nhóm của **Deep learning tại Trường Đại học Giao thông Vận tải TP.HCM (UTH)**.
+Repository này chứa toàn bộ mã nguồn, dữ liệu thực nghiệm, bài tập tuần, 
+và dự án nhóm của **Deep learning tại Trường Đại học Giao thông Vận tải TP.HCM (UTH)**.
 
 ### 📋Labs Roadmap
 
-|    Lab     | Chủ đề Kỹ thuật                                                                                                      | Trạng thái | Pipeline Thực thi                                      |                                     Báo cáo Kỹ thuật                                      | Unit Tests |
-|:----------:|:---------------------------------------------------------------------------------------------------------------------|:----------:|:-------------------------------------------------------|:-----------------------------------------------------------------------------------------:|:----------:|
-| **Lab 01** | **Xử lý ảnh cơ bản & Không gian màu** (OpenCV, Pillow, BGR/RGB/HSV/LAB, ROI, Annotations)                            | ✅ **100%** | [`lab01_pipeline.py`](src/pipelines/lab01_pipeline.py) | [Markdown](docs/labs/lab01/LAB_01_REPORT.md) · [HTML](docs/labs/lab01/LAB_01_REPORT.html) | 10 passed  |
-| **Lab 02** | **Toán tử điểm ảnh & Lọc không gian** (Brightness/Contrast/Negative, Gaussian, Sobel/Prewitt, Bilateral/Median)      | ✅ **100%** | [`lab02_pipeline.py`](src/pipelines/lab02_pipeline.py) | [Markdown](docs/labs/lab02/LAB_02_REPORT.md) · [HTML](docs/labs/lab02/LAB_02_REPORT.html) | 17 passed  |
-| **Lab 03** | **Canny Edge Detector Chuyên sâu** (5-stage Canny, Noise Robustness, Pratt FOM, Hough Shapes, Di Zenzo Tensor)       | ✅ **100%** | [`lab03_pipeline.py`](src/pipelines/lab03_pipeline.py) | [Markdown](docs/labs/lab03/LAB_03_REPORT.md) · [HTML](docs/labs/lab03/LAB_03_REPORT.html) | 16 passed  |
-| **Lab 04** | **So sánh tương đồng ảnh dùng Wavelet Hashing** (2D DWT Haar/db4, Quantization, ROC/PR Curves, Top-k Retrieval, MIH) | ✅ **100%** | [`lab04_pipeline.py`](src/pipelines/lab04_pipeline.py) | [Markdown](docs/labs/lab04/LAB_04_REPORT.md) · [HTML](docs/labs/lab04/LAB_04_REPORT.html) |  8 passed  |
+|    Lab     | Chủ đề Kỹ thuật                                                                                          | Trạng thái | Pipeline Thực thi                                      |                                     Báo cáo Kỹ thuật                                      | Unit Tests |
+|:----------:|:---------------------------------------------------------------------------------------------------------|:----------:|:-------------------------------------------------------|:-----------------------------------------------------------------------------------------:|:----------:|
+| **Lab 01** | **PyTorch FashionMNIST Classification (Implement, visualize loss, predictions, adjust hyperparameters)** | ✅ **100%** | [`lab1/main/main.py`](src/pipelines/lab01_pipeline.py) | [Markdown](docs/labs/lab01/LAB_01_REPORT.md) · [HTML](docs/labs/lab01/LAB_01_REPORT.html) | 10 passed  |
 
 ---
 
