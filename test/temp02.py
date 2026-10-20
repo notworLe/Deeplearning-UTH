@@ -4,12 +4,9 @@ if __name__ == '__main__':
     actual = np.random.randint(0, 2, (2,3))
     predict = np.random.randint(0, 2, (2,3))
 
-    ac_list = []
 
-    for i in actual:
-        ac_list.extend(i)
-    print(ac_list)
-    print(predict)
+    ac_list = np.sum([[1,2], [24,1]])
+    print(sum(ac_list))
 
 
 

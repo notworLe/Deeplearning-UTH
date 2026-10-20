@@ -124,7 +124,7 @@ def draw_grid(ids: list[int], pred: pd.DataFrame, images: dict[int, np.ndarray],
     axes = np.asarray(axes).reshape(-1)
     for ax, idx in zip(axes, ids):
         record = pred.iloc[idx]
-        y, yhat, probability = int(record.actual), int(record.predicted), float(record.confidence)
+        y, yhat, probability = int(record.list_actual), int(record.predicted), float(record.confidence)
         ax.imshow(images[idx], cmap="gray", vmin=0, vmax=255, interpolation="nearest")
         ax.set_title(f"Actual: {LABEL_NAMES[y]}\nPred: {LABEL_NAMES[yhat]}  ({probability:.0%})",
                      fontsize=9.4, color="darkgreen" if y == yhat else "firebrick", pad=8)
