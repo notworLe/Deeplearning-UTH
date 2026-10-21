@@ -13,7 +13,8 @@ from torch.utils.tensorboard import SummaryWriter
 import os
 
 
-writer = SummaryWriter("runs/augmented_low")
+writer_train = SummaryWriter("runs/normal/train")
+writer_test = SummaryWriter("runs/normal/test")
 
 def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,5)):
     images, labels = next(iter(loader))

@@ -5,7 +5,7 @@ import config
 import torch.optim as optim
 import MyLog
 from object import MyMetric
-from MyVisualize import writer
+from MyVisualize import writer_train, writer_test
 from MyUtility import save_weight
 from pathlib import Path
 
@@ -113,15 +113,10 @@ def training_phase(
 
         print()
 
-        writer.add_scalars("Loss", {
-            "train": epoch_metric.average_loss,
-            "test": eval_metric.average_loss,
-        }, i_epoch + 1)
-
-        writer.add_scalars("Accuracy", {
-            "train": epoch_metric.accuracy,
-            "test": eval_metric.accuracy,
-        }, i_epoch + 1)
+        writer_train.add_scalar("Loss", epoch_metric.average_loss, i_epoch + 1)
+        writer_train.add_scalar("Accuracy", epoch_metric.accuracy, i_epoch + 1)
+        writer_test.add_scalar("Loss", eval_metric.average_loss, i_epoch + 1)
+        writer_test.add_scalar("Accuracy", eval_metric.accuracy, i_epoch + 1)
 
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)
@@ -131,7 +126,8 @@ def training_phase(
             v_best_val = eval_metric.accuracy
             save_weight(path_save, i_epoch, model, optimizer, v_best_val)
 
-    writer.close()
+    writer_train.close()
+    writer_test.close()
     return list_metric_train_epoch, list_metric_val_epoch
 
 

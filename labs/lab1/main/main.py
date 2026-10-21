@@ -4,7 +4,7 @@ import MyLog
 import config
 from torchvision.datasets import FashionMNIST
 from dataset import load_raw_dataset, create_dataloader, AUGMENTED_TRANSFORM, AUGMENTED_TRANSFORM_LOW
-from MyVisualize import show_batch, writer, show_loss_acc, show_predictions, plot_class_distribution
+from MyVisualize import show_batch, show_loss_acc, show_predictions, plot_class_distribution
 from model import FashionCNN, training_phase
 import torch.optim as optim
 import torch.nn as nn
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     set_seed()
 
     # Load dataset
-    train_dataset, test_dataset = load_raw_dataset(FashionMNIST, p_augment_transform=AUGMENTED_TRANSFORM_LOW)
+    train_dataset, test_dataset = load_raw_dataset(FashionMNIST)
     MyLog.dataset_log(FashionMNIST, train_dataset, test_dataset)
 
     # Dataloader
