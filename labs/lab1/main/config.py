@@ -1,7 +1,9 @@
 import torch
 from pathlib import Path
 
-ROOT_PATH = Path.cwd().parent
+ROOT_PATH = Path.cwd()
+SAVE_FASHION_CNN_WEIGHT = ROOT_PATH / "weights" / "FASHION_MNIST_CNN.pt"
+
 WOKER = 8
 BATCH_SIZE = 32
 LR = 1e-5
@@ -14,3 +16,7 @@ STD = (0.5,)
 
 # Console
 MAX_LENGTH = 20
+
+LIST_CONFIG = [WOKER, BATCH_SIZE, LR, EPOCH, DEVICE, MEAN, STD]
+
+

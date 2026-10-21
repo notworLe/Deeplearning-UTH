@@ -6,6 +6,8 @@ import torch.optim as optim
 import MyLog
 from object import MyMetric
 from MyVisualize import writer
+from MyUtility import save_weight
+from pathlib import Path
 
 class FashionCNN(nn.Module):
     def __init__(self):
@@ -54,7 +56,33 @@ class FashionCNN(nn.Module):
         x = self.classifier(x)
         return x
 
-def training_phase(model, loss_func, optimizer, train_dataloader, test_dataloader, epoch=config.EPOCH) -> tuple[list[MyMetric], list[MyMetric]]:
+def training_phase(
+        model,
+        loss_func,
+        optimizer,
+        train_dataloader,
+        test_dataloader,
+        epoch=config.EPOCH,
+        path_save = "weights/model.pt"
+) -> tuple[list[MyMetric], list[MyMetric]] | None:
+    # Parameters
+    path_save = Path(path_save)
+
+    # Variables
+    v_best_val = 0.0
+
+    # Load weights
+    if path_save.exists():
+        v_dict_weight = torch.load(path_save, map_location=config.DEVICE)
+
+        model.load_state_dict(v_dict_weight['model'])
+        optimizer.load_state_dict(v_dict_weight.get('optimizer'))
+        v_best_val = v_dict_weight['best_validation']
+
+        MyLog.print_log("Resume from", path_save)
+        MyLog.print_log("Accuracy", v_best_val)
+
+
     list_metric_train_epoch: list[MyMetric] = []
     list_metric_val_epoch: list[MyMetric] = []
 
@@ -82,17 +110,31 @@ def training_phase(model, loss_func, optimizer, train_dataloader, test_dataloade
 
         print("=" * 20 + " Evaluation " + "=" * 20)
         eval_metric = evaluate_phase(model, loss_func, test_dataloader)
+
         print()
 
-        writer.add_scalar("Loss/train", epoch_metric.average_loss, i_epoch)
-        writer.add_scalar("Acc/train", epoch_metric.accuracy, i_epoch)
-        writer.add_scalar("Loss/test", eval_metric.average_loss, i_epoch)
-        writer.add_scalar("Acc/test", eval_metric.accuracy, i_epoch)
+        writer.add_scalars("Loss", {
+            "train": epoch_metric.average_loss,
+            "test": eval_metric.average_loss,
+        }, i_epoch + 1)
+
+        writer.add_scalars("Accuracy", {
+            "train": epoch_metric.accuracy,
+            "test": eval_metric.accuracy,
+        }, i_epoch + 1)
 
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)
 
+        if eval_metric.accuracy > v_best_val:
+            MyLog.print_log("Accuracy enhanced", f'{v_best_val} -> {eval_metric.accuracy}')
+            v_best_val = eval_metric.accuracy
+            save_weight(path_save, i_epoch, model, optimizer, v_best_val)
+
+    writer.close()
     return list_metric_train_epoch, list_metric_val_epoch
+
+
 
 @torch.no_grad()
 def evaluate_phase(model, loss_func, test_dataloader):

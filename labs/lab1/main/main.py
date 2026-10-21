@@ -3,8 +3,8 @@ import torch
 import MyLog
 import config
 from torchvision.datasets import FashionMNIST
-from dataset import load_raw_dataset, create_dataloader
-from MyVisualize import show_batch, writer, show_loss_acc
+from dataset import load_raw_dataset, create_dataloader, AUGMENTED_TRANSFORM, AUGMENTED_TRANSFORM_LOW
+from MyVisualize import show_batch, writer, show_loss_acc, show_predictions, plot_class_distribution
 from model import FashionCNN, training_phase
 import torch.optim as optim
 import torch.nn as nn
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     set_seed()
 
     # Load dataset
-    train_dataset, test_dataset = load_raw_dataset(FashionMNIST)
+    train_dataset, test_dataset = load_raw_dataset(FashionMNIST, p_augment_transform=AUGMENTED_TRANSFORM_LOW)
     MyLog.dataset_log(FashionMNIST, train_dataset, test_dataset)
 
     # Dataloader
@@ -23,17 +23,31 @@ if __name__ == '__main__':
     MyLog.dataloader_log(train_dataloader, test_dataloader)
 
     ## Visual batch
-    show_batch(FashionMNIST, train_dataloader)
+    show_batch(FashionMNIST, train_dataloader, save_path="data/image/image_batches.png")
     print()
+
+    plot_class_distribution(train_dataset, save_path="data/image/class_distribution.png")
+
 
     # Model
     model = FashionCNN().to(config.DEVICE)
     loss_func = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.LR)
+    best_val = 0
 
-    list_metric_train_epoch, list_metric_eval_epoch = training_phase(model, loss_func, optimizer, train_dataloader, test_dataloader, epoch=15)
 
-    # Visual loss and accuracy
-    show_loss_acc(list_metric_train_epoch, list_metric_eval_epoch)
+    # Training phase
+    list_metric_train_epoch, list_metric_eval_epoch = training_phase(
+        model,
+        loss_func,
+        optimizer,
+        train_dataloader,
+        test_dataloader,
+        30,
+        config.SAVE_FASHION_CNN_WEIGHT
+    )
 
-    writer.close()
+    # Visualize
+    show_loss_acc(list_metric_train_epoch, list_metric_eval_epoch, save_path="data/image/augmented_low/loss_acc_visual.png")
+    show_predictions(model, test_dataloader, FashionMNIST, save_path="data/image/augmented_low/predictions.png")
+

@@ -21,7 +21,7 @@ def print_log(name, value, max_length = MAX_LENGTH):
 def log_device():
     print_log("Device", config.DEVICE)
     if config.DEVICE.type == "cuda":
-        print_log("Gpu", torch.cuda.get_device_name(config.DEVICE))
+        print_log("GPU", torch.cuda.get_device_name(config.DEVICE))
 
         vram = torch.cuda.get_device_properties(0).total_memory / 1e9
         print_log("VRAM", f"{vram:.1f} GB")
@@ -50,12 +50,12 @@ def dataset_log(dataset, train_dataset, test_dataset, idx=0):
     print_log("Test dataset size", len(test_dataset), 20)
 
     img, label = train_dataset[idx]
-    print_log("Label", label, 20)
+    print_log("Label index", label, 20)
     print_log("Label name", dataset.classes[label], 20)
     print_log("Image shape", img.shape, 20)
     print_log("Min - max image", f"{img.min()}, {img.max()}", 20)
 
 def dataloader_log(train_dataloader, test_dataloader, max_length=20):
     print()
-    print_log("Number of train batch:", len(train_dataloader), max_length)
-    print_log("Number of test batch:", len(test_dataloader), max_length)
+    print_log("Number of train dataloader:", len(train_dataloader), max_length)
+    print_log("Number of test dataloader:", len(test_dataloader), max_length)
