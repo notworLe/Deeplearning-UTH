@@ -3,11 +3,13 @@ import torch
 import torch.nn as nn
 import config
 import torch.optim as optim
-import MyLog
+import log
 from object import MyMetric
-from MyVisualize import writer_train, writer_test
-from MyUtility import save_weight
+from visualize import writer_train, writer_test
+from utility import save_weight
 from pathlib import Path
+from tqdm.autonotebook import tqdm
+
 
 class FashionCNN(nn.Module):
     def __init__(self):
@@ -63,7 +65,8 @@ def training_phase(
         train_dataloader,
         test_dataloader,
         epoch=config.EPOCH,
-        path_save = "weights/model.pt"
+        path_save = "weights/model.pt",
+        classes=None
 ) -> tuple[list[MyMetric], list[MyMetric]] | None:
     # Parameters
     path_save = Path(path_save)
@@ -79,37 +82,40 @@ def training_phase(
         optimizer.load_state_dict(v_dict_weight.get('optimizer'))
         v_best_val = v_dict_weight['best_validation']
 
-        MyLog.print_log("Resume from", path_save)
-        MyLog.print_log("Accuracy", v_best_val)
+        log.print_log("Resume from", path_save)
+        log.print_log("Accuracy", v_best_val)
 
 
     list_metric_train_epoch: list[MyMetric] = []
     list_metric_val_epoch: list[MyMetric] = []
 
     for i_epoch in range(epoch):
-        MyLog.print_log("Epoch", i_epoch + 1)
-        print("=" * 20 + " Training " + "=" * 20)
-
         model.train()
         epoch_metric = MyMetric()
 
-        for batch, labels in train_dataloader:
+        n_batch = len(train_dataloader)
+        progress_bar = tqdm(train_dataloader)
+        for i_batch, (batch, labels) in enumerate(progress_bar):
             batch = batch.to(config.DEVICE)
             labels = labels.to(config.DEVICE)
 
+            # Forward
             optimizer.zero_grad()
             predictions = model(batch)
             loss_value = loss_func(predictions, labels)
+
+            # Backward
             loss_value.backward()
             optimizer.step()
 
             # Save metric
             epoch_metric.add(predictions, labels, loss_value, len(batch))
 
+            # Log
+            if i_batch % config.LOG_PEAR_BATCH == 0 or i_batch == n_batch - 1:
+                progress_bar.set_description(f"Train: Epoch {i_epoch + 1}/{epoch}. Iteration {i_batch + 1}/{n_batch}. Loss: {loss_value:.3f}")
         epoch_metric.show_metric()
-
-        print("=" * 20 + " Evaluation " + "=" * 20)
-        eval_metric = evaluate_phase(model, loss_func, test_dataloader)
+        eval_metric = evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes)
 
         print()
 
@@ -122,7 +128,7 @@ def training_phase(
         list_metric_val_epoch.append(eval_metric)
 
         if eval_metric.accuracy > v_best_val:
-            MyLog.print_log("Accuracy enhanced", f'{v_best_val} -> {eval_metric.accuracy}')
+            log.print_log("Accuracy enhanced", f'{v_best_val} -> {eval_metric.accuracy}')
             v_best_val = eval_metric.accuracy
             save_weight(path_save, i_epoch, model, optimizer, v_best_val)
 
@@ -133,11 +139,14 @@ def training_phase(
 
 
 @torch.no_grad()
-def evaluate_phase(model, loss_func, test_dataloader):
+def evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes=None):
     model.eval()
     epoch_metric = MyMetric()
 
-    for batch, labels in test_dataloader:
+    n_batch = len(test_dataloader)
+
+    progress_bar = tqdm(test_dataloader)
+    for i_batch, (batch, labels) in enumerate(progress_bar):
         batch = batch.to(config.DEVICE)
         labels = labels.to(config.DEVICE)
 
@@ -147,7 +156,14 @@ def evaluate_phase(model, loss_func, test_dataloader):
         # Save metrics
         epoch_metric.add(predictions, labels, loss_value, len(batch))
 
+        # Log
+        if i_batch % config.LOG_PEAR_BATCH == 0 or i_batch == n_batch - 1:
+            progress_bar.set_description(
+                f"Eval: Epoch {i_epoch + 1}/{epoch}. Iteration {i_batch + 1}/{n_batch}. Loss: {loss_value:.3f}")
+
     epoch_metric.show_metric()
+    fig_cf_matrix = epoch_metric.get_fig_cf_matrix(classes)
+    writer_test.add_figure("Confusion matrix", fig_cf_matrix, i_epoch)
 
     return epoch_metric
 
@@ -160,11 +176,11 @@ def my_metric(predictions, actual, total_loss, total_samples):
     accuracy = (predictions == actual).sum() / len(predictions)
 
     # Log
-    MyLog.print_log("Average loss", f"{average_loss:.4f}")
-    MyLog.print_log("Accuracy ", f"{accuracy:.4f}")
+    log.print_log("Average loss", f"{average_loss:.4f}")
+    log.print_log("Accuracy ", f"{accuracy:.4f}")
 
 def save_metric(actual_label, predict_label, total_loss, total_samples):
-    passs
+    pass
 
 if __name__ == '__main__':
     data = torch.rand((32, 1, 28, 28))

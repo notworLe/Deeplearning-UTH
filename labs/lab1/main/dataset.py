@@ -1,6 +1,5 @@
 from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transform
-import MyLog
 import config
 
 DEFAULT_TRANSFORM = transform.Compose([

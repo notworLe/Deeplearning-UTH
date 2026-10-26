@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 # matplotlib.use("Agg")   # không cần GUI window, save thành file
 import config
-import MyLog
+import log
 import torch
 import numpy as np
 from object import MyMetric
@@ -13,8 +13,8 @@ from torch.utils.tensorboard import SummaryWriter
 import os
 
 
-writer_train = SummaryWriter("runs/normal/train")
-writer_test = SummaryWriter("runs/normal/test")
+writer_train = SummaryWriter("runs/temp/train")
+writer_test = SummaryWriter("runs/temp/test")
 
 def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,5)):
     images, labels = next(iter(loader))
@@ -39,7 +39,7 @@ def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -75,7 +75,7 @@ def show_loss_acc(train_metrics: list[MyMetric], val_metrics: list[MyMetric],
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -124,7 +124,7 @@ def show_predictions(model, loader, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -145,7 +145,7 @@ def plot_class_distribution(dataset, save_path=None):
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
 
@@ -182,7 +182,7 @@ def plot_mean_images(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -212,7 +212,7 @@ def plot_pixel_distribution(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -245,7 +245,7 @@ def plot_pixel_distribution_adjust(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        MyLog.print_log("Saved at", save_path)
+        log.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
