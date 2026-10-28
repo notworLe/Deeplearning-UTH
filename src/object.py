@@ -1,13 +1,13 @@
 import numpy as np
 import torch
-
-import config
-import log
 from sklearn.metrics import confusion_matrix
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 plt.style.use("ggplot")
+
+import src.config as config
+import src.log as log
 
 
 class MyMetric:
@@ -76,6 +76,7 @@ class MyMetric:
         ax.set_ylabel("Actual")
 
         return fig
+
 
 if __name__ == '__main__':
     print()

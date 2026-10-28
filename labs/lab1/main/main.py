@@ -1,14 +1,18 @@
-from utility import set_seed
-import torch
-import log
-import config
+from src.utility import set_seed
+import src.log as log
+import src.config as config
+from src.dataset import load_raw_dataset, create_dataloader, AUGMENTED_TRANSFORM, AUGMENTED_TRANSFORM_LOW
+from src.visualize import show_batch, show_loss_acc, show_predictions, plot_class_distribution
+from src.model import FashionCNN, training_phase
+from src.utility import resume_weight
+
+
 from torchvision.datasets import FashionMNIST
-from dataset import load_raw_dataset, create_dataloader, AUGMENTED_TRANSFORM, AUGMENTED_TRANSFORM_LOW
-from visualize import show_batch, show_loss_acc, show_predictions, plot_class_distribution
-from model import FashionCNN, training_phase
 import torch.optim as optim
 import torch.nn as nn
 import typer
+from torchsummary import summary
+
 
 def main_cli():
     pass
@@ -37,9 +41,14 @@ if __name__ == '__main__':
 
     # Model
     model = FashionCNN().to(config.DEVICE)
+    ## Model metadata
+    summary(model, (1, 28, 28), device=config.DEVICE)
+
     loss_func = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=config.LR)
-    best_val = 0
+
+    v_start_epoch, v_best_val = resume_weight(config.SAVE_FASHION_CNN_WEIGHT, model, optimizer)
+
 
 
     # Training phase
@@ -51,7 +60,8 @@ if __name__ == '__main__':
         test_dataloader,
         30,
         config.SAVE_FASHION_CNN_WEIGHT,
-        classes=FashionMNIST.classes
+        classes=FashionMNIST.classes,
+        p_best_val= v_best_val
     )
 
     # Visualize

@@ -1,14 +1,16 @@
 import numpy as np
 import torch
 import torch.nn as nn
-import config
 import torch.optim as optim
-import log
-from object import MyMetric
-from visualize import writer_train, writer_test
-from utility import save_weight
 from pathlib import Path
 from tqdm.autonotebook import tqdm
+
+from src.visualize import writer_train, writer_test
+from src.utility import save_weight
+from src.object import MyMetric
+import src.log as log
+import src.config as config
+
 
 
 class FashionCNN(nn.Module):
@@ -65,26 +67,12 @@ def training_phase(
         train_dataloader,
         test_dataloader,
         epoch=config.EPOCH,
-        path_save = "weights/model.pt",
-        classes=None
+        path_save:Path = "weights/model.pt",
+        classes=None,
+        p_best_val = 0.0
 ) -> tuple[list[MyMetric], list[MyMetric]] | None:
     # Parameters
     path_save = Path(path_save)
-
-    # Variables
-    v_best_val = 0.0
-
-    # Load weights
-    if path_save.exists():
-        v_dict_weight = torch.load(path_save, map_location=config.DEVICE)
-
-        model.load_state_dict(v_dict_weight['model'])
-        optimizer.load_state_dict(v_dict_weight.get('optimizer'))
-        v_best_val = v_dict_weight['best_validation']
-
-        log.print_log("Resume from", path_save)
-        log.print_log("Accuracy", v_best_val)
-
 
     list_metric_train_epoch: list[MyMetric] = []
     list_metric_val_epoch: list[MyMetric] = []
@@ -127,10 +115,10 @@ def training_phase(
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)
 
-        if eval_metric.accuracy > v_best_val:
-            log.print_log("Accuracy enhanced", f'{v_best_val} -> {eval_metric.accuracy}')
-            v_best_val = eval_metric.accuracy
-            save_weight(path_save, i_epoch, model, optimizer, v_best_val)
+        if eval_metric.accuracy > p_best_val:
+            log.print_log("Accuracy enhanced", f'{p_best_val} -> {eval_metric.accuracy}')
+            p_best_val = eval_metric.accuracy
+            save_weight(path_save, i_epoch, model, optimizer, p_best_val)
 
     writer_train.close()
     writer_test.close()

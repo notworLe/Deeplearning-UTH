@@ -1,10 +1,13 @@
 import random
 import numpy as np
 import torch
+import torch.nn as nn
+from pathlib import Path
+from src import config
 
-SEED = 248
 
-def set_seed(seed: int = SEED):
+
+def set_seed(seed: int = config.SEED):
     """
     Seed tất cả nguồn ngẫu nhiên.
     WHY: Python random, NumPy, và PyTorch có RNG riêng biệt —
@@ -17,9 +20,7 @@ def set_seed(seed: int = SEED):
     if torch.cuda.is_available():
         torch.cuda.manual_seed(seed)
 
-import torch
-import torch.nn as nn
-from pathlib import Path
+
 
 def save_weight(path:Path, epoch, model:nn.Module, optimizer, best_val):
     # Parameter
@@ -37,3 +38,18 @@ def save_weight(path:Path, epoch, model:nn.Module, optimizer, best_val):
     # Replace after finish 100%
     temp_file.replace(path)
     print(f"Save weights: {path}")
+
+
+def resume_weight(p_path:Path, p_model:nn.Module, p_optimizer) -> tuple[int, float]:
+    if not p_path.exists():
+        return 0, float("inf")
+
+    print(f"Resume: {p_path}")
+    v_dict_weight = torch.load(p_path, map_location=config.DEVICE)
+
+    p_model.load_state_dict(v_dict_weight['model'])
+    p_optimizer.load_state_dict(v_dict_weight['optimizer'])
+    v_best_val = v_dict_weight['best_validation']
+    v_epoch = v_dict_weight['epoch']
+
+    return v_epoch, v_best_val

@@ -1,9 +1,8 @@
-import config
-import utility
+import src.utility as utility
+import src.config as config
 import torch
-from config import  MAX_LENGTH
 
-def print_log(name, value, max_length = MAX_LENGTH):
+def print_log(name, value, max_length = config.MAX_LENGTH):
     """
     Chuẩn hóa log terminal với MAX_LENGTH thống nhất
     :param name:
@@ -27,7 +26,7 @@ def log_device():
         print_log("VRAM", f"{vram:.1f} GB")
 
 def log_seed():
-    print_log("Seed", utility.SEED)
+    print_log("Seed", config.SEED)
 
 def log_dataset_config():
     print_log("Workers", config.WOKER)

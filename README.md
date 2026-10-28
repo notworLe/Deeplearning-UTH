@@ -56,6 +56,9 @@ pip install -r requirements
 - Colab: không cần cài, đã có sẵn
 ```
 
+# 4. Chạy metadata python project
+`pip install -e .`
+
 ### 2. Chạy Các Bài Thực Hành
 
 

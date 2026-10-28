@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transform
-import config
+import src.config as config
 
 DEFAULT_TRANSFORM = transform.Compose([
     transform.ToTensor(),
@@ -41,6 +41,22 @@ AUGMENTED_TRANSFORM_LOW = transform.Compose([
     transform.RandomErasing(p=0.2, scale=(0.02, 0.08)),
 ])
 
+AUGMENTED_AI_VIETNGUYEN = transform.Compose([
+    transform.RandomAffine(
+        degrees=(-5, 5),
+        translate=(0.05, 0.05),
+        scale=(0.85, 1.15),
+        shear=4
+    ),
+    transform.ColorJitter(
+        brightness=0.125,
+        contrast=0.5,
+        saturation=0.30,
+        hue=0.05
+    ),
+    transform.ToTensor(),
+    transform.Normalize(mean=config.MEAN, std=config.STD)
+])
 
 def load_raw_dataset(dataset, root = "data", p_transform=DEFAULT_TRANSFORM, p_augment_transform = None):
     v_train_transform = p_transform if p_augment_transform is None else p_augment_transform
