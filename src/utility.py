@@ -45,7 +45,8 @@ def save_weight(path:Path, epoch, model:nn.Module, optimizer, best_val):
 
 def resume_weight(p_path:Path, p_model:nn.Module, p_optimizer) -> tuple[int, float]:
     if not p_path.exists():
-        return 0, float("inf")
+        print(f"No found weight. Train from start")
+        return 0, 0.0
 
     print(f"Resume: {p_path}")
     v_dict_weight = torch.load(p_path, map_location=config.DEVICE)

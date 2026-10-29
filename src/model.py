@@ -5,7 +5,6 @@ import torch.optim as optim
 from pathlib import Path
 from tqdm.autonotebook import tqdm
 
-from src.visualize import writer_train, writer_test
 from src.utility import save_weight
 from src.object import MyMetric
 import src.log as log
@@ -103,39 +102,38 @@ def training_phase(
             # Log
             if i_batch % config.LOG_PEAR_BATCH == 0 or i_batch == n_batch - 1:
                 progress_bar.set_description(f"Train: Epoch {i_epoch + 1}/{epoch}. Iteration {i_batch + 1}/{n_batch}. Loss: {loss_value:.3f}")
-        epoch_metric.show_metric()
-        eval_metric = evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes)
-
+        
+        eval_metric = evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes, p_writer=writer)
         print()
 
         
         if writer:
-            writer.add_scalars("Loss", {
+            writer.add_scalars("01. Loss", {
                 "train": epoch_metric.average_loss,
                 "val":   eval_metric.average_loss,
             }, i_epoch + 1)
-            writer.add_scalars("Acc", {
+            writer.add_scalars("02. Accuracy", {
                 "train": epoch_metric.accuracy,
                 "val":   eval_metric.accuracy,
             }, i_epoch + 1)
+             
             
 
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)
-
         if eval_metric.accuracy > p_best_val:
             log.print_log("Accuracy enhanced", f'{p_best_val} -> {eval_metric.accuracy}')
             p_best_val = eval_metric.accuracy
             save_weight(path_save, i_epoch, model, optimizer, p_best_val)
 
-    writer_train.close()
-    writer_test.close()
+
+
     return list_metric_train_epoch, list_metric_val_epoch
 
 
 
 @torch.no_grad()
-def evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes=None):
+def evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes=None, p_writer=None):
     model.eval()
     epoch_metric = MyMetric()
 
@@ -156,12 +154,37 @@ def evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes=No
         if i_batch % config.LOG_PEAR_BATCH == 0 or i_batch == n_batch - 1:
             progress_bar.set_description(
                 f"Eval: Epoch {i_epoch + 1}/{epoch}. Iteration {i_batch + 1}/{n_batch}. Loss: {loss_value:.3f}")
+    if p_writer:
+        fig_cf_matrix = epoch_metric.get_fig_cf_matrix(classes)
+        p_writer.add_figure("03. Confusion matrix", fig_cf_matrix, i_epoch + 1)
 
-    epoch_metric.show_metric()
-    fig_cf_matrix = epoch_metric.get_fig_cf_matrix(classes)
-    writer_test.add_figure("Confusion matrix", fig_cf_matrix, i_epoch)
-
+    from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+    ea = EventAccumulator(p_writer.log_dir, size_guidance={"images": 0})
+    ea.Reload()
+    print(ea.Tags()["images"])
+    print(p_writer.log_dir)
     return epoch_metric
+
+def test_phase(model, test_dataloader, p_writer):
+    print("=" * 32 + " Test phase " + "=" * 32)
+    model.eval()
+    v_obj_metric = MyMetric()
+
+    for images, labels in test_dataloader:
+        # Device
+        images, labels = images.to(config.DEVICE), labels.to(config.DEVICE)
+
+        v_raw_predictions = model(images)
+        v_list_predict = v_raw_predictions.argmax(dim=1)
+        
+        v_obj_metric.add(v_list_predict, labels, 0, 0)
+    # if p_writer:
+    #     p_writer.add_scalar("Precision", v_obj_metric.get_precision(average="macro", zero_division=0))
+    #     p_writer.add_scalar("Recall", v_obj_metric.get_recall(average="macro", zero_division=0))
+    #     p_writer.add_scalar("F1", v_obj_metric.get_f1(average="macro", zero_division=0))
+
+    return v_obj_metric
+
 
 def my_metric(predictions, actual, total_loss, total_samples):
     predictions = np.array(predictions)

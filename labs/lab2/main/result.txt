@@ -1,7 +1,7 @@
 ================================ Configration ================================
 Device              : cuda
 GPU                 : NVIDIA GeForce RTX 4060 Laptop GPU
-VRAM                : 8.6 GB
+VRAM                  
 Seed                : 248
 Workers             : 8
 Batch size          : 32

@@ -13,10 +13,15 @@ import src.log as log
 from src.object import MyMetric
 import src.config as config
 
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
+# ---- Style dùng chung: 1 bảng màu, 1 cỡ chữ cho từng cấp -------------------
+INK = "#1f2937"        # chữ chính
+MUTED = "#6b7280"      # chữ phụ
+PANEL = "#f3f4f6"      # nền thẻ KPI
+ALERT = "#b91c1c"      # điểm cần chú ý (class yếu nhất)
+CMAP = "Blues"
 
-writer_train = SummaryWriter("runs/temp/train")
-writer_test = SummaryWriter("runs/temp/test")
 
 def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,5)):
     images, labels = next(iter(loader))
@@ -252,14 +257,111 @@ def plot_pixel_distribution_adjust(dataset, dataset_class,
         plt.show()
     plt.close()
 
+
+
+def _finish(fig, save_path):
+    if save_path is not None:
+        os.makedirs(os.path.dirname(save_path) or ".", exist_ok=True)
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        print("Saved at", save_path)
+    else:
+        plt.show()
+    plt.close(fig)
+
+
+def plot_classification_metrics(y_true, y_pred, class_names, save_path=None):
+    """
+    1 hình, đọc từ trên xuống:
+      (1) 4 thẻ KPI: Accuracy + Macro Precision / Recall / F1  -> bức tranh tổng
+      (2) Heatmap class x {Precision, Recall, F1}, xếp F1 tăng dần
+          -> class yếu nhất nằm trên cùng, tô đỏ nhãn
+    Không có thanh chồng nhau, mỗi con số đều ghi thẳng trong ô.
+    """
+    n = len(class_names)
+    labels = list(range(n))
+
+    p, r, f1, support = precision_recall_fscore_support(
+        y_true, y_pred, labels=labels, zero_division=0
+    )
+    acc = accuracy_score(y_true, y_pred)
+    table = np.stack([p, r, f1], axis=1)  # (n, 3)
+
+    order = np.argsort(f1)  # yếu nhất lên đầu
+    table = table[order]
+    names = [f"{class_names[i]}  (n={support[i]})" for i in order]
+
+    fig = plt.figure(figsize=(8.5, 1.6 + 0.5 * n), layout="constrained")
+    gs = fig.add_gridspec(2, 4, height_ratios=[1.0, 0.45 * n], hspace=0.08)
+
+    # (1) KPI
+    kpis = [
+        ("Accuracy", acc),
+        ("Macro Precision", p.mean()),
+        ("Macro Recall", r.mean()),
+        ("Macro F1", f1.mean()),
+    ]
+    for j, (title, value) in enumerate(kpis):
+        ax = fig.add_subplot(gs[0, j])
+        ax.set_facecolor(PANEL)
+        ax.set_xticks([]);
+        ax.set_yticks([])
+        for s in ax.spines.values():
+            s.set_visible(False)
+        ax.text(0.5, 0.62, f"{value:.1%}", ha="center", va="center",
+                fontsize=20 if j == 0 else 16,
+                fontweight="bold", color=INK, transform=ax.transAxes)
+        ax.text(0.5, 0.18, title, ha="center", va="center",
+                fontsize=9, color=MUTED, transform=ax.transAxes)
+
+    # (2) Heatmap
+    ax = fig.add_subplot(gs[1, :])
+    vmin = max(0.0, np.floor(table.min() * 20) / 20 - 0.05)  # kéo giãn tương phản
+    ax.imshow(table, cmap=CMAP, vmin=vmin, vmax=1.0, aspect="auto")
+
+    mid = (vmin + 1.0) / 2
+    for i in range(n):
+        for j in range(3):
+            v = table[i, j]
+            ax.text(j, i, f"{v:.3f}", ha="center", va="center", fontsize=10,
+                    color="white" if v > mid else INK)
+
+    ax.set_xticks(range(3))
+    ax.set_xticklabels(["Precision", "Recall", "F1"], fontsize=10, color=INK)
+    ax.xaxis.tick_top()
+    ax.set_yticks(range(n))
+    ax.set_yticklabels(names, fontsize=9, color=INK)
+    ax.tick_params(length=0)
+    for s in ax.spines.values():
+        s.set_visible(False)
+    # đường kẻ trắng tách ô
+    ax.set_xticks(np.arange(-0.5, 3, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, n, 1), minor=True)
+    ax.grid(which="minor", color="white", linewidth=2)
+    ax.tick_params(which="minor", length=0)
+
+    worst = ax.get_yticklabels()[0]
+    worst.set_color(ALERT)
+    worst.set_fontweight("bold")
+
+    fig.suptitle("Classification metrics", fontsize=13, fontweight="bold",
+                 color=INK, x=0.0, ha="left")
+    fig.text(0.0, -0.01,
+             f"Yếu nhất: {class_names[order[0]]} (F1 = {f1[order[0]]:.3f}). "
+             f"Nền đậm = điểm cao; thang bắt đầu từ {vmin:.2f}.",
+             fontsize=8, color=MUTED, ha="left")
+
+    _finish(fig, save_path)
+    return {"accuracy": acc, "precision": p, "recall": r, "f1": f1}
+
+
 if __name__ == '__main__':
     # Load dataset
     train_dataset, test_dataset = load_raw_dataset(FashionMNIST)
-    MyLog.dataset_log(FashionMNIST, train_dataset, test_dataset)
+    log.dataset_log(FashionMNIST, train_dataset, test_dataset)
 
     # Dataloader
     train_dataloader, test_dataloader = create_dataloader(train_dataset, test_dataset)
-    MyLog.dataloader_log(train_dataloader, test_dataloader)
+    log.dataloader_log(train_dataloader, test_dataloader)
 
     plot_mean_images(train_dataset, FashionMNIST)
 

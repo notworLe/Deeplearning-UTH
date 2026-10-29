@@ -91,7 +91,7 @@ if __name__ == '__main__':
         # Augmentation
         transforms.ToTensor(),
         transforms.Normalize(
-            *config.CIFAR_NOMARLIZE
+            *config.CIFAR_NORMALIZE
         )
     ])
 
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         transforms.CenterCrop(224),
         transforms.ToTensor(),
         transforms.Normalize(
-            *config.CIFAR_NOMARLIZE
+            *config.CIFAR_NORMALIZE
         )
     ])
 

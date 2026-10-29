@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, f1_score, accuracy_score
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -39,6 +39,10 @@ class MyMetric:
         self.list_actual.extend(p_actual)
         self.list_prediction.extend(p_predict)
 
+    def add_sklearn(self, p_list_predict, p_list_actual):
+        self.list_prediction.extend(p_list_predict)
+        self.list_actual.extend(p_list_actual)
+
     @property
     def average_loss(self):
         return self.total_loss / self.total_samples
@@ -46,6 +50,15 @@ class MyMetric:
     @property
     def accuracy(self):
         return self.total_correct / self.total_samples
+
+    def get_precision(self, *args, **kwargs):
+        return precision_score(self.list_actual, self.list_prediction, *args, **kwargs)
+
+    def get_recall(self, *args, **kwargs):
+        return recall_score(self.list_actual, self.list_prediction, *args, **kwargs)
+
+    def get_f1(self,*args, **kwargs):
+        return f1_score(self.list_actual, self.list_prediction, *args, **kwargs)
 
     def show_metric(self, addition: str = "", bar=None):
         log.print_log("Average loss", f"{self.average_loss:.4f}")

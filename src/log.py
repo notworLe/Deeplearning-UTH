@@ -43,12 +43,14 @@ def log_creation():
 
 
 def dataset_log(dataset, train_dataset, test_dataset, idx=0):
-    ## Medata
+    print("=" * 32 + " Dataset information " + "=" * 32)
+
+    # Medata
     print_log("Dataset name", str(dataset), 20)
     print_log("Training dataset size", len(train_dataset), 20)
     print_log("Test dataset size", len(test_dataset), 20)
 
-    img, label = train_dataset[idx]
+    img, label = test_dataset[idx]
     print_log("Label index", label, 20)
     print_log("Label name", dataset.classes[label], 20)
     print_log("Image shape", img.shape, 20)
