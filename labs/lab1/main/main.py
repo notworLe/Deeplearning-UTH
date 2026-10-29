@@ -79,12 +79,12 @@ if __name__ == '__main__':
     # Visualize
     # show_loss_acc(list_metric_train_epoch, list_metric_eval_epoch, save_path=f"result/{IMAGE_RESULT}/metric/loss-epoch.png")
     # show_predictions(model, test_dataloader, FashionMNIST, save_path=f"result/{IMAGE_RESULT}/metric/accuracy-epoch.png")
-    # plot_classification_metrics(
-    #     v_obj_eval_metric.list_actual,
-    #     v_obj_eval_metric.list_prediction,
-    #     FashionMNIST.classes,
-    #     save_path=f"result/{IMAGE_RESULT}/metric/pre-recall-f1-acc.png"
-    # )
+    plot_classification_metrics(
+        v_obj_eval_metric.list_actual,
+        v_obj_eval_metric.list_prediction,
+        FashionMNIST.classes,
+        save_path=f"result/{IMAGE_RESULT}/metric/pre-recall-f1-acc.png"
+    )
     v_cf_matrix = v_obj_eval_metric.get_fig_cf_matrix(FashionMNIST.classes)
     _finish(v_cf_matrix, save_path=f"result/{IMAGE_RESULT}/metric/confusion-matrix.png")
 
