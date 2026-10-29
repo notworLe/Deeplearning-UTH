@@ -60,31 +60,31 @@ if __name__ == '__main__':
 
 
     # Training phase
-    list_metric_train_epoch, list_metric_eval_epoch = training_phase(
-        model,
-        loss_func,
-        optimizer,
-        train_dataloader,
-        test_dataloader,
-        SAVE_WEIGHT,
-        config.EPOCH,
-        p_writer,
-        classes=FashionMNIST.classes,
-        p_best_val= v_best_val
-    )
+    # list_metric_train_epoch, list_metric_eval_epoch = training_phase(
+    #     model,
+    #     loss_func,
+    #     optimizer,
+    #     train_dataloader,
+    #     test_dataloader,
+    #     SAVE_WEIGHT,
+    #     config.EPOCH,
+    #     p_writer,
+    #     classes=FashionMNIST.classes,
+    #     p_best_val= v_best_val
+    # )
 
     # Test phase
     v_obj_eval_metric = test_phase(model, test_dataloader, p_writer)
 
     # Visualize
-    show_loss_acc(list_metric_train_epoch, list_metric_eval_epoch, save_path=f"result/{IMAGE_RESULT}/metric/loss-epoch.png")
-    show_predictions(model, test_dataloader, FashionMNIST, save_path=f"result/{IMAGE_RESULT}/metric/accuracy-epoch.png")
-    plot_classification_metrics(
-        v_obj_eval_metric.list_actual,
-        v_obj_eval_metric.list_prediction,
-        FashionMNIST.classes,
-        save_path=f"result/{IMAGE_RESULT}/metric/pre-recall-f1-acc.png"
-    )
+    # show_loss_acc(list_metric_train_epoch, list_metric_eval_epoch, save_path=f"result/{IMAGE_RESULT}/metric/loss-epoch.png")
+    # show_predictions(model, test_dataloader, FashionMNIST, save_path=f"result/{IMAGE_RESULT}/metric/accuracy-epoch.png")
+    # plot_classification_metrics(
+    #     v_obj_eval_metric.list_actual,
+    #     v_obj_eval_metric.list_prediction,
+    #     FashionMNIST.classes,
+    #     save_path=f"result/{IMAGE_RESULT}/metric/pre-recall-f1-acc.png"
+    # )
     v_cf_matrix = v_obj_eval_metric.get_fig_cf_matrix(FashionMNIST.classes)
     _finish(v_cf_matrix, save_path=f"result/{IMAGE_RESULT}/metric/confusion-matrix.png")
 
