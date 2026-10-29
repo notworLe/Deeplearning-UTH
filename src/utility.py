@@ -27,6 +27,9 @@ def save_weight(path:Path, epoch, model:nn.Module, optimizer, best_val):
     if not isinstance(path, Path):
         path = Path(path)
 
+    # Create parent directory if it doesn't exist
+    path.parent.mkdir(parents=True, exist_ok=True)
+    
     # Temporary file
     temp_file = path.with_suffix(".tmp")
     torch.save({

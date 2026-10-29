@@ -222,3 +222,6 @@ __marimo__/
 
 # Data
 data
+
+# weights
+weights/CIFAR_RESNET50.pt

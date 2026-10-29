@@ -66,8 +66,9 @@ def training_phase(
         optimizer,
         train_dataloader,
         test_dataloader,
+        path_save:Path,
         epoch=config.EPOCH,
-        path_save:Path = "weights/model.pt",
+        writer=None,
         classes=None,
         p_best_val = 0.0
 ) -> tuple[list[MyMetric], list[MyMetric]] | None:
@@ -107,10 +108,17 @@ def training_phase(
 
         print()
 
-        writer_train.add_scalar("Loss", epoch_metric.average_loss, i_epoch + 1)
-        writer_train.add_scalar("Accuracy", epoch_metric.accuracy, i_epoch + 1)
-        writer_test.add_scalar("Loss", eval_metric.average_loss, i_epoch + 1)
-        writer_test.add_scalar("Accuracy", eval_metric.accuracy, i_epoch + 1)
+        
+        if writer:
+            writer.add_scalars("Loss", {
+                "train": epoch_metric.average_loss,
+                "val":   eval_metric.average_loss,
+            }, i_epoch + 1)
+            writer.add_scalars("Acc", {
+                "train": epoch_metric.accuracy,
+                "val":   eval_metric.accuracy,
+            }, i_epoch + 1)
+            
 
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)

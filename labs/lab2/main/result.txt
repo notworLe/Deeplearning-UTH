@@ -1,0 +1,63 @@
+================================ Configration ================================
+Device              : cuda
+GPU                 : NVIDIA GeForce RTX 4060 Laptop GPU
+VRAM                : 8.6 GB
+Seed                : 248
+Workers             : 8
+Batch size          : 32
+
+=== FULL MODEL STRUCTURE ===
+
+=== NAMED PARAMETERS (tên layer + shape) ===
+
+[TRƯỚC freeze] Tổng params    : 25,616,458
+[TRƯỚC freeze] Trainable params: 25,616,458
+
+[SAU  freeze] Trainable params: 17,073,162
+  → Đã đóng băng: 8,543,296 params (33.4%)
+Cifar path          : /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/data/cifar-10-batches-py
+Train: Epoch 1/5. Iteration 1563/1563. Loss: 0.520: 100%|████████████████████████████████| 1563/1563 [02:28<00:00, 10.51it/s]
+Average loss        : 1.1886
+Average accuracy    : 0.6284
+Eval: Epoch 1/5. Iteration 313/313. Loss: 0.827: 100%|█████████████████████████████████████| 313/313 [00:23<00:00, 13.23it/s]
+Average loss        : 0.6474
+Average accuracy    : 0.7801
+
+Accuracy enhanced   : 0.0 -> 0.7801
+Save weights: /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/weights/CIFAR_RESNET50.pt
+Train: Epoch 2/5. Iteration 1563/1563. Loss: 0.449: 100%|████████████████████████████████| 1563/1563 [02:48<00:00,  9.28it/s]
+Average loss        : 0.6388
+Average accuracy    : 0.7857
+Eval: Epoch 2/5. Iteration 313/313. Loss: 0.626: 100%|█████████████████████████████████████| 313/313 [00:27<00:00, 11.46it/s]
+Average loss        : 0.5177
+Average accuracy    : 0.8213
+
+Accuracy enhanced   : 0.7801 -> 0.8213
+Save weights: /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/weights/CIFAR_RESNET50.pt
+Train: Epoch 3/5. Iteration 1563/1563. Loss: 0.392: 100%|████████████████████████████████| 1563/1563 [02:47<00:00,  9.34it/s]
+Average loss        : 0.5496
+Average accuracy    : 0.8137
+Eval: Epoch 3/5. Iteration 313/313. Loss: 0.707: 100%|█████████████████████████████████████| 313/313 [00:29<00:00, 10.68it/s]
+Average loss        : 0.4717
+Average accuracy    : 0.8397
+
+Accuracy enhanced   : 0.8213 -> 0.8397
+Save weights: /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/weights/CIFAR_RESNET50.pt
+Train: Epoch 4/5. Iteration 1563/1563. Loss: 0.342: 100%|████████████████████████████████| 1563/1563 [02:37<00:00,  9.94it/s]
+Average loss        : 0.4905
+Average accuracy    : 0.8342
+Eval: Epoch 4/5. Iteration 313/313. Loss: 0.538: 100%|█████████████████████████████████████| 313/313 [00:24<00:00, 12.69it/s]
+Average loss        : 0.4289
+Average accuracy    : 0.8544
+
+Accuracy enhanced   : 0.8397 -> 0.8544
+Save weights: /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/weights/CIFAR_RESNET50.pt
+Train: Epoch 5/5. Iteration 1563/1563. Loss: 0.434: 100%|████████████████████████████████| 1563/1563 [02:32<00:00, 10.26it/s]
+Average loss        : 0.4463
+Average accuracy    : 0.8479
+Eval: Epoch 5/5. Iteration 313/313. Loss: 0.517: 100%|█████████████████████████████████████| 313/313 [00:24<00:00, 12.62it/s]
+Average loss        : 0.4022
+Average accuracy    : 0.8638
+
+Accuracy enhanced   : 0.8544 -> 0.8638
+Save weights: /home/notworle/nonvintage/gitvanhub/Deeplearning-UTH/weights/CIFAR_RESNET50.pt

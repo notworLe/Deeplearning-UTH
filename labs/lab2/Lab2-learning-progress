@@ -1,0 +1,53 @@
+# Learning Progress — Lab 2: Pre-trained Neural Network Architectures
+
+## Hồ sơ
+- **Mục tiêu cuối / sản phẩm:** Hiểu lý thuyết Transfer Learning + code hoàn chỉnh pipeline fine-tune VGG/ResNet/DenseNet + dùng TensorBoard monitor training
+- **Thời gian:** Cả tuần, muốn hiểu sâu từng bước
+- **Nền tảng hiện tại:** Trung bình — đã dùng `torchvision.models`, hiểu khái niệm Transfer Learning; biết freeze/unfreeze layer; đã dùng TensorBoard (SummaryWriter, add_scalar, add_image)
+- **Vai trò AI ưa thích:** Giảng viên (xen kẽ lý thuyết ngắn → code ngay → giải thích kết quả)
+- **Ngôn ngữ và ràng buộc:** Python / PyTorch
+- **Giả định đã dùng:** Dataset mẫu = CIFAR-10 (phổ biến, dễ test nhanh); thay bằng dataset riêng nếu bạn có
+
+---
+
+## Lộ trình
+**Nguồn tham khảo:** PyTorch Transfer Learning Tutorial (pytorch.org) · torchvision.models docs · CS231n Lecture 8 — Transfer Learning — tra ngày 2026-10-28
+
+| # | Giai đoạn | Mục tiêu | Sản phẩm đầu ra | Tiêu chí đạt | Trạng thái |
+|---|-----------|----------|-----------------|--------------|------------|
+| 1 | Khởi động & kiến trúc | Hiểu cấu trúc ResNet/VGG/DenseNet, cách load pretrained | In được model, đọc được từng layer, giải thích được role từng block | Giải thích được tại sao ResNet dùng skip connection; đếm được số params trainable sau freeze | chưa bắt đầu |
+| 2 | Adapt model | Thay classifier head đúng cách; freeze/unfreeze có chủ đích | Model custom với head mới, summary() in đúng params | Code freeze/unfreeze không copy-paste; giải thích được trade-off mỗi chiến lược | chưa bắt đầu |
+| 3 | Chuẩn bị dữ liệu | Dùng transforms + DataLoader đúng với pretrained model | DataLoader chạy được, augmentation phù hợp với ImageNet mean/std | Không bị lỗi size mismatch; biết tại sao normalize theo ImageNet | chưa bắt đầu |
+| 4 | Train & debug | Viết training loop + monitor bằng TensorBoard | Script train hoàn chỉnh, TensorBoard log loss/acc/lr | TensorBoard hiển thị đường learning curve đẹp; biết dừng đúng lúc | chưa bắt đầu |
+| 5 | So sánh & tối ưu | Thử nhiều model (VGG, DenseNet), điều chỉnh hyperparams | Bảng so sánh accuracy + thời gian train giữa các model | Giải thích được tại sao model này tốt hơn model kia trên dataset này | chưa bắt đầu |
+
+---
+
+## Nhật ký buổi học (mới nhất ở trên)
+- 2026-10-28: Khởi tạo hồ sơ, chẩn đoán trình độ, duyệt lộ trình 5 giai đoạn
+
+---
+
+## Khái niệm
+| Khái niệm | Mức | Lần cuối | Hẹn ôn |
+|-----------|-----|----------|--------|
+| Freeze / Unfreeze layers | vững | 2026-10-28 | 2026-10-31 |
+| Transfer Learning (lý thuyết) | vững | 2026-10-28 | 2026-10-31 |
+| torchvision.models pretrained | trung bình | 2026-10-28 | — |
+| TensorBoard SummaryWriter | vững | 2026-10-28 | 2026-11-04 |
+| Thay classifier head | mơ hồ | 2026-10-28 | — |
+| DataLoader + transforms | mơ hồ | 2026-10-28 | — |
+| Training loop hoàn chỉnh | chưa | — | — |
+| LR Scheduler | chưa | — | — |
+
+---
+
+## Hiểu lầm lặp lại
+_(chưa ghi nhận)_
+
+## Đi vượt (đã được cảnh báo)
+_(chưa có)_
+
+## Câu hỏi còn treo
+- Tại sao normalize theo ImageNet mean/std khi dùng pretrained?
+- Khi nào nên unfreeze toàn bộ vs chỉ vài layer cuối?
