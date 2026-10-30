@@ -67,6 +67,7 @@ def training_phase(
         test_dataloader,
         path_save:Path,
         epoch=config.EPOCH,
+        p_start_epoch=0,
         writer=None,
         classes=None,
         p_best_val = 0.0
@@ -77,7 +78,7 @@ def training_phase(
     list_metric_train_epoch: list[MyMetric] = []
     list_metric_val_epoch: list[MyMetric] = []
 
-    for i_epoch in range(epoch):
+    for i_epoch in range(p_start_epoch, epoch):
         model.train()
         epoch_metric = MyMetric()
 
@@ -106,16 +107,16 @@ def training_phase(
         eval_metric = evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes, p_writer=writer)
         print()
 
-        
+
         if writer:
             writer.add_scalars("01. Loss", {
                 "train": epoch_metric.average_loss,
                 "val":   eval_metric.average_loss,
-            }, i_epoch + 1)
+            }, i_epoch)
             writer.add_scalars("02. Accuracy", {
                 "train": epoch_metric.accuracy,
                 "val":   eval_metric.accuracy,
-            }, i_epoch + 1)
+            }, i_epoch)
              
             
 
@@ -124,7 +125,7 @@ def training_phase(
         if eval_metric.accuracy > p_best_val:
             log.print_log("Accuracy enhanced", f'{p_best_val} -> {eval_metric.accuracy}')
             p_best_val = eval_metric.accuracy
-            save_weight(path_save, i_epoch, model, optimizer, p_best_val)
+            save_weight(path_save, i_epoch + 1, model, optimizer, p_best_val)
 
 
 
@@ -156,13 +157,8 @@ def evaluate_phase(i_epoch, epoch, model, loss_func, test_dataloader, classes=No
                 f"Eval: Epoch {i_epoch + 1}/{epoch}. Iteration {i_batch + 1}/{n_batch}. Loss: {loss_value:.3f}")
     if p_writer:
         fig_cf_matrix = epoch_metric.get_fig_cf_matrix(classes)
-        p_writer.add_figure("03. Confusion matrix", fig_cf_matrix, i_epoch + 1)
+        p_writer.add_figure("03. Confusion matrix", fig_cf_matrix, i_epoch)
 
-    from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
-    ea = EventAccumulator(p_writer.log_dir, size_guidance={"images": 0})
-    ea.Reload()
-    print(ea.Tags()["images"])
-    print(p_writer.log_dir)
     return epoch_metric
 
 def test_phase(model, test_dataloader, p_writer):

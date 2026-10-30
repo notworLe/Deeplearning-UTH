@@ -56,7 +56,29 @@ def dataset_log(dataset, train_dataset, test_dataset, idx=0):
     print_log("Image shape", img.shape, 20)
     print_log("Min - max image", f"{img.min()}, {img.max()}", 20)
 
+def dataset_log_v2(class_name: dict, test_dataset, idx=0, **kwargs):
+    print("=" * 32 + " Dataset information " + "=" * 32)
+
+    # Medata
+    for key, val in kwargs.items():
+        print_log(f"{key} size", len(val))
+
+    print_log(f"Test size", len(test_dataset))
+
+    img, label = test_dataset[idx]
+    print_log("Num of class", len(test_dataset.classes), 20)
+    print_log("Label index", label, 20)
+    print_log("Label name", class_name[label], 20)
+    print_log("Image shape", img.shape, 20)
+    print_log("Min - max image", f"{img.min()}, {img.max()}", 20)
+
+
 def dataloader_log(train_dataloader, test_dataloader, max_length=20):
     print()
     print_log("Number of train dataloader:", len(train_dataloader), max_length)
     print_log("Number of test dataloader:", len(test_dataloader), max_length)
+
+def dataloader_log_v2(max_length=20, **kwargs):
+    for val, key in kwargs.items():
+        print_log(f"Number of P{val}", f"{len(key)} batch", max_length)
+

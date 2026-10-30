@@ -42,7 +42,11 @@ MY_MODEL_TRANSFORM = transform.Compose([
 
 REMOVE_BACKGROUND_PERCENT = 12
 
-
+## Pre-trained
+IMAGE_NET_NORMALIZE = transform.Normalize(
+    mean=[0.485, 0.456, 0.406],
+    std=[0.229, 0.224, 0.225]
+)
 
 ## Normalize
 CIFAR_NORMALIZE = [
@@ -108,8 +112,14 @@ AUGMENTED_AI_VIETNGUYEN = transform.Compose([
 ])
 
 
+MY_AUGMENTED = [
+
+    transform.RandomHorizontalFlip(),
+    transform.ToTensor()
+]
+
 # Console
 MAX_LENGTH = 20
 
 LIST_CONFIG = [WOKER, BATCH_SIZE, LR, EPOCH, DEVICE, MEAN, STD]
-LOG_PEAR_BATCH = 100
+LOG_PEAR_BATCH = 10

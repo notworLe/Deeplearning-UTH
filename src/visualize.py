@@ -7,6 +7,8 @@ import torch
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 import os
+from PIL import Image
+import math
 
 from src.dataset import load_raw_dataset, create_dataloader
 import src.log as log
@@ -21,7 +23,225 @@ MUTED = "#6b7280"      # chữ phụ
 PANEL = "#f3f4f6"      # nền thẻ KPI
 ALERT = "#b91c1c"      # điểm cần chú ý (class yếu nhất)
 CMAP = "Blues"
+BAR = "#3b82f6"
+ALERT = "#b91c1c"
 
+
+def _finish(fig, save_path):
+    if save_path is not None:
+        os.makedirs(os.path.dirname(save_path) or ".", exist_ok=True)
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        print("Saved at", save_path)
+    else:
+        plt.show()
+    plt.close(fig)
+
+
+def _unwrap(dataset):
+    """Subset/random_split (kể cả lồng nhau) -> (dataset gốc, chỉ số trong dataset gốc)."""
+    indices = None
+    while hasattr(dataset, "dataset") and hasattr(dataset, "indices"):
+        idx = np.asarray(dataset.indices)
+        indices = idx if indices is None else idx[indices]
+        dataset = dataset.dataset
+    return dataset, indices
+
+
+def _get_targets(ds):
+    for attr in ("targets", "_labels", "labels"):
+        if hasattr(ds, attr):
+            return np.asarray(getattr(ds, attr))
+    return np.asarray([ds[i][1] for i in range(len(ds))])  # chậm nhưng luôn chạy
+
+
+def _get_class_names(ds, targets):
+    if hasattr(ds, "classes"):
+        return list(ds.classes)
+    return [str(c) for c in sorted(np.unique(targets))]
+
+
+def _get_image(ds, i):
+    """Lấy ảnh gốc (chưa transform) dạng numpy HxW hoặc HxWxC để hiển thị."""
+    if hasattr(ds, "data"):  # MNIST, CIFAR, ...
+        img = ds.data[i]
+        return img.numpy() if hasattr(img, "numpy") else np.asarray(img)
+    for attr in ("_images", "images", "_samples", "samples", "imgs"):
+        if hasattr(ds, attr):  # OxfordIIITPet, ImageFolder, ...
+            item = getattr(ds, attr)[i]
+            path = item[0] if isinstance(item, (tuple, list)) else item
+            return np.asarray(Image.open(path).convert("RGB"))
+    img = ds[i][0]  # fallback: có thể đã transform
+    if hasattr(img, "numpy"):
+        img = img.numpy()
+        if img.ndim == 3:
+            img = img.transpose(1, 2, 0)
+        img = (img - img.min()) / (img.max() - img.min() + 1e-8)
+        if img.shape[-1] == 1:
+            img = img[..., 0]
+    return np.asarray(img)
+
+
+def _counts(dataset):
+    """
+    Trả về (tên class, số lượng mỗi class) cho dataset / Subset / DataLoader.
+    Không cần .targets: tự tìm targets / _labels / labels.
+    """
+    if hasattr(dataset, "batch_size") and hasattr(dataset, "dataset"):  # DataLoader
+        dataset = dataset.dataset
+    base, idx = _unwrap(dataset)
+    targets = _get_targets(base)
+    names = _get_class_names(base, targets)
+    if idx is not None:  # chỉ đếm các mẫu thuộc Subset
+        targets = targets[idx]
+    return names, np.bincount(targets, minlength=len(names))
+
+
+def plot_class_distribution(dataset, title="Class distribution", sort=True,
+                            save_path=None):
+    """
+    Số ảnh mỗi class (1 tập). Thanh ngang -> đọc được tên dài, 37 class vẫn gọn.
+    sort=True: class nhiều ảnh nhất ở trên cùng -> thấy ngay mất cân bằng.
+    """
+    names, counts = _counts(dataset)
+    n = len(names)
+    order = np.argsort(-counts) if sort else np.arange(n)
+    names = [names[i] for i in order]
+    counts = counts[order]
+
+    fig, ax = plt.subplots(figsize=(8, max(3.5, 0.28 * n + 1.6)),
+                           layout="constrained")
+    y = np.arange(n)
+    ax.barh(y, counts, color=BAR, height=0.7)
+    ax.set_yticks(y)
+    ax.set_yticklabels(names, fontsize=8 if n > 15 else 10, color=INK)
+    ax.invert_yaxis()
+
+    pad = counts.max() * 0.01
+    for yi, c in zip(y, counts):
+        ax.text(c + pad, yi, str(c), va="center", fontsize=7 if n > 15 else 9,
+                color=MUTED)
+
+    mean = counts.mean()
+    ax.axvline(mean, color=MUTED, linestyle="--", linewidth=1)
+    ax.text(mean, -0.9, f"TB = {mean:.0f}", color=MUTED, fontsize=8,
+            ha="center", va="bottom")
+
+    ax.set_xlim(0, counts.max() * 1.1)
+    ax.tick_params(axis="y", length=0)
+    ax.tick_params(axis="x", colors=MUTED, labelsize=8)
+    for s in ("top", "right", "left"):
+        ax.spines[s].set_visible(False)
+    ax.grid(axis="x", alpha=0.25)
+    ax.set_axisbelow(True)
+
+    ratio = counts.max() / max(counts.min(), 1)
+    fig.suptitle(title, fontsize=13, fontweight="bold", color=INK,
+                 x=0.0, ha="left")
+    ax.set_title(f"{counts.sum()} ảnh · {n} class · ít nhất {counts.min()}, "
+                 f"nhiều nhất {counts.max()} (chênh {ratio:.2f}×)",
+                 fontsize=9, color=MUTED, loc="left")
+    _finish(fig, save_path)
+    return dict(zip(names, counts.tolist()))
+
+
+def plot_split_class_distribution(splits, save_path=None):
+    """
+    So sánh phân bố class giữa train / val / test trong MỘT hình.
+    splits: dict, vd {"train": v_train, "val": v_val, "test": v_test}
+    Mỗi tập một panel, cùng thứ tự class, trục x là % của tập đó
+    (để so được dù tập to nhỏ khác nhau). Đường đứt = chia đều 100/n %.
+    Các thanh ở 3 panel có độ dài gần bằng nhau = chia tập cân bằng.
+    """
+    all_counts = {k: _counts(v) for k, v in splits.items()}
+    names = next(iter(all_counts.values()))[0]
+    n = len(names)
+    first = next(iter(all_counts.values()))[1]
+    order = np.argsort(-first)  # theo tập đầu tiên
+
+    k = len(splits)
+    fig, axes = plt.subplots(1, k, sharey=True, sharex=True,
+                             figsize=(3.2 * k + 1.5, max(3.5, 0.28 * n + 1.6)),
+                             layout="constrained")
+    axes = np.atleast_1d(axes)
+
+    pcts = {s: c / c.sum() * 100 for s, (_, c) in all_counts.items()}
+    xmax = max(p.max() for p in pcts.values()) * 1.15
+
+    for ax, (split, (_, c)) in zip(axes, all_counts.items()):
+        ax.barh(np.arange(n), pcts[split][order], color=BAR, height=0.7)
+        ax.axvline(100 / n, color=MUTED, linestyle="--", linewidth=1)
+        ax.set_title(f"{split}  (n={c.sum()})", fontsize=10,
+                     fontweight="bold", color=INK, loc="left")
+        ax.set_xlim(0, xmax)
+        ax.tick_params(axis="x", colors=MUTED, labelsize=8)
+        ax.tick_params(axis="y", length=0)
+        ax.xaxis.set_major_formatter(lambda v, _: f"{v:.0f}%")
+        for s in ("top", "right", "left"):
+            ax.spines[s].set_visible(False)
+        ax.grid(axis="x", alpha=0.25)
+        ax.set_axisbelow(True)
+
+    axes[0].set_yticks(np.arange(n))
+    axes[0].set_yticklabels([names[i] for i in order],
+                            fontsize=8 if n > 15 else 10, color=INK)
+    axes[0].invert_yaxis()
+    fig.suptitle("Class distribution by split (% mỗi tập)", fontsize=13,
+                 fontweight="bold", color=INK, x=0.0, ha="left")
+    _finish(fig, save_path)
+
+
+
+def show_class_samples(dataset, classes=None, n=10, n_cols=5,
+                       shuffle=True, seed=0, cell_size=1.6, save_path=None):
+    """
+    Hiển thị n ảnh mẫu cho mỗi class được chọn.
+
+    dataset  : dataset torchvision bất kỳ (FashionMNIST, CIFAR, OxfordIIITPet,
+               ImageFolder...) hoặc Subset của chúng. Truyền INSTANCE, không
+               phải class.
+    classes  : None -> tất cả class | int/str -> 1 class | list -> nhiều class
+    n        : số ảnh mỗi class
+    n_cols   : số cột của lưới ảnh mỗi class
+    shuffle  : True -> ngẫu nhiên (cố định theo seed); False -> n ảnh đầu tiên
+    """
+    base, subset_idx = _unwrap(dataset)
+    all_targets = _get_targets(base)
+    names = _get_class_names(base, all_targets)
+
+    # Vị trí (trong dataset gốc) của các mẫu đang xét
+    pool = np.arange(len(all_targets)) if subset_idx is None else subset_idx
+    targets = all_targets[pool]
+
+    if classes is None:
+        classes = list(range(len(names)))
+    elif isinstance(classes, (int, str)):
+        classes = [classes]
+    idxs = [names.index(c) if isinstance(c, str) else int(c) for c in classes]
+
+    rng = np.random.default_rng(seed)
+    n_rows = math.ceil(n / n_cols)
+    grid_h = n_rows * cell_size
+    fig = plt.figure(figsize=(n_cols * cell_size, len(idxs) * (grid_h + 0.5)),
+                     layout="constrained")
+
+    subfigs = np.atleast_1d(fig.subfigures(len(idxs), 1, hspace=0.04))
+
+    for sf, ci in zip(subfigs, idxs):
+        mask = np.flatnonzero(targets == ci)
+        k = min(n, len(mask))
+        chosen = rng.choice(mask, k, replace=False) if shuffle else mask[:k]
+
+        sf.suptitle(f"{names[ci]}  ({k} / {len(mask)} ảnh)",
+                    fontsize=11, fontweight="bold", color=INK,
+                    x=0.0, ha="left")
+        axes = np.atleast_1d(sf.subplots(n_rows, n_cols)).flatten()
+        for j, ax in enumerate(axes):
+            ax.axis("off")
+            if j < k:
+                img = _get_image(base, pool[chosen[j]])
+                ax.imshow(img, cmap="gray" if img.ndim == 2 else None)
+
+    _finish(fig, save_path)
 
 def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,5)):
     images, labels = next(iter(loader))
@@ -50,6 +270,7 @@ def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,
     else:
         plt.show()
     plt.close()
+
 
 
 def show_loss_acc(train_metrics: list[MyMetric], val_metrics: list[MyMetric],
@@ -136,27 +357,6 @@ def show_predictions(model, loader, dataset_class,
         plt.show()
     plt.close()
 
-def plot_class_distribution(dataset, save_path=None):
-    v_class_counter = collections.Counter(dataset.targets.tolist())
-
-    v_names = dataset.classes
-    v_counts = [v_class_counter[i] for i in range(len(v_names))]
-
-    fig, ax = plt.subplots(figsize=(11, 6))
-    ax.bar(v_names, v_counts, color="steelblue", edgecolor="white")
-
-    ax.set_title("Class Distribution – FashionMNIST")
-    ax.set_ylabel("Count")
-    ax.tick_params(axis="x", rotation=30)
-
-    if save_path is not None:
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
-        plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
-    else:
-        plt.show()
-
-    plt.close()
 
 
 def plot_mean_images(dataset, dataset_class,
@@ -259,14 +459,7 @@ def plot_pixel_distribution_adjust(dataset, dataset_class,
 
 
 
-def _finish(fig, save_path):
-    if save_path is not None:
-        os.makedirs(os.path.dirname(save_path) or ".", exist_ok=True)
-        fig.savefig(save_path, dpi=150, bbox_inches="tight")
-        print("Saved at", save_path)
-    else:
-        plt.show()
-    plt.close(fig)
+
 
 
 def plot_classification_metrics(y_true, y_pred, class_names, save_path=None):

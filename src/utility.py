@@ -2,6 +2,7 @@ import random
 import numpy as np
 import torch
 import torch.nn as nn
+import torchvision.transforms as transforms
 from pathlib import Path
 from src import config
 
@@ -57,3 +58,9 @@ def resume_weight(p_path:Path, p_model:nn.Module, p_optimizer) -> tuple[int, flo
     v_epoch = v_dict_weight['epoch']
 
     return v_epoch, v_best_val
+
+def add_transform(p_base_transform: list, p_new_transform: list):
+    return transforms.Compose([
+        *p_base_transform,
+        *p_new_transform
+    ])

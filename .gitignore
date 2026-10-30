@@ -225,3 +225,4 @@ data
 
 # weights
 weights/CIFAR_RESNET50.pt
+*.pt
