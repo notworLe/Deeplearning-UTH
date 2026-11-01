@@ -228,3 +228,11 @@ weights/CIFAR_RESNET50.pt
 *.pt
 
 runs/
+
+"*.h5"
+"*.pkl"
+"__pycache__/"
+
+
+# Hungging face
+sst2-distilbert
