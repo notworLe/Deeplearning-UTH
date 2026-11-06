@@ -148,3 +148,8 @@ Trước khi chấp nhận bất kỳ mã nguồn nào vào dự án:
 2. **Gate 2 - Design Gate**: Luôn có hợp đồng Input/Output shapes, Plan và DoD trước khi sinh code ([`TASK_DESCRIPTION.md`](TASK_DESCRIPTION.md)).
 3. **Gate 3 - Audit Gate**: Vượt qua thẩm định 3 tầng kiến trúc, quy chuẩn và 5 bất biến CV/DL ([`CODEBASE_AUDIT.md`](CODEBASE_AUDIT.md)).
 4. **Gate 4 - Test Gate**: Pass 100% Smoke Test (< 5s) và Normal Test với Pytest trước khi xác nhận Done ([`TESTING_STRATEGY.md`](TESTING_STRATEGY.md)). Nếu test fail, kích hoạt ngay quy trình phân tích nguyên nhân gốc rễ tại [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md), tuyệt đối không dùng `try-except pass` che giấu lỗi.
+
+
+# Optional
+Thư mục skills/ 
+là các skill do chính người kỹ sư chủ động sử dụng. AI Agent không được học cho tới khi được nhận mệnh lệnh

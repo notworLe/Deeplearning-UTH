@@ -15,7 +15,8 @@ và dự án nhóm của **Deep learning tại Trường Đại học Giao thôn
 |    Lab     | Chủ đề Kỹ thuật                                                                                          | Trạng thái | Pipeline Thực thi                                      |                                     Báo cáo Kỹ thuật                                      | Unit Tests |
 |:----------:|:---------------------------------------------------------------------------------------------------------|:----------:|:-------------------------------------------------------|:-----------------------------------------------------------------------------------------:|:----------:|
 | **Lab 01** | **PyTorch FashionMNIST Classification (Implement, visualize loss, predictions, adjust hyperparameters)** | ✅ **100%** | [`lab1/main/main.py`](src/pipelines/lab01_pipeline.py) | [Markdown](docs/labs/lab01/LAB_01_REPORT.md) · [HTML](docs/labs/lab01/LAB_01_REPORT.html) | 10 passed  |
-
+lab2 xong
+lab3 xong
 ---
 
 ## 🗂️ Cấu trúc Thư mục Tổng thể (Architecture Layout)
@@ -33,6 +34,12 @@ Deeplearning-UTH (ROOT)
 │       ├── main                       # Nội dung lab1 
 │       └── submit                     # Bài tham khảo của các thành viên
 │   ... Lab5 
+    docs
+    media
+    test
+    temp
+    weights
+    pyproject /Config metedata của python
 └── README.md
 ```
 
