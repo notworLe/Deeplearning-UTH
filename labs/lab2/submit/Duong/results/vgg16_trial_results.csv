@@ -1,0 +1,2 @@
+﻿Mo hinh,So anh huan luyen,So anh xac thuc,Epoch,Train Accuracy (%),Validation Accuracy (%),Validation Loss
+VGG16,1000,200,1,58.1,72.5,0.7649
