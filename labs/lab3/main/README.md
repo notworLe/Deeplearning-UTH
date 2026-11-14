@@ -36,12 +36,21 @@ Văn bản đầu vào (Raw Sentences)
 ```text
 labs/lab3/main/
 ├── README.md               # Báo cáo kỹ thuật chi tiết này
+├── 01_ex1_sentiment_analysis.ipynb # Notebook thực hành Exercise 1 (Hugging Face pipeline & PyTorch low-level)
+├── 02_ex2_finetune_sentiment.ipynb # Notebook thực hành Exercise 2 (Fine-tuning DistilBERT trên SST-2)
 ├── fine-tune.py            # Script huấn luyện fine-tune toàn diện
-├── fine-tune.ipynb         # Jupyter Notebook thực hành fine-tune trực quan
+├── fine-tune.ipynb         # Jupyter Notebook thực hành fine-tune trực quan (đồng bộ 02_ex2)
 ├── main.py                 # Script suy luận nhanh với pre-trained pipeline
-├── main.ipynb              # Notebook suy luận tương tác
+├── main.ipynb              # Notebook suy luận tương tác (đồng bộ 01_ex1)
 └── sst2-distilbert/        # Thư mục lưu checkpoint mô hình tốt nhất (weights, config, tokenizer)
 ```
+
+---
+
+## 📚 Phân Tích Chuyên Sâu ML/DL Pipeline
+
+Chi tiết phân tích toán học và cơ chế chuyển đổi tensor theo 6 trục chuẩn mực (*Input, Output, Đặc trưng, Mục tiêu, Hạn chế, Giải pháp*) được lưu trữ tại:
+👉 **[`docs/lab3/PIPELINE_EXPLANATION.md`](../../../docs/lab3/PIPELINE_EXPLANATION.md)**.
 
 ---
 
