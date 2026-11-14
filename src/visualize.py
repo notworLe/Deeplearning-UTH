@@ -11,8 +11,8 @@ from PIL import Image
 import math
 
 from src.dataset import load_raw_dataset, create_dataloader
-import src.log as log
-from src.object import MyMetric
+from src import logs
+from src.objects import MyMetric
 import src.config as config
 
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
@@ -266,7 +266,7 @@ def show_batch(dataset_class, loader, save_path=None, row=2, col=5, figsize=(14,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -303,7 +303,7 @@ def show_loss_acc(train_metrics: list[MyMetric], val_metrics: list[MyMetric],
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -352,7 +352,7 @@ def show_predictions(model, loader, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)  # tránh lỗi nếu thư mục chưa có
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -389,7 +389,7 @@ def plot_mean_images(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -419,7 +419,7 @@ def plot_pixel_distribution(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -452,7 +452,7 @@ def plot_pixel_distribution_adjust(dataset, dataset_class,
     if save_path is not None:
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         plt.savefig(save_path, dpi=120)
-        log.print_log("Saved at", save_path)
+        logs.print_log("Saved at", save_path)
     else:
         plt.show()
     plt.close()
@@ -550,11 +550,11 @@ def plot_classification_metrics(y_true, y_pred, class_names, save_path=None):
 if __name__ == '__main__':
     # Load dataset
     train_dataset, test_dataset = load_raw_dataset(FashionMNIST)
-    log.dataset_log(FashionMNIST, train_dataset, test_dataset)
+    logs.dataset_log(FashionMNIST, train_dataset, test_dataset)
 
     # Dataloader
     train_dataloader, test_dataloader = create_dataloader(train_dataset, test_dataset)
-    log.dataloader_log(train_dataloader, test_dataloader)
+    logs.dataloader_log(train_dataloader, test_dataloader)
 
     plot_mean_images(train_dataset, FashionMNIST)
 

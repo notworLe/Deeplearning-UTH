@@ -6,8 +6,8 @@ from pathlib import Path
 from tqdm.autonotebook import tqdm
 
 from src.utility import save_weight
-from src.object import MyMetric
-import src.log as log
+from src.objects import MyMetric
+from src import logs
 import src.config as config
 
 
@@ -123,7 +123,7 @@ def training_phase(
         list_metric_train_epoch.append(epoch_metric)
         list_metric_val_epoch.append(eval_metric)
         if eval_metric.accuracy > p_best_val:
-            log.print_log("Accuracy enhanced", f'{p_best_val} -> {eval_metric.accuracy}')
+            logs.print_log("Accuracy enhanced", f'{p_best_val} -> {eval_metric.accuracy}')
             p_best_val = eval_metric.accuracy
             save_weight(path_save, i_epoch + 1, model, optimizer, p_best_val)
 
@@ -191,8 +191,8 @@ def my_metric(predictions, actual, total_loss, total_samples):
     accuracy = (predictions == actual).sum() / len(predictions)
 
     # Log
-    log.print_log("Average loss", f"{average_loss:.4f}")
-    log.print_log("Accuracy ", f"{accuracy:.4f}")
+    logs.print_log("Average loss", f"{average_loss:.4f}")
+    logs.print_log("Accuracy ", f"{accuracy:.4f}")
 
 def save_metric(actual_label, predict_label, total_loss, total_samples):
     pass
