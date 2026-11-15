@@ -1,7 +1,7 @@
-# Lab 01: Fashion-MNIST Image Classification with PyTorch
+# Lab 01: Fashion-MNIST Image Classification Base on CNN and MLP
 
 Dự án thực hành Deep Learning: Xây dựng mạng nơ-ron tích chập (Custom CNN) để phân loại ảnh thời trang trên tập dữ liệu Fashion-MNIST sử dụng PyTorch.
-
+Đồng thời gian so sánh độ chính với MLP architecture
 ---
 
 ## 🗂️ Cấu trúc Thư mục Lab 01

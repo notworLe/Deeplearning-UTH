@@ -2,13 +2,13 @@
 
 Hệ thống quy trình kỹ thuật chuẩn hóa, vòng đời phát triển và quy chuẩn chất lượng cao nhất cho AI Agent & Kỹ sư trong các dự án Thị giác Máy tính (Computer Vision) & MLOps.
 
-Thư mục này đóng vai trò là **Bộ não Thứ hai (Second Brain)** của Kỹ sư. Mỗi khi bắt đầu một dự án mới, chỉ cần đưa thư mục `agents/` vào repository và yêu cầu: *"Đọc thư mục agents/ và bắt đầu làm việc"*. Agent sẽ lập tức tiếp nhận 100% tư duy thiết kế, ranh giới Clean Architecture, chu trình phát triển 9 giai đoạn và các luật bất biến kỹ thuật để triển khai chính xác tuyệt đối mọi yêu cầu.
+Thư mục này đóng vai trò là **Bộ não Thứ hai (Second Brain)** của Kỹ sư. Mỗi khi bắt đầu một dự án mới, chỉ cần đưa thư mục `.agents/` vào repository và yêu cầu: *"Đọc thư mục agents/ và bắt đầu làm việc"*. Agent sẽ lập tức tiếp nhận 100% tư duy thiết kế, ranh giới Clean Architecture, chu trình phát triển 9 giai đoạn và các luật bất biến kỹ thuật để triển khai chính xác tuyệt đối mọi yêu cầu.
 
 ---
 
 ## 1. Giao thức Tiếp nhận Nhận thức cho AI Agent (Agent Cognitive Protocol)
 
-Khi được yêu cầu đọc thư mục `agents/`, AI Agent phải tự động thực thi quy trình tiếp nhận 4 bước:
+Khi được yêu cầu đọc thư mục `.agents/`, AI Agent phải tự động thực thi quy trình tiếp nhận 4 bước:
 
 ```text
 [ Bước 1: Role Alignment ] ──► Thiết lập nhân cách Principal CV/MLOps Engineer & Pair Programmer
