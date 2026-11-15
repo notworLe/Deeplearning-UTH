@@ -1,92 +1,75 @@
-# CODEBASE_AUDIT.md — Drift Audit Procedure & Finding Resolution Gate
+# CODEBASE AUDIT - QUY TRÌNH KIỂM TOÁN MÃ NGUỒN SINH RA
 
-- **Motivation/Background**: In multi-stage coursework projects, documentation, configuration, and implementation rapidly diverge across labs. Building upon outdated documentation or false assumptions causes compounding errors and expensive refactoring.
-- **Purpose**: Define the mandatory pre-task codebase audit checklist to catch drift between documentation claims and physical repository state before performing non-trivial modifications.
-- **Overview Pipeline**: Executed at the start of a session or prior to any multi-file refactor.
-- **Detailed Plan**: §1 Audit Scope; §2 Five-Step Inspection Checklist; §3 Output Format; §4 Hard Acceptance Gate; §5 Audit Lifecycle & Finding Resolution.
-- **References**: `agents/rules/FOLDER_STRUCTURE.md`, `agents/templates/CODEBASE_AUDIT_TEMPLATE.md`.
-- **Created**: 2026-09-06T13:05:18+07:00
-- **Last Updated**: 2026-09-06T21:25:00+07:00
+Code do AI sinh ra không bao giờ được commit trực tiếp. Kỹ sư phải thực hiện Codebase Audit qua 3 tầng thẩm định nghiêm ngặt.
 
 ---
 
-## Table of Contents
+## Sơ đồ Luồng Kiểm toán (Audit Flowchart)
 
-- [1. Audit Scope & Trigger Points](#1-audit-scope--trigger-points)
-- [2. Five-Step Inspection Checklist](#2-five-step-inspection-checklist)
-- [3. Output Format](#3-output-format)
-- [4. Hard Acceptance Gate](#4-hard-acceptance-gate)
-- [5. Audit Lifecycle & Finding Resolution](#5-audit-lifecycle--finding-resolution)
-
----
-
-## 1. Audit Scope & Trigger Points
-
-### When to Run:
-- **Session Start:** Whenever an agent begins work in an existing or resumed repository.
-- **Pre-Refactoring:** Before any refactoring touching multiple files or changing package structure.
-- **Pre-Merge:** Prior to merging feature branches into `main`.
-
-### When NOT to Run:
-- Trivial, localized single-file edits or documentation typo fixes.
-
----
-
-## 2. Five-Step Inspection Checklist
-
-1. **Filesystem vs FOLDER_STRUCTURE.md:**
-   - List files in `src/<lab>/`, `tests/<lab>/`, `configs/`, and `docs/<lab>/`. Compare against [agents/rules/FOLDER_STRUCTURE.md](FOLDER_STRUCTURE.md).
-   - Identify any unversioned, undocumented files or stale directory layouts.
-2. **Import & Module Integrity:**
-   - Inspect package imports across `src/` and `tests/`.
-   - Ensure all internal imports resolve via the canonical package name (`from src.lab1...`, `from src.lab2...`, `from src.lab3...`).
-   - Flag deprecated, un-namespaced, or circular imports.
-3. **Artifact Claims vs Reality:**
-   - Cross-check claims in status reports (`docs/<lab>/progress/*_STATUS.md`).
-   - If a status doc claims training is complete, verify that the physical checkpoint file exists in `experiments/<lab>/runs/` or `experiments/<lab>/results/`.
-4. **Naming & Convention Compliance:**
-   - Check recently modified files against [agents/rules/NAMING_CONVENTION.md](NAMING_CONVENTION.md).
-5. **Git Working Tree State:**
-   - Verify `git status --short`. Note any untracked or unstaged changes before starting new work.
-
----
-
-## 3. Output Format
-
-Summarize findings as a concise, structured report:
-
-```markdown
-### Codebase Drift Audit Summary
-- **Branch / Revision:** `<branch_name> (HEAD: <commit_hash>)`
-- **Working Tree:** `[Clean | N unstaged files]`
-- **Findings:**
-  - ✅ FOLDER_STRUCTURE alignment: [Verified / Discrepancies noted]
-  - ✅ Package imports: [Clean / Stale imports found]
-  - ✅ Claimed artifacts: [Verified on disk / Missing]
-- **Verdict:** `[CLEAN - PROCEED | DRIFT DETECTED - BLOCKED]`
+```text
+Generated Code từ AI Agent
+        │
+        ▼
+[ TẦNG 1: KIỂM TOÁN KIẾN TRÚC ]
+(Kiểm tra Clean Architecture, ranh giới module, không circular import)
+        │
+        ▼
+[ TẦNG 2: KIỂM TOÁN DETAILED PLAN ]
+(Kiểm tra có bám sát từng bước trong kế hoạch không, có tự ý bịa thêm tính năng không)
+        │
+        ▼
+[ TẦNG 3: KIỂM TOÁN CODING CONVENTION ]
+(Kiểm tra Naming, Type hints, Tensor shapes docstring, Không dùng print/global)
+        │
+        ▼
+ĐẠT CHUẨN AUDIT ──► Chuyển sang Bước Viết Unit Test & Smoke Test
 ```
 
 ---
 
-## 4. Hard Acceptance Gate
+## Chi tiết 3 Tầng Kiểm toán
 
-**HARD RULE:** Do NOT proceed with the requested engineering task if critical discrepancies or unverified claims are discovered, until:
-1. The drift is rectified in code/docs, OR
-2. The human engineer explicitly acknowledges the finding and approves proceeding.
+### Tầng 1: Audit Kiến trúc (Architecture Audit)
+- Code có đặt đúng thư mục được chỉ định trong `src/` không?
+- Có bị vi phạm nguyên tắc phân tách trách nhiệm không? (Ví dụ: DataLoader không được gọi logic tính loss).
+- Có bị circular import giữa các module trong `src/` không?
+- Các tham số có được tách ra file `configs/` thay vì viết cứng trong code không?
+
+### Tầng 2: Audit Kế hoạch (Detailed Plan Audit)
+- Code có giải quyết đúng mục tiêu được đề ra trong `agents/TASK_DESCRIPTION.md` không?
+- **Kiểm tra tính trung thực (Faithfulness Check)**: AI có tự ý "sáng tạo" thêm các class, hàm hoặc tham số ngoài phạm vi mô tả không? Nếu có, phải yêu cầu cắt bỏ ngay.
+- Các trường hợp biên (Edge cases, zero division, missing keys) đã được xử lý như cam kết trong plan chưa?
+
+### Tầng 3: Audit Quy chuẩn Mã nguồn (Convention Audit)
+- Tên hàm, biến, class có tuân thủ đúng quy định trong `agents/AI_REFERENCE.md` không?
+- Có đầy đủ Type Hints theo chuẩn PEP 484 cho toàn bộ arguments và return type không?
+- Có Google-style docstring ghi rõ shapes của tensor `[B, C, H, W]` không?
+- Chạy lệnh kiểm tra linter:
+  ```bash
+  make lint
+  ```
+  Nếu có bất kỳ cảnh báo Ruff hoặc Black nào, code chưa đạt chuẩn Audit.
 
 ---
 
-## 5. Audit Lifecycle & Finding Resolution
+## 4. Bộ Tiêu chí Audit Chuyên sâu cho Computer Vision & Deep Learning
 
-### Audit Archiving
-- Routine pre-task audit summaries are output directly to the conversation.
-- Formal milestone or pre-merge audit reports generated from [agents/templates/CODEBASE_AUDIT_TEMPLATE.md](../templates/CODEBASE_AUDIT_TEMPLATE.md) must be saved into `docs/shared/AUDIT_<TOPIC>.md` with active ISO 8601 timestamps.
+Khi kiểm toán code trong `src/`, kỹ sư và AI phải rà soát 5 bất biến kỹ thuật:
 
-### Individual Finding Resolution Status Vocabulary
-Every finding listed in an audit report's **Findings Summary** must track its own remediation status:
-- **`RESOLVED`**: The specific defect/risk has been completely remediated, validated by automated tests or physical inspection, and verified on disk.
-- **`PARTIALLY RESOLVED`**: An interim mitigation, partial patch, or workaround has been applied, but remaining work or pending verification is required for complete resolution.
-- **`NOT RESOLVED`**: The finding has been diagnosed and documented, but no corrective engineering action has yet been taken.
+| Tiêu chí | Quy định Kỹ thuật | Cách phát hiện Vi phạm |
+| :--- | :--- | :--- |
+| **Vectorization Mandate** | Cấm duyệt pixel bằng vòng lặp `for` lồng nhau. Mọi phép toán phải vector hóa bằng NumPy broadcasting hoặc PyTorch ops. | Tìm thấy `for y in range(H): for x in range(W):` trong code. |
+| **Tensor Shape Contracts** | Mọi phép toán trên batch phải xử lý linh hoạt kích thước batch B (không hardcode batch size). Docstring phải ghi rõ `(B, C, H, W)` hoặc `(H, W, C)`. | Thiếu docstring shape hoặc code fail khi batch size thay đổi. |
+| **Device & Precision Safety** | Không hardcode `.cuda()` hoặc `'cuda:0'`. Luôn nhận `device: torch.device` từ config hoặc tự động nhận diện. | Xuất hiện `.cuda()` hardcode trực tiếp trong class module. |
+| **Memory Leak Prevention** | Khi tính toán và ghi log metrics/loss, bắt buộc dùng `loss.item()` hoặc `.detach()` để cắt đứt computation graph. | Biến loss PyTorch bị append nguyên vẹn vào danh sách lưu trữ qua từng epoch. |
+| **Numerical Stability** | Phải cộng thêm hằng số ε = 1e-7 vào mẫu số trước khi chia, tính log hoặc sqrt để chống văng NaN/Inf. | Biểu thức `a / b` mà `b` có thể bằng 0 không có epsilon hoặc clip. |
 
-> [!NOTE]
-> The finding status tracks whether **that specific finding** has been addressed, independent of whether the broader audit or milestone is complete.
+---
+
+## Các Dấu hiệu Đỏ (Red Flags) Cần Reject Ngay Lập Tức
+1. Code sinh ra có chứa `import` các thư viện lạ không có trong dự án.
+2. Có các hàm `print()` đặt rải rác để debug thay vì dùng logger.
+3. Code dài hàng trăm dòng trong một hàm duy nhất (Monolithic Function).
+4. Tự ý thay đổi cấu trúc thư mục hoặc tạo file ngoài danh mục đã duyệt.
+5. Vòng lặp duyệt pixel bằng Python thuần chạy quá chậm.
+6. Sử dụng `try-except pass` để nuốt lỗi runtime thay vì xử lý tận gốc theo [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md).

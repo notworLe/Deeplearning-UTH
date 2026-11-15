@@ -14,4 +14,4 @@
    * Visualize loss.
    * Display predicted vs actual images.
 4. **Deliver:** Python code, brief report, loss graphs, image displays.
-5. **Use:** PyTorch docs/tutorials.
+5. **Use:** PyTorch docs/tutorials.z

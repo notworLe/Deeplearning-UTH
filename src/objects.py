@@ -7,7 +7,7 @@ import seaborn as sns
 plt.style.use("ggplot")
 
 import src.config as config
-from src import logs
+from src import consoles
 
 
 class MyMetric:
@@ -61,8 +61,8 @@ class MyMetric:
         return f1_score(self.list_actual, self.list_prediction, *args, **kwargs)
 
     def show_metric(self, addition: str = "", bar=None):
-        logs.print_log("Average loss", f"{self.average_loss:.4f}")
-        logs.print_log("Average accuracy", f"{self.accuracy:.4f}")
+        consoles.print_log("Average loss", f"{self.average_loss:.4f}")
+        consoles.print_log("Average accuracy", f"{self.accuracy:.4f}")
 
 
     def show_confusion_tensorboard(self, writer, classes, i_epoch):
@@ -96,7 +96,7 @@ class AIConfigration:
         A class helps you re-declare the global configration training sripts
         """
         for key, value in kwargs.items():
-            logs.key = value
+            consoles.key = value
 
 
 if __name__ == '__main__':

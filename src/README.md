@@ -155,7 +155,6 @@ from src.visualize import plot_classification_metrics, _finish
 
 # 1. Khởi tạo môi trường & khóa ngẫu nhiên
 log.log_creation()
-utility.set_seed()
 
 # 2. Chuẩn bị dữ liệu & DataLoaders
 train_ds, test_ds = load_raw_dataset(

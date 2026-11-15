@@ -1,7 +1,8 @@
 import torchvision.transforms as transform
 import torch
 from pathlib import Path
-
+import random
+import numpy as np
 # Path
 ROOT_PATH = Path(__file__).parent.parent.resolve()
 DATA_PATH = ROOT_PATH / "data"
@@ -17,10 +18,6 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Weights
 SAVE_FASHION_CNN_WEIGHT = ROOT_PATH / "weights" / "FASHION_MNIST_CNN_temp.pt"
 SAVE_CIFAR_RESNET_WEIGHT = ROOT_PATH / "weights" / "CIFAR_RESNET50.pt"
-
-
-
-
 
 
 
@@ -123,3 +120,20 @@ MAX_LENGTH = 20
 
 LIST_CONFIG = [WOKER, BATCH_SIZE, LR, EPOCH, DEVICE, MEAN, STD]
 LOG_PEAR_BATCH = 10
+
+
+def set_seed(seed: int = SEED):
+    """
+    Seed tất cả nguồn ngẫu nhiên.
+    WHY: Python random, NumPy, và PyTorch có RNG riêng biệt —
+         phải seed cả ba để kết quả reproducible.
+    """
+
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+
+# Function creation
+set_seed()
