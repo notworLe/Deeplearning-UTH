@@ -16,6 +16,7 @@ related_docs:
   - ../README.md
   - LOG_AI_THINKING.md
   - LOG_ERROR.md
+  - LOG_VIBE_SCRIPTS.md
 tags: [log, readme, governance]
 ---
 
@@ -27,16 +28,17 @@ Thư mục này lưu lại **bộ nhớ dự án** — các quyết định và 
 
 ## Nội dung
 
-| File                                         | Mô tả | Ai ghi |
-| :------------------------------------------- | :--- | :--- |
-| [`LOG_AI_THINKING.md`](LOG_AI_THINKING.md)   | **Mental Model & Handoff**: Luồng suy nghĩ của AI, quyết định kỹ thuật, bẫy ngầm và ngữ cảnh bàn giao cho AI Agent kế nhiệm | AI Agent |
-| [`LOG_ERROR.md`](LOG_ERROR.md)               | **Sự cố & Bài học sửa lỗi**: Ghi lại các lỗi build/runtime nghiêm trọng và cách giải quyết triệt để | AI Agent |
+| File                                           | Mô tả | Ai ghi |
+| :--------------------------------------------- | :--- | :--- |
+| [`LOG_AI_THINKING.md`](LOG_AI_THINKING.md)     | **Mental Model & Handoff**: Luồng suy nghĩ của AI, quyết định kỹ thuật, bẫy ngầm và ngữ cảnh bàn giao cho AI Agent kế nhiệm | AI Agent |
+| [`LOG_ERROR.md`](LOG_ERROR.md)                 | **Sự cố & Bài học sửa lỗi**: Ghi lại các lỗi build/runtime nghiêm trọng và cách giải quyết triệt để | AI Agent |
+| [`LOG_VIBE_SCRIPTS.md`](LOG_VIBE_SCRIPTS.md)   | **Vibe Scripts & Cải tiến**: Đăng ký các script AI viết trong `src/vibe_scripts/` và chức năng cải thiện theo yêu cầu Kỹ sư | AI Agent |
 
 ---
 
 ## Quy tắc ghi log
 
-Xem chi tiết tại [`LOG_AI_THINKING.md`](LOG_AI_THINKING.md) và [`LOG_ERROR.md`](LOG_ERROR.md). Tóm tắt:
+Xem chi tiết tại [`LOG_AI_THINKING.md`](LOG_AI_THINKING.md), [`LOG_ERROR.md`](LOG_ERROR.md) và [`LOG_VIBE_SCRIPTS.md`](LOG_VIBE_SCRIPTS.md). Tóm tắt:
 
 **Ghi khi quyết định thỏa ít nhất một điều:**
 - Khó đảo ngược (xóa file, đổi schema, đổi cấu trúc thư mục)

@@ -64,5 +64,4 @@ flowchart TD
 ```
 
 ## Save plans
-Agent sau khi lên plans, phải lưu vào `ROOT/plans/<name_plan>/`. Thông báo cho kỹ sư
-với trạng thái theo chuẩn [`PROGRESS_TRACKING.md`](PROGRESS_TRACKING.md).
+Agent sau khi lên plans, phải lưu vào `ROOT/prompts/<folder>/plans/README.md` (ví dụ `ROOT/prompts/0001_lab1/plans/README.md`). Thông báo cho kỹ sư với trạng thái theo chuẩn [`PROGRESS_TRACKING.md`](PROGRESS_TRACKING.md).

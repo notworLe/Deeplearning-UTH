@@ -98,7 +98,7 @@ Xin mời Kỹ sư đưa ra bài toán DEFINE/DESIGN hoặc chỉ định Task c
 
 ## 4. Danh mục Quy trình Kỹ thuật Hoàn chỉnh (Workflow Directory)
 
-Hệ thống bao gồm 15 tài liệu quy trình chuyên sâu:
+Hệ thống bao gồm 16 tài liệu quy trình chuyên sâu:
 
 | File Quy trình                                           | Trụ cột Nghiệp vụ        | Mục đích & Trọng tâm Kỹ thuật                                                                                                                                 |
 | :------------------------------------------------------- | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -117,6 +117,7 @@ Hệ thống bao gồm 15 tài liệu quy trình chuyên sâu:
 | [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)               | **Xử lý Sự cố & RCA**    | Quy trình phân tích nguyên nhân gốc rễ 5 bước (RCA) và cẩm nang xử lý 6 sự cố kinh điển (OOM, NaN, Shape, Deadlock, BGR/RGB, Leakage).                        |
 | [`logs/LOG_AI_THINKING.md`](logs/LOG_AI_THINKING.md)     | **Nhật ký Tư duy**       | Quy chuẩn ghi lịch sử suy nghĩ, quyết định kỹ thuật và bàn giao ngữ cảnh tại `logs/thinking/`.                                                                |
 | [`logs/LOG_ERROR.md`](logs/LOG_ERROR.md)                 | **Nhật ký Sự cố**        | Quy chuẩn tra cứu và ghi nhận lỗi phát sinh tại `logs/errors/` (tránh thử sai lặp lại).                                                                       |
+| [`logs/LOG_VIBE_SCRIPTS.md`](logs/LOG_VIBE_SCRIPTS.md)   | **Nhật ký Vibe Scripts** | Quy chuẩn đăng ký các script AI tự viết trong `src/vibe_scripts/` và tính năng cải thiện tại `logs/vibe_scripts/`.                                            |
 
 ---
 

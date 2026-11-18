@@ -34,10 +34,9 @@ AI không được tự ý tạo thêm thư mục gốc mới ngoài danh mục 
 ├── requirements/     # CHỈ chứa danh sách dependencies theo môi trường .txt
 ├── scripts/          # CHỈ chứa shell scripts tự động hóa .sh
 ├── src/              # CHỈ chứa mã nguồn Python chính thức của package
-└── tests/            # CHỈ chứa unit tests và fixtures phục vụ pytest
-└── plans/
-└── prompts/
-└── logs/
+├── tests/            # CHỈ chứa unit tests và fixtures phục vụ pytest
+├── prompts/          # CHỈ chứa prompt (prompt.md) và kế hoạch con (plans/)
+└── logs/             # CHỈ chứa nhật ký tư duy và sự cố
 
 ```
 

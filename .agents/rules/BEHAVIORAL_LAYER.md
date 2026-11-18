@@ -4,7 +4,7 @@ Toàn bộ hành vi AI được điều khiển qua các file Markdown có cấu
 
 ---
 ## Prompt location
-Các prompt điều khiến lưu tại ROOT/prompts/000x_<short_desc>.md
+Các prompt điều khiển lưu tại `ROOT/prompts/000x_<short_desc>/prompt.md`, kèm thư mục kế hoạch con `ROOT/prompts/000x_<short_desc>/plans/README.md`.
 
 
 ## Cấu trúc Chuẩn của một File Hành vi (Behavioral Markdown Schema)
@@ -19,6 +19,9 @@ Input:       [Dữ liệu đầu vào: kiểu dữ liệu, shapes, đường d�
 Output:      [Dữ liệu đầu ra: kiểu dữ liệu, artifacts, vị trí lưu]
 How to do:   [Quy trình từng bước thực hiện (Workflow)]
 Examples:    [Mẫu input/output hoặc lệnh gọi minh họa]
+Reference: 
+- ROOT/.agents/rules/AI_FIRST_LIFECYCLE.md
+- ROOT/.agents/rules/PLANNING.md
 ```
 
 ---

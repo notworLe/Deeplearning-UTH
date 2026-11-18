@@ -85,8 +85,15 @@ Trước khi chuyển từ giai đoạn này sang giai đoạn tiếp theo, hệ
 4. **Gate 4 (Test Gate)**: Đã pass cả Smoke Test và Normal Test chưa?
 5. **Gate 5 (Document & Delivery Gate)**:
    - **Báo cáo chuyên sâu (`docs/`)**: Đã có đủ cặp tệp Markdown báo cáo và HTML trực quan tương tác, tích hợp đầy đủ Sơ đồ Luồng toàn diện và Mục Tài liệu Tham khảo (References) 4 nhóm chuẩn chưa?
-   - **Jupyter Notebook (`notebooks/**/*.ipynb`)**: Đã tinh gọn theo chuẩn (Cell 0: Mục tiêu, Cell 1: Bảng Roadmap 4 cột kèm Quick Links tới các tài liệu liên quan), tuyệt đối KHÔNG chứa sơ đồ workflow diagram hay references học thuật chưa?
+   - **Jupyter Notebook (`notebooks/**/\*.ipynb`)\*\*: Đã tinh gọn theo chuẩn (Cell 0: Mục tiêu, Cell 1: Bảng Roadmap 4 cột kèm Quick Links tới các tài liệu liên quan), tuyệt đối KHÔNG chứa sơ đồ workflow diagram hay references học thuật chưa?
    - **Bảo mật & Điều hướng (`Ctrl + Click`)**: 100% liên kết nội bộ là đường dẫn tương đối (`../../src/...`), tuyệt đối KHÔNG chứa đường dẫn tuyệt đối chứa thông tin người dùng (`file:///home/...`) chưa?
+
+## Special requirement
+
+sau khi Agent nạp context, vai trò đang đợi prompt.  
+sau khi kỹ sư đưa các prompt, docs sơ khảo.  
+Agetn kiểm tra logic prompt, hiểu vấn đề thì "hiểu", không hiểu thì hỏi
+phải trả lời trước khi làm
 
 ## Index
 
@@ -107,3 +114,4 @@ Trước khi chuyển từ giai đoạn này sang giai đoạn tiếp theo, hệ
 | [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md)               | Xử lý sự cố (RCA)         | Phân tích nguyên nhân gốc rễ 5 bước khi gặp lỗi        |
 | [`logs/LOG_AI_THINKING.md`](logs/LOG_AI_THINKING.md)     | Nhật ký tư duy            | Lưu vết suy nghĩ & bàn giao tại `logs/thinking/`       |
 | [`logs/LOG_ERROR.md`](logs/LOG_ERROR.md)                 | Nhật ký lỗi               | Tra cứu và ghi nhận sự cố tại `logs/errors/`           |
+| [`logs/LOG_VIBE_SCRIPTS.md`](logs/LOG_VIBE_SCRIPTS.md)   | Nhật ký vibe scripts      | Đăng ký script AI & cải tiến tại `logs/vibe_scripts/`  |
