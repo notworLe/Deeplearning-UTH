@@ -27,31 +27,6 @@ Generated Code từ AI Agent
 
 ---
 
-## Chi tiết 3 Tầng Kiểm toán
-
-### Tầng 1: Audit Kiến trúc (Architecture Audit)
-- Code có đặt đúng thư mục được chỉ định trong `src/` không?
-- Có bị vi phạm nguyên tắc phân tách trách nhiệm không? (Ví dụ: DataLoader không được gọi logic tính loss).
-- Có bị circular import giữa các module trong `src/` không?
-- Các tham số có được tách ra file `configs/` thay vì viết cứng trong code không?
-
-### Tầng 2: Audit Kế hoạch (Detailed Plan Audit)
-- Code có giải quyết đúng mục tiêu được đề ra trong `agents/TASK_DESCRIPTION.md` không?
-- **Kiểm tra tính trung thực (Faithfulness Check)**: AI có tự ý "sáng tạo" thêm các class, hàm hoặc tham số ngoài phạm vi mô tả không? Nếu có, phải yêu cầu cắt bỏ ngay.
-- Các trường hợp biên (Edge cases, zero division, missing keys) đã được xử lý như cam kết trong plan chưa?
-
-### Tầng 3: Audit Quy chuẩn Mã nguồn (Convention Audit)
-- Tên hàm, biến, class có tuân thủ đúng quy định trong `agents/AI_REFERENCE.md` không?
-- Có đầy đủ Type Hints theo chuẩn PEP 484 cho toàn bộ arguments và return type không?
-- Có Google-style docstring ghi rõ shapes của tensor `[B, C, H, W]` không?
-- Chạy lệnh kiểm tra linter:
-  ```bash
-  make lint
-  ```
-  Nếu có bất kỳ cảnh báo Ruff hoặc Black nào, code chưa đạt chuẩn Audit.
-
----
-
 ## 4. Bộ Tiêu chí Audit Chuyên sâu cho Computer Vision & Deep Learning
 
 Khi kiểm toán code trong `src/`, kỹ sư và AI phải rà soát 5 bất biến kỹ thuật:

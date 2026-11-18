@@ -4,7 +4,7 @@ Hệ thống bắt buộc chia tách thành các pipeline độc lập. Không n
 
 ---
 
-## 5 Pipeline Tiêu chuẩn trong Computer Vision
+## 5 Pipeline Tiêu chuẩn trong deeplearning
 
 ```text
 [ Data Preparation ] ──► [ Model Definition ] ──► [ Training Loop ] ──► [ Evaluation & Benchmark ]
@@ -13,10 +13,9 @@ Hệ thống bắt buộc chia tách thành các pipeline độc lập. Không n
                                                 [ Inference & Deployment ]
 ```
 
-Mỗi pipeline phải có **3 yếu tố độc lập**:
-1. **Prompt riêng**: Chỉ tập trung vào phạm vi kỹ thuật của pipeline đó.
-2. **Tài liệu riêng**: Đặc tả input, output và cấu hình YAML riêng trong `configs/`.
-3. **Checklist riêng**: Bộ tiêu chí kiểm thử độc lập trước khi tích hợp.
+Mỗi pipeline phải:
+1. Mô tả metadata pipeline gồm define, design, Input, output, target, giải pháp, problem, hạn chế 
+2. **Checklist riêng**: Bộ tiêu chí kiểm thử độc lập trước khi tích hợp.
 
 ---
 
@@ -58,3 +57,4 @@ Mỗi pipeline phải có **3 yếu tố độc lập**:
 - **Checklist độc lập**:
   - [ ] Đo lường độ trễ (latency ms/frame) và FPS.
   - [ ] Tối ưu hóa tiền xử lý và hậu xử lý (NMS, thresholding).
+

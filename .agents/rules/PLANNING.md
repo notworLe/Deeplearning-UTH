@@ -35,7 +35,7 @@ flowchart TD
 
 ---
 
-## Mẫu Task Description Chuẩn (`TASK_TEMPLATE.md`)
+## Mẫu Task Description Chuẩn 
 
 ```markdown
 # Task: [Tên Task Cụ Thể]
@@ -62,3 +62,7 @@ flowchart TD
 - [ ] Test cases pass 100% với `pytest`
 - [ ] Không có magic numbers hardcode
 ```
+
+## Save plans
+Agent sau khi lên plans, phải lưu vào `ROOT/plans/<name_plan>/`. Thông báo cho kỹ sư
+với trạng thái theo chuẩn [`PROGRESS_TRACKING.md`](PROGRESS_TRACKING.md).

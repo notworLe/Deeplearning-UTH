@@ -14,13 +14,13 @@ Mọi tác vụ phải được gắn trạng thái rõ ràng theo chuẩn Kanba
                         └──────► [ Cancelled ]
 ```
 
-| Trạng thái | Định nghĩa | Ý nghĩa đối với AI Agent |
-| :--- | :--- | :--- |
-| **`To Do`** | Task đã được lên kế hoạch và có Detailed Plan, nhưng chưa bắt đầu code. | AI chỉ đọc để nắm bức tranh tổng thể, KHÔNG tự ý code trước khi được chỉ định. |
-| **`In Progress`** | Task đang được AI và Kỹ sư trực tiếp triển khai tại thời điểm hiện tại. | Trọng tâm duy nhất của Agent trong phiên làm việc hiện thời. |
-| **`Done`** | Task đã vượt qua toàn bộ Codebase Audit, Smoke Test và Normal Test. | Mã nguồn đã đóng băng, AI KHÔNG được sửa đổi trừ khi có yêu cầu refactor. |
-| **`On Hold`** | Task bị tạm dừng do thiếu dữ liệu, thiếu phần cứng hoặc chờ kết quả từ task khác. | AI ghi nhận nguyên nhân nghẽn (Blocker) và chuyển sang task khả thi khác. |
-| **`Cancelled`** | Task bị hủy bỏ do thay đổi kiến trúc hoặc không còn phù hợp. | AI bỏ qua hoàn toàn, không tạo code liên quan. |
+| Trạng thái        | Định nghĩa                                                                        | Ý nghĩa đối với AI Agent                                                       |
+|:------------------|:----------------------------------------------------------------------------------|:-------------------------------------------------------------------------------|
+| **`To Do`**       | Task đã được lên kế hoạch và có Detailed Plan, nhưng chưa bắt đầu code.           | AI chỉ đọc để nắm bức tranh tổng thể, KHÔNG tự ý code trước khi được chỉ định. |
+| **`In Progress`** | Task đang được AI và Kỹ sư trực tiếp triển khai tại thời điểm hiện tại.           | Trọng tâm duy nhất của Agent trong phiên làm việc hiện thời.                   |
+| **`Done`**        | Task đã vượt qua toàn bộ Codebase Audit, Smoke Test và Normal Test.               | Mã nguồn đã đóng băng, AI KHÔNG được sửa đổi trừ khi có yêu cầu refactor.      |
+| **`On Hold`**     | Task bị tạm dừng do thiếu dữ liệu, thiếu phần cứng hoặc chờ kết quả từ task khác. | AI ghi nhận nguyên nhân nghẽn (Blocker) và chuyển sang task khả thi khác.      |
+| **`Cancelled`**   | Task bị hủy bỏ do thay đổi kiến trúc hoặc không còn phù hợp.                      | AI bỏ qua hoàn toàn, không tạo code liên quan.                                 |
 
 ---
 
@@ -32,7 +32,7 @@ Duy trì một bảng Markdown ngắn gọn trong quá trình làm việc để 
 # Current Sprint / Lab Progress
 
 | Task ID | Tên công việc | Phụ trách | Trạng thái | Blockers / Ghi chú |
-| :---: | :--- | :--- | :---: | :--- |
+| :---: | :--- | :--- | :--- | :--- |
 | **T-01** | Tạo cấu trúc dataset & checksum | Engineer | `Done` | Hoàn thành |
 | **T-02** | Xây dựng pipeline transforms | AI Agent | `Done` | Đã pass unit test |
 | **T-03** | Triển khai DataModule nạp batch | AI Agent | `In Progress` | Đang viết test cho batch shape |

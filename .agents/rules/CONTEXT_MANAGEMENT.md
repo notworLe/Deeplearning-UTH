@@ -2,9 +2,7 @@
 
 Quản lý Ngữ cảnh là nền tảng quyết định độ chính xác của AI Agent. Đảm bảo LLM luôn làm việc đúng phạm vi, không đoán mò và không tạo thông tin giả.
 
----
-
-## 4 Trụ cột Quản lý Ngữ cảnh
+##  4 Trụ cột Quản lý Ngữ cảnh
 
 ```mermaid
 graph TD
@@ -36,12 +34,15 @@ graph TD
 
 ### 4. Knowledge Store (Kho Tri thức Tham chiếu)
 - **Nguyên tắc**: Xây dựng một tập hợp tài liệu chuẩn hóa để AI tra cứu thay vì phải "đoán":
-  - `agents/AI_REFERENCE.md`: Quy ước đặt tên, cấu trúc thư mục.
+  - `.agents/rules/AI_REFERENCE.md`: Quy ước đặt tên, cấu trúc thư mục.
   - `configs/`: Định dạng các file YAML chuẩn.
   - `docs/`: Đặc tả yêu cầu kỹ thuật của bài lab.
 - **Cơ chế hoạt động**: Khi nhận task, AI đọc Knowledge Store trước, sau đó mới tiến hành sinh mã.
 
 ---
+
+## Agents
+Agent nhắc báo kỹ nếu phạm mục 1 Context Relevance hay 2. Faithfulness
 
 ## Checklist Thẩm định Ngữ cảnh Trước khi Prompts
 

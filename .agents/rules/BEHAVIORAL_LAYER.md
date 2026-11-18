@@ -3,6 +3,9 @@
 Toàn bộ hành vi AI được điều khiển qua các file Markdown có cấu trúc đồng nhất thay vì câu lệnh tùy hứng.
 
 ---
+## Prompt location
+Các prompt điều khiến lưu tại ROOT/prompts/000x_<short_desc>.md
+
 
 ## Cấu trúc Chuẩn của một File Hành vi (Behavioral Markdown Schema)
 

@@ -49,7 +49,7 @@ make test
 ## 3. Quy trình Đối chiếu Unit Test với Detail Plan
 
 Sau khi hoàn thành một module:
-1. **Viết Unit Test bám sát Detailed Plan**: Mỗi bước trong kế hoạch ở `agents/TASK_DESCRIPTION.md` phải có ít nhất 1 test case tương ứng.
+1. **Viết Unit Test bám sát Detailed Plan**: Mỗi bước trong kế hoạch ở [`PLANNING.md`](PLANNING.md) phải có ít nhất 1 test case tương ứng.
 2. **Chạy Unit Test**: Chạy `pytest` trên file test vừa viết.
 3. **Đối chiếu Tiêu chuẩn Nghiệm thu**:
    - Nếu test fail: Kích hoạt quy trình phân tích nguyên nhân gốc rễ tại [`TROUBLESHOOTING.md`](TROUBLESHOOTING.md) để sửa code tận gốc; tuyệt đối không đoán mò hay dùng try-except che giấu lỗi.

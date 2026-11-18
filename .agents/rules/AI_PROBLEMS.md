@@ -9,4 +9,5 @@ AI: "Train 55k, validation 5k (tách từ train bằng seed cố định), test 
 Kiểm tra validation vẫn cân bằng lớp (có thể dùng stratified split)."
 Require: Bỏ cái chú thích (tách từ train bằng seed cố định). nó thừa, còn như "(có thể dùng stratified split)" thì được giữ.
 
-
+## 0003 
+Nói ngắn gọn thôi.
