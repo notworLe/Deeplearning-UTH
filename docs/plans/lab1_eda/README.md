@@ -3,10 +3,11 @@
 Tài liệu kế hoạch theo quy định tại `.agents/rules/logs/LOG_PLANS.md`.
 
 ## 1. Mục tiêu & Phạm vi
-- **Mục tiêu**: Xây dựng lại notebook `labs/lab1/vibe/01_dataset.ipynb` bao phủ trọn vẹn từ phần **Define** đến **EDA**, tuyệt đối không thực hiện phần **Data processing** (transforms, augmentations, dataloaders).
+- **Mục tiêu**: Xây dựng lại notebook `labs/lab1/vibe/lab1.ipynb` (đổi tên từ `01_dataset.ipynb`) bao phủ trọn vẹn từ phần **Define** đến **EDA**, tuyệt đối không thực hiện phần **Data processing** (transforms, augmentations, dataloaders).
 - **Kim chỉ nam cốt lõi**: `labs/lab1/vibe/docs/REPORT.md`.
 - **Tài liệu tham chiếu phương pháp luận**: `docs/reference/ML_PIPELINE.md` (mục 2 đến 6: Data Understanding, Acquisition, Lineage & Governance, Quality Audit, Integration, và EDA 3 thấu kính).
 - **Phạm vi mã nguồn**: Kế thừa và sử dụng các module tại `ROOT/src`; các module bổ trợ riêng của AI được đặt tại `src/vibe_scripts/`. Ghi nhận lỗi của `src/` vào `docs/error/src/0001.md`.
+- **Tuân thủ quy chuẩn §3.2 Ingestion Manifest**: Sinh và kiểm toán toàn vẹn mật mã học `manifest.json` cùng các manifest ghép cặp cho từng artifact thô tại `data/FashionMNIST/raw/` (và `data/fashion/raw/`).
 
 ---
 
@@ -43,7 +44,10 @@ Tài liệu kế hoạch theo quy định tại `.agents/rules/logs/LOG_PLANS.md
   - **Dừng lại tại EDA, không thực hiện Data Processing (transforms, augmentation, dataloader)** theo đúng yêu cầu đề bài.
 
 ### Giai đoạn 3: Kiểm Thử Chạy Thực Tế (Execution & Sanity Verification)
-- Chạy toàn bộ notebook `01_dataset.ipynb` qua Jupyter client/nbconvert để bảo đảm mọi cell sinh output thực tế, biểu đồ trực quan sắc nét và không có bất kỳ ngoại lệ (zero crash).
+- Đổi tên notebook từ `01_dataset.ipynb` thành `lab1.ipynb` theo yêu cầu người dùng.
+- Khắc phục lỗi hiển thị khoảng trắng biểu đồ lớp tại `logs/plans/lab1_eda/errors/0001/` bằng cách độc lập hóa trục `sharey=False`.
+- Tích hợp kiểm toán `manifest.json` theo đúng chuẩn §3.2 ML_PIPELINE.md tại `data/FashionMNIST/raw/`.
+- Chạy toàn bộ notebook `lab1.ipynb` để bảo đảm mọi cell sinh output thực tế, biểu đồ trực quan sắc nét và không có bất kỳ ngoại lệ (zero crash).
 
 ### Giai đoạn 4: Hoàn Tất Báo Cáo Luồng Tư Duy (Thinking Log & Summary)
 - Ghi log tư duy vào `logs/thinking/` và cập nhật `logs/thinking/INDEX.md`.
