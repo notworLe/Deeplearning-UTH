@@ -4,8 +4,9 @@ Thực thi các phép tính toán hình học, kiểm toán chất lượng dữ
 Tuân thủ quy định tại .agents/rules/SRC.md và docs/reference/ML_PIPELINE.md (mục 2-6).
 """
 
-from typing import Tuple, List, Dict, Optional
+from typing import Tuple, List, Dict, Optional, Any
 import hashlib
+import json
 from pathlib import Path
 import numpy as np
 import torch
@@ -39,6 +40,103 @@ def calculate_file_sha256(file_path: Path) -> str:
         for byte_block in iter(lambda: f.read(65536), b""):
             sha256_hash.update(byte_block)
     return sha256_hash.hexdigest()
+
+
+def load_and_verify_manifest(manifest_path: Path) -> Tuple[Dict[str, Any], List[Dict[str, Any]]]:
+    """
+    Tải và xác thực toàn vẹn mã băm SHA-256 từ file manifest.json (§3.2 Data Provenance).
+    Kiểm tra từng tệp được liệt kê trong manifest với tệp thực tế trên đĩa cứng.
+    """
+    if not manifest_path.exists():
+        raise FileNotFoundError(f"Không tìm thấy manifest tại: {manifest_path}")
+
+    with open(manifest_path, "r", encoding="utf-8") as f:
+        manifest_data = json.load(f)
+
+    raw_dir = manifest_path.parent
+    results = []
+
+    for art in manifest_data.get("artifacts", []):
+        file_name = Path(art["raw_file"]).name
+        target_file = raw_dir / file_name
+        if not target_file.exists():
+            alt_file = Path("data/FashionMNIST/raw") / file_name
+            if alt_file.exists():
+                target_file = alt_file
+
+        file_exists = target_file.exists()
+        actual_sha = calculate_file_sha256(target_file) if file_exists else "FILE_NOT_FOUND"
+        expected_sha = art["sha256_checksum"]
+        is_valid = (actual_sha.lower() == expected_sha.lower())
+
+        results.append({
+            "artifact_name": art.get("dataset_name", file_name),
+            "file_name": file_name,
+            "byte_size": target_file.stat().st_size if file_exists else 0,
+            "expected_sha": expected_sha,
+            "actual_sha": actual_sha,
+            "total_records": art.get("total_records", 0),
+            "valid": is_valid
+        })
+
+    for art in manifest_data.get("extracted_artifacts", []):
+        file_name = Path(art["raw_file"]).name
+        target_file = raw_dir / file_name
+        if not target_file.exists():
+            alt_file = Path("data/FashionMNIST/raw") / file_name
+            if alt_file.exists():
+                target_file = alt_file
+
+        file_exists = target_file.exists()
+        actual_sha = calculate_file_sha256(target_file) if file_exists else "FILE_NOT_FOUND"
+        expected_sha = art["sha256_checksum"]
+        is_valid = (actual_sha.lower() == expected_sha.lower())
+
+        results.append({
+            "artifact_name": file_name,
+            "file_name": file_name,
+            "byte_size": target_file.stat().st_size if file_exists else 0,
+            "expected_sha": expected_sha,
+            "actual_sha": actual_sha,
+            "total_records": art.get("total_records", 0),
+            "valid": is_valid
+        })
+
+    return manifest_data, results
+
+
+def print_manifest_table(manifest_data: Dict[str, Any], results: List[Dict[str, Any]]) -> None:
+    """Hiển thị bảng kiểm toán Data Provenance & Ingestion Manifest (§3.2) qua Rich Table."""
+    table_meta = Table(title="DATA INGESTION MANIFEST (§3.2 PROVENANCE & GOVERNANCE)", show_header=True, header_style="bold cyan")
+    table_meta.add_column("Property", style="cyan", no_wrap=True)
+    table_meta.add_column("Specification / Value", style="white")
+
+    table_meta.add_row("Dataset Name", str(manifest_data.get("dataset_name", "N/A")))
+    table_meta.add_row("Raw Storage Path", str(manifest_data.get("raw_file", "N/A")))
+    table_meta.add_row("Source URI", str(manifest_data.get("source_uri", "N/A")))
+    table_meta.add_row("Collection Timestamp", str(manifest_data.get("collected_at", "N/A")))
+    table_meta.add_row("Total Ingested Records", f"{manifest_data.get('total_records', 0):,} samples")
+    table_meta.add_row("Collection Agent Version", str(manifest_data.get("collection_agent_version", "N/A")))
+    console.print(table_meta)
+
+    table_files = Table(title="CRYPTOGRAPHIC INTEGRITY VERIFICATION (SHA-256)", show_header=True, header_style="bold magenta")
+    table_files.add_column("Artifact File", style="magenta", no_wrap=True)
+    table_files.add_column("Size", style="white", justify="right")
+    table_files.add_column("Expected SHA-256", style="dim white")
+    table_files.add_column("Verified SHA-256", style="dim white")
+    table_files.add_column("Status", justify="center")
+
+    for r in results:
+        status_str = "[bold green][PASS][/bold green]" if r["valid"] else "[bold red][FAIL][/bold red]"
+        size_str = f"{r['byte_size'] / 1e6:.2f} MB" if r['byte_size'] > 1e5 else f"{r['byte_size'] / 1e3:.1f} KB"
+        table_files.add_row(
+            r["file_name"],
+            size_str,
+            f"{r['expected_sha'][:20]}...",
+            f"{r['actual_sha'][:20]}...",
+            status_str
+        )
+    console.print(table_files)
 
 
 def audit_six_dimensions(train_data: torch.Tensor, train_targets: torch.Tensor,

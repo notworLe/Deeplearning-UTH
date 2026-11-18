@@ -191,3 +191,15 @@ _finish(fig_cm, save_path="result/confusion_matrix.png")
 
 writer.close()
 ```
+
+# SRC Module understanding
+Module src nằm ở ROOT/src, nơi chứa các source code 
+
+## Require
+dọc D:\notworLe\Desktop\gitvanhub\Deeplearning-UTH\src 
+các modulle hàm tui thủ công viết
+
+bạn nếu thấy vấn đề thì hãy viết .md ở docs/error/src/000x.md
+viết các lỗi của src
+
+rồi agent có thể viết script của mình hoàn toàn mới, hoặc dựa vào src module. ở ROOT/src/vibe_scripts/
