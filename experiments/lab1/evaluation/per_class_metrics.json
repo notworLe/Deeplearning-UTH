@@ -1,0 +1,494 @@
+{
+  "cnn_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.8600405679513184,
+      "recall": 0.848,
+      "f1": 0.8539778449144008,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.9593810444874274,
+      "recall": 0.992,
+      "f1": 0.9754178957718781,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.8801652892561983,
+      "recall": 0.852,
+      "f1": 0.8658536585365854,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.9063444108761329,
+      "recall": 0.9,
+      "f1": 0.9031610637230306,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.8453307392996109,
+      "recall": 0.869,
+      "f1": 0.8570019723865878,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.9723046488625123,
+      "recall": 0.983,
+      "f1": 0.9776230730979613,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.7429435483870968,
+      "recall": 0.737,
+      "f1": 0.7399598393574297,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.9604060913705583,
+      "recall": 0.946,
+      "f1": 0.9531486146095718,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9858728557013118,
+      "recall": 0.977,
+      "f1": 0.9814163736815671,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.958498023715415,
+      "recall": 0.97,
+      "f1": 0.9642147117296223,
+      "support": 1000
+    }
+  ],
+  "cnn_no_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.815742397137746,
+      "recall": 0.912,
+      "f1": 0.8611898016997167,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.9959183673469387,
+      "recall": 0.976,
+      "f1": 0.9858585858585859,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.8302238805970149,
+      "recall": 0.89,
+      "f1": 0.859073359073359,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.8893166506256015,
+      "recall": 0.924,
+      "f1": 0.9063266307013241,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.8982300884955752,
+      "recall": 0.812,
+      "f1": 0.8529411764705882,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.9811133200795229,
+      "recall": 0.987,
+      "f1": 0.9840478564307079,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.8041714947856315,
+      "recall": 0.694,
+      "f1": 0.7450348899624262,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.963110667996012,
+      "recall": 0.966,
+      "f1": 0.964553170244633,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9619512195121951,
+      "recall": 0.986,
+      "f1": 0.9738271604938271,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.9757575757575757,
+      "recall": 0.966,
+      "f1": 0.9708542713567839,
+      "support": 1000
+    }
+  ],
+  "logistic_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.8031088082901554,
+      "recall": 0.62,
+      "f1": 0.6997742663656885,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.8903036238981391,
+      "recall": 0.909,
+      "f1": 0.8995546759030183,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.6103416435826408,
+      "recall": 0.661,
+      "f1": 0.6346615458473356,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.7868852459016393,
+      "recall": 0.768,
+      "f1": 0.7773279352226721,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.6407129455909943,
+      "recall": 0.683,
+      "f1": 0.6611810261374637,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.851931330472103,
+      "recall": 0.794,
+      "f1": 0.8219461697722568,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.4300666032350143,
+      "recall": 0.452,
+      "f1": 0.44076060458313016,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.8131970260223048,
+      "recall": 0.875,
+      "f1": 0.8429672447013488,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9347319347319347,
+      "recall": 0.802,
+      "f1": 0.8632938643702907,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.7759656652360515,
+      "recall": 0.904,
+      "f1": 0.8351039260969977,
+      "support": 1000
+    }
+  ],
+  "logistic_no_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.7395744680851064,
+      "recall": 0.869,
+      "f1": 0.799080459770115,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.9658976930792377,
+      "recall": 0.963,
+      "f1": 0.9644466700050075,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.7470651013874067,
+      "recall": 0.7,
+      "f1": 0.7227671657201858,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.862356621480709,
+      "recall": 0.827,
+      "f1": 0.8443083205717202,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.6701277955271565,
+      "recall": 0.839,
+      "f1": 0.7451154529307282,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.9218595450049456,
+      "recall": 0.932,
+      "f1": 0.9269020387866733,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.6745213549337261,
+      "recall": 0.458,
+      "f1": 0.5455628350208458,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.9114173228346457,
+      "recall": 0.926,
+      "f1": 0.9186507936507936,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9442190669371197,
+      "recall": 0.931,
+      "f1": 0.9375629405840886,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.9483805668016194,
+      "recall": 0.937,
+      "f1": 0.9426559356136821,
+      "support": 1000
+    }
+  ],
+  "mlp_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.7878787878787878,
+      "recall": 0.832,
+      "f1": 0.8093385214007782,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.9817258883248731,
+      "recall": 0.967,
+      "f1": 0.9743073047858942,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.7524752475247525,
+      "recall": 0.76,
+      "f1": 0.7562189054726368,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.8786359077231695,
+      "recall": 0.876,
+      "f1": 0.8773159739609414,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.7476547842401501,
+      "recall": 0.797,
+      "f1": 0.771539206195547,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.9723145071982281,
+      "recall": 0.878,
+      "f1": 0.9227535470310037,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.6846330275229358,
+      "recall": 0.597,
+      "f1": 0.6378205128205128,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.8693284936479129,
+      "recall": 0.958,
+      "f1": 0.9115128449096099,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9495548961424333,
+      "recall": 0.96,
+      "f1": 0.9547488811536549,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.938877755511022,
+      "recall": 0.937,
+      "f1": 0.9379379379379379,
+      "support": 1000
+    }
+  ],
+  "mlp_no_aug": [
+    {
+      "class_id": 0,
+      "label": "T-shirt/top",
+      "precision": 0.8077276908923643,
+      "recall": 0.878,
+      "f1": 0.8413991375179684,
+      "support": 1000
+    },
+    {
+      "class_id": 1,
+      "label": "Trouser",
+      "precision": 0.9948559670781894,
+      "recall": 0.967,
+      "f1": 0.9807302231237323,
+      "support": 1000
+    },
+    {
+      "class_id": 2,
+      "label": "Pullover",
+      "precision": 0.8342665173572228,
+      "recall": 0.745,
+      "f1": 0.7871104067617538,
+      "support": 1000
+    },
+    {
+      "class_id": 3,
+      "label": "Dress",
+      "precision": 0.8746327130264446,
+      "recall": 0.893,
+      "f1": 0.8837209302325582,
+      "support": 1000
+    },
+    {
+      "class_id": 4,
+      "label": "Coat",
+      "precision": 0.7601769911504425,
+      "recall": 0.859,
+      "f1": 0.8065727699530516,
+      "support": 1000
+    },
+    {
+      "class_id": 5,
+      "label": "Sandal",
+      "precision": 0.9752577319587629,
+      "recall": 0.946,
+      "f1": 0.9604060913705583,
+      "support": 1000
+    },
+    {
+      "class_id": 6,
+      "label": "Shirt",
+      "precision": 0.7342888643880926,
+      "recall": 0.666,
+      "f1": 0.6984792868379653,
+      "support": 1000
+    },
+    {
+      "class_id": 7,
+      "label": "Sneaker",
+      "precision": 0.9307025986525506,
+      "recall": 0.967,
+      "f1": 0.9485041687101521,
+      "support": 1000
+    },
+    {
+      "class_id": 8,
+      "label": "Bag",
+      "precision": 0.9715157680569685,
+      "recall": 0.955,
+      "f1": 0.9631870902672718,
+      "support": 1000
+    },
+    {
+      "class_id": 9,
+      "label": "Ankle boot",
+      "precision": 0.9559118236472945,
+      "recall": 0.954,
+      "f1": 0.954954954954955,
+      "support": 1000
+    }
+  ]
+}

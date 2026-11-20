@@ -1,153 +1,81 @@
 ---
-title: "Pipeline 02: Model Architecture — Lab 1 (Fashion-MNIST)"
-doc_type: pipeline-spec
+title: "Pipe 02: Model Architecture — Phân Tích Đặc Trưng (Lab 1)"
+doc_type: pipeline-analysis
 author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-18
-updated: 2026-11-18
+updated: 2026-11-19
 last_updated_by: Antigravity
-version: 0.1.0
+version: 0.3.0
 status: draft
 reviewers: []
 related_docs:
-  - ../README.md
-  - ./README.md
-  - ./01_DATA_PREPARATION.md
-  - ./03_TRAINING.md
   - ../REPORT.md
-  - ../../../../../.agents/temp/06_PIPELINE_SEPARATION.md
-  - ../../../../../.agents/rules/BEHAVIORAL_LAYER.md
-tags: [lab1, pipeline-02, model-architecture, logistic, mlp, cnn]
+  - ./README.md
+  - ../../config.py
+  - ../../../../../.agents/rules/AI_FIRST_LIFECYCLE.md
+  - ../../../../../src/vibe_scripts/lab1/models.py
+tags: [lab1, pipe-02, model-architecture, feature-analysis]
 ---
 
-# Pipeline 02: Model Architecture (Định Nghĩa Kiến Trúc Mô Hình)
+# Pipe 02: Model Architecture (Kiến Trúc & Trích Xuất Đặc Trưng)
 
-Tài liệu đặc tả độc lập cho **Pipeline 2** trong hệ thống phân tách 5 pipeline của Lab 1, bám sát mục `Model selection` và `Baseline` tại [`labs/lab1/vibe/docs/REPORT.md`](../REPORT.md).
-
----
-
-## 1. Tài Liệu Đặc Tả Kỹ Thuật
-
-### 1.1. Phạm vi & Ranh giới trách nhiệm
-- **Trách nhiệm triển khai**:
-  - Định nghĩa độc lập 3 lớp mô hình `nn.Module` tuân thủ chính xác sơ đồ tầng và số lượng tham số trong `REPORT.md`: `LogisticClassifier`, `MLPClassifier`, `CNNClassifier`.
-  - Cung cấp factory function `build_model(model_name: str, num_classes: int = 10)` và hàm đếm tham số `count_parameters(model)`.
-- **Nguyên tắc tách rời tuyệt đối (`PIPELINE_SEPARATION.md`)**:
-  - Bên trong class Model **tuyệt đối không chứa** `CrossEntropyLoss`, `Adam`, `Softmax`, vòng lặp huấn luyện hay logic nạp dữ liệu.
-  - Mọi mô hình đều nhận chung tensor `[B, 1, 28, 28]` và trả về **raw logits `[B, 10]`**.
-
-### 1.2. Đối Chiếu Kiến Trúc & Kiểm Chứng Số Tham Số
-
-Bảng dưới đây đối chiếu chính xác từng tầng theo `labs/lab1/vibe/docs/REPORT.md`:
-
-| Mô hình | Vai trò & Lý do lựa chọn | Luồng biến đổi Tensor (`forward`) | Tổng tham số |
-| :--- | :--- | :--- | :---: |
-| **`LogisticClassifier`** | Mô hình tuyến tính đơn giản nhất, làm mốc sàn (baseline) để đo mức cải thiện của các kiến trúc sâu hơn | `[B, 1, 28, 28]` → `Flatten` `[B, 784]` → `Linear(784 → 10)` `[B, 10]` | **7.850** |
-| **`MLPClassifier`** | Bổ sung 2 tầng ẩn phi tuyến ReLU vượt giới hạn tuyến tính của Logistic; vẫn flatten ảnh nên mất cấu trúc không gian 2D | `[B, 1, 28, 28]` → `Flatten` `[B, 784]` → `Linear(784 → 128)` → `ReLU` → `Linear(128 → 64)` → `ReLU` → `Linear(64 → 10)` `[B, 10]` | **109.386** |
-| **`CNNClassifier`** | Kiến trúc tích chập bắt buộc theo bài học; khai thác cấu trúc không gian 2D cục bộ với số tham số cùng bậc MLP | `[B, 1, 28, 28]` → `Conv2d(1→16, 3×3, pad=1)` → `ReLU` → `MaxPool2d(2)` `[B, 16, 14, 14]` → `Conv2d(16→32, 3×3, pad=1)` → `ReLU` → `MaxPool2d(2)` `[B, 32, 7, 7]` → `Flatten` `[B, 1568]` → `Linear(1568 → 64)` → `ReLU` → `Linear(64 → 10)` `[B, 10]` | **105.866** |
-
-#### Kiểm chứng giải tích số tham số từng tầng
-1. **`LogisticClassifier`**:
-   - `Linear(784, 10)`: $784 \times 10 + 10 = \mathbf{7.850}$.
-2. **`MLPClassifier`**:
-   - `Linear(784, 128)`: $784 \times 128 + 128 = 100.480$.
-   - `Linear(128, 64)`: $128 \times 64 + 64 = 8.256$.
-   - `Linear(64, 10)`: $64 \times 10 + 10 = 650$.
-   - Tổng: $100.480 + 8.256 + 650 = \mathbf{109.386}$.
-3. **`CNNClassifier`**:
-   - `Conv2d(1, 16, kernel_size=3, padding=1)`: $1 \times 16 \times 3 \times 3 + 16 = 160$.
-   - `Conv2d(16, 32, kernel_size=3, padding=1)`: $16 \times 32 \times 3 \times 3 + 32 = 4.640$.
-   - `Linear(1568, 64)`: $(32 \times 7 \times 7) \times 64 + 64 = 1568 \times 64 + 64 = 100.416$.
-   - `Linear(64, 10)`: $64 \times 10 + 10 = 650$.
-   - Tổng: $160 + 4.640 + 100.416 + 650 = \mathbf{105.866}$.
-
-> **Ràng buộc công bằng tham số**: Tỷ lệ tham số giữa `CNN` và `MLP` là $\frac{105.866}{109.386} \approx 0.968$ (cùng bậc độ phức tạp ~105k–109k).
-
-### 1.3. Hợp đồng Đầu vào / Đầu ra (Input / Output Contracts)
-- **Input của `forward(x)`**: `x: torch.Tensor` có shape `[B, 1, 28, 28]`, dtype `torch.float32`.
-  - Fail-Fast validation: kiểm tra `x.ndim == 4` và `tuple(x.shape[1:]) == (1, 28, 28)`; ném `ValueError` rõ ràng nếu lệch shape.
-- **Output của `forward(x)`**: `logits: torch.Tensor` có shape `[B, 10]`, dtype `torch.float32` trên cùng `device` với `x`.
-
-### 1.4. Cấu Hình Chuẩn Hóa (YAML Spec)
-
-```yaml
-model:
-  num_classes: 10
-  input_shape: [1, 28, 28]
-  candidates:
-    logistic:
-      type: LogisticClassifier
-      expected_params: 7850
-    mlp:
-      type: MLPClassifier
-      hidden_dims: [128, 64]
-      expected_params: 109386
-    cnn:
-      type: CNNClassifier
-      conv_channels: [16, 32]
-      kernel_size: 3
-      padding: 1
-      fc_dim: 64
-      expected_params: 105866
-```
-
-### 1.5. Ánh Xạ Thư Mục & Phân Biệt Với Mã Nguồn Cũ
-- **Mã nguồn dự kiến (`SRC.md`)**: `src/vibe_scripts/lab1/models.py`.
-- **Kiểm thử dự kiến**: `test/test_lab1_models.py`.
-- **Lưu ý tránh nhầm lẫn**:
-  - `src/model.py` hiện có lớp `FashionCNN` (32→64→128 + `BatchNorm2d` + `AdaptiveAvgPool2d` + `Dropout(0.5)`) và `labs/lab1/vibe/train.py` cũ có `BaselineMLP` (256→128 + `Dropout`). Hai kiến trúc này **KHÔNG khớp** đặc tả số tầng và số tham số trong `REPORT.md`.
-  - Pipeline 02 giữ nguyên các file cũ và xây mới hoàn toàn 3 lớp đúng chuẩn `REPORT.md` tại `src/vibe_scripts/lab1/models.py`.
+Ánh xạ **Giai đoạn 4 (Model Architecture)** trong [`AI_FIRST_LIFECYCLE.md`](../../../../../.agents/rules/AI_FIRST_LIFECYCLE.md), triển khai tại [`src/vibe_scripts/lab1/models.py`](../../../../../src/vibe_scripts/lab1/models.py).
 
 ---
 
-## 2. Prompt Độc Lập Cho Pipeline 02 (Behavioral Schema)
+## 1. Hợp Đồng Giao Diện (Input / Output)
 
-```markdown
-Name:
-Lab 1 Model Architecture Pipeline
+- **Input**: Tensor `x` kích thước `[B, 1, 28, 28]` (`float32`).
+- **Output**: Raw logits kích thước `[B, 10]` (`float32`), **không áp dụng Softmax** bên trong `forward()`.
 
-Description:
-Xây dựng module kiến trúc gồm 3 mô hình PyTorch độc lập (`LogisticClassifier`, `MLPClassifier`, `CNNClassifier`) khớp chính xác cấu trúc tầng và số lượng tham số quy định trong `labs/lab1/vibe/docs/REPORT.md`.
-
-Purpose:
-Cung cấp 3 ứng viên mô hình tách rời hoàn toàn khỏi training loop để so sánh công bằng giữa mô hình tuyến tính, phi tuyến phẳng (MLP) và tích chập không gian (CNN) có cùng bậc tham số.
-
-Input:
-- Tên mô hình: `model_name` thuộc `{"logistic", "mlp", "cnn"}`
-- Tensor ảnh đầu vào: `x` dạng `torch.Tensor`, shape `[B, 1, 28, 28]`, dtype `torch.float32`
-
-Output:
-- Module `src/vibe_scripts/lab1/models.py` chứa `LogisticClassifier`, `MLPClassifier`, `CNNClassifier`, `build_model()`, `count_parameters()`, `summarize_models()`
-- Raw logits đầu ra có shape `[B, 10]` (`float32`), không áp dụng Softmax
-- Bộ unit test `test/test_lab1_models.py`
-
-How to do:
-1. Triển khai `LogisticClassifier`: `Flatten -> Linear(784, 10)` (7.850 tham số).
-2. Triển khai `MLPClassifier`: `Flatten -> Linear(784, 128) -> ReLU -> Linear(128, 64) -> ReLU -> Linear(64, 10)` (109.386 tham số).
-3. Triển khai `CNNClassifier`: `Conv2d(1, 16, 3, padding=1) -> ReLU -> MaxPool2d(2) -> Conv2d(16, 32, 3, padding=1) -> ReLU -> MaxPool2d(2) -> Flatten -> Linear(1568, 64) -> ReLU -> Linear(64, 10)` (105.866 tham số).
-4. Bổ sung kiểm tra Fail-Fast shape đầu vào `(B, 1, 28, 28)` trong `forward` và viết đầy đủ PEP 484 type hints kèm Google-style docstrings ghi rõ tensor shapes.
-5. Triển khai `build_model(model_name)` và `count_parameters(model)` (tổng tham số và tham số huấn luyện được).
-6. Viết Smoke Test và Normal Test tại `test/test_lab1_models.py` kiểm chứng forward, backward, số tham số chính xác và trường hợp shape không hợp lệ.
-
-Examples:
-pytest test/test_lab1_models.py -v
-```
+| Kiến trúc | Luồng biến đổi Tensor | Tham số | Vai trò trong thí nghiệm |
+| :--- | :--- | :---: | :--- |
+| **`LogisticClassifier`** | `[B,1,28,28] → Flatten [B,784] → Linear(784→10)` | `7.850` | Mốc sàn tuyến tính (Baseline) |
+| **`MLPClassifier`** | `[B,1,28,28] → Flatten [B,784] → Linear(784→128) → ReLU → Linear(128→64) → ReLU → Linear(64→10)` | `109.386` | Đối chứng phi tuyến không có cấu trúc 2D |
+| **`CNNClassifier`** | `[B,1,28,28] → Conv(1→16,3×3,p=1) → ReLU → Pool(2) [B,16,14,14] → Conv(16→32,3×3,p=1) → ReLU → Pool(2) [B,32,7,7] → Flatten [B,1568] → Linear(1568→64) → ReLU → Linear(64→10)` | `105.866` | Mô hình trọng tâm khai thác tương quan không gian 2D |
 
 ---
 
-## 3. Checklist Kiểm Thử Độc Lập (Definition of Done)
+## 2. Phân Tích Đặc Trưng & Cơ Chế Kỹ Thuật
 
-- [ ] **Khớp chính xác số tham số**:
-  - `count_parameters(build_model("logistic")) == 7850`
-  - `count_parameters(build_model("mlp")) == 109386`
-  - `count_parameters(build_model("cnn")) == 105866`
-- [ ] **Forward Pass với Dummy Input**: Với `x = torch.randn(32, 1, 28, 28)` và `B = 1` (single sample), cả 3 mô hình trả về tensor shape `[B, 10]`, dtype `torch.float32`, không `NaN`/`Inf`.
-- [ ] **Đầu ra là Raw Logits**: Kiểm tra output có thể mang giá trị âm và tổng theo `dim=1` không bị ép bằng `1.0` (chứng minh không chứa `Softmax`/`LogSoftmax`).
-- [ ] **Tách rời Training Loop**: Không import `torch.optim`, không khởi tạo loss hay optimizer bên trong `models.py`.
-- [ ] **Lan truyền ngược Gradient**: Với dummy loss `CrossEntropyLoss()(logits, y).backward()`, mọi tham số có `requires_grad=True` đều nhận gradient khác `None` và hữu hạn.
-- [ ] **Fail-Fast Validation**: Truyền tensor sai kích thước như `(4, 3, 28, 28)` hoặc `(4, 1, 32, 32)` phải ném `ValueError`.
-- [ ] **Tái lập khởi tạo trọng số**: Khóa `torch.manual_seed(248)` rồi khởi tạo 2 lần cùng 1 mô hình cho `state_dict` bằng nhau tuyệt đối.
+1. **Khả năng biểu diễn không gian (Spatial Inductive Bias)**:
+   - `Logistic` chỉ học 10 siêu phẳng phân tách tuyến tính trên 784 pixel độc lập; dễ bế tắc khi các lớp thân trên (`Shirt`, `T-shirt/top`, `Pullover`, `Coat`) có độ tương đồng cấu trúc cosine $> 0.85$.
+   - `MLP` bổ sung biến đổi phi tuyến qua 2 tầng ẩn ReLU, học được tổ hợp điểm ảnh phức tạp hơn, nhưng bước `Flatten` ban đầu phá hủy cấu trúc lân cận 2D và làm mô hình nhạy với phép dịch chuyển nhỏ.
+   - `CNN` giữ nguyên cấu trúc lưới 2D qua tích chập $3 \times 3$ (chia sẻ trọng số cục bộ) kết hợp `MaxPool2d(2)` giảm chiều $28 \times 28 \to 14 \times 14 \to 7 \times 7$, tạo bất biến dịch chuyển cục bộ và tách lọc đặc trưng vi mô (cổ áo, tay áo, đế giày).
+2. **Thiết kế công bằng dung lượng tham số**:
+   - `CNN` (`105.866`) và `MLP` (`109.386`) có tổng tham số cùng bậc (chênh lệch ~3,2%), giúp chứng minh phần hiệu năng vượt trội đến từ cấu trúc tích chập chứ không phải do phình kích thước mạng.
+3. **Tách rời hoàn toàn khỏi Training Loop**:
+   - Lớp mô hình chỉ chứa tầng biến đổi tensor; hàm mất mát `CrossEntropyLoss` và `Adam` nằm hoàn toàn bên ngoài tại Pipe 03.
+
+---
+
+## 3. Mục Tiêu
+
+- Chuẩn hóa cùng một chữ ký `forward(x) -> logits` và cơ chế khởi tạo `build_model(model_name)` để Pipe 03, 04, 05 thay thế chéo 3 mô hình không phải sửa code huấn luyện/đánh giá.
+
+---
+
+## 4. Hạn Chế & Rủi Ro Đặc Thù
+
+1. **Mất khớp chiều giữa mã cũ và `REPORT.md`**: `src/model.py` (`FashionCNN` 32→64→128 + BatchNorm + Dropout) khác hẳn kiến trúc trong `REPORT.md`; nếu import nhầm sẽ phá vỡ ràng buộc cùng bậc tham số với `MLP`.
+2. **Mất đồng bộ số liệu Loss**: Thêm `Softmax` cuối `forward()` sẽ làm `CrossEntropyLoss` tính log-softmax hai lần, bóp nghẹt gradient.
+
+---
+
+## 5. Giải Pháp Kỹ Thuật
+
+- Cài đặt sạch 3 lớp tại `src/vibe_scripts/lab1/models.py` theo đúng `REPORT.md`.
+- Kiểm tra Fail-Fast shape đầu vào `(B, 1, 28, 28)` ở hàm `_validate_input_shape(x)` ngay đầu `forward()`.
+- Trả thẳng raw logits `[B, 10]`.
+
+---
+
+## 6. Tiêu Chí Kiểm Chứng (`test/test_lab1_models.py`)
+
+- **Smoke Test**: Khởi tạo và forward `torch.randn(2, 1, 28, 28)` không crash.
+- **Normal Test**: Đếm tham số khớp đúng `7.850` / `109.386` / `105.866`, hỗ trợ `B = 1`, không chứa `Softmax` hay `torch.optim`, backward đủ gradient hữu hạn, ném `ValueError` khi sai shape.
 
 ---
 
@@ -155,4 +83,5 @@ pytest test/test_lab1_models.py -v
 
 | Version | Ngày | Người sửa | Agent | Mô tả thay đổi |
 | :--- | :--- | :--- | :--- | :--- |
-| 0.1.0 | 2026-11-18 | notworLe | Antigravity | Khởi tạo đặc tả độc lập Pipeline 02 (Model Architecture) khớp chính xác 3 kiến trúc và số tham số trong `REPORT.md` |
+| 0.3.0 | 2026-11-19 | notworLe | Antigravity | Viết lại theo cấu trúc phân tích đặc trưng `AI_FIRST_LIFECYCLE.md`, loại bỏ khung prompt mẫu |
+| 0.2.0 | 2026-11-18 | notworLe | Antigravity | Cập nhật theo `REPORT.md` |

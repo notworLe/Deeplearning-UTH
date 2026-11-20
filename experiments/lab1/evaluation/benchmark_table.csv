@@ -1,0 +1,7 @@
+exp_id,model,aug,params,best_epoch,file_size_kb,test_loss,test_acc_pct,macro_f1_pct,latency_ms_batch,save_load_max_diff
+cnn_aug,cnn,aug,105866,16,1250.82,0.2653,90.74,90.72,1.505,0.0
+cnn_no_aug,cnn,no_aug,105866,8,1250.82,0.2558,91.13,91.04,1.217,0.0
+logistic_aug,logistic,aug,7850,17,95.89,0.7212,74.68,74.77,0.61,0.0
+logistic_no_aug,logistic,no_aug,7850,4,95.89,0.4628,83.82,83.47,0.824,0.0
+mlp_aug,mlp,aug,109386,16,1289.59,0.3986,85.62,85.53,1.102,0.0
+mlp_no_aug,mlp,no_aug,109386,7,1289.59,0.3378,88.3,88.25,0.908,0.0
