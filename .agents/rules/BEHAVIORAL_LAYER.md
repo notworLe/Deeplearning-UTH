@@ -3,8 +3,13 @@
 Toàn bộ hành vi AI được điều khiển qua các file Markdown có cấu trúc đồng nhất thay vì câu lệnh tùy hứng.
 
 ---
-## Prompt location
-Các prompt điều khiển lưu tại `ROOT/prompts/000x_<short_desc>/prompt.md`, kèm thư mục kế hoạch con `ROOT/prompts/000x_<short_desc>/plans/README.md`.
+## Prompt location & Ranh giới sử dụng
+
+- Các prompt điều khiển do **Kỹ sư** viết lưu tại `ROOT/prompts/000x_<short_desc>/prompt.md`, kèm thư mục kế hoạch con `ROOT/prompts/000x_<short_desc>/plans/README.md`.
+- **Ranh giới bắt buộc (Engineer-Only)**:
+  - **Behavioral Markdown Schema** chỉ là khuôn mẫu để **Kỹ sư** viết prompt giao việc cho AI.
+  - **AI Agent TUYỆT ĐỐI KHÔNG tự viết lại hoặc chèn khối Behavioral Schema vào `docs/`, `pipelines/` hay tài liệu báo cáo.**
+  - Khi đặc tả hoặc phân tích pipeline Deep Learning, Agent tham khảo [`AI_FIRST_LIFECYCLE.md`](AI_FIRST_LIFECYCLE.md) và tập trung **phân tích đặc trưng từng pipe** (Input, Output, Đặc trưng/Cơ chế, Mục tiêu, Rủi ro/Hạn chế, Giải pháp, Tiêu chí kiểm thử).
 
 
 ## Cấu trúc Chuẩn của một File Hành vi (Behavioral Markdown Schema)

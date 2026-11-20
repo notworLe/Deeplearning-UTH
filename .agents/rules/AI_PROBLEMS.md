@@ -11,3 +11,7 @@ Require: Bỏ cái chú thích (tách từ train bằng seed cố định). nó 
 
 ## 0003 
 Nói ngắn gọn thôi.
+
+## 0004
+AI: Tự ý viết lại khối `Behavioral Schema` (`Name / Description / Purpose / Input / Output / How to do / Examples`) vào trong tài liệu `docs/pipelines/`.
+Require: Tuyệt đối KHÔNG tự viết lại Behavioral Schema. Phần đó chỉ dành cho Kỹ sư viết prompt; tài liệu pipeline của Agent phải tham khảo `AI_FIRST_LIFECYCLE.md` để phân tích đặc trưng từng pipe.
