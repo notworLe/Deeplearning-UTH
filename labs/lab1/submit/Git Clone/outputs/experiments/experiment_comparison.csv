@@ -1,4 +1,0 @@
-experiment,hidden_layers,learning_rate,epochs,batch_size,parameters,best_epoch,best_val_loss,best_val_accuracy,checkpoint,training_source
-E1,128,0.001,5,64,101770,4,0.33330148629347484,0.8778333333333334,outputs\experiments\E1\best_model.pth,stage5_train
-E2,256→128,0.001,5,64,235146,4,0.313020321448644,0.8823333333333333,outputs\experiments\E2\best_model.pth,stage4_reuse
-E3,256→128,0.0001,5,64,235146,5,0.35593152650197346,0.8721666666666666,outputs\experiments\E3\best_model.pth,stage5_train

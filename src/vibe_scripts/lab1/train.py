@@ -331,6 +331,7 @@ def train_experiment(
 
 
 def main() -> None:
+    """Điểm vào CLI huấn luyện một cấu hình thí nghiệm Lab 1."""
     parser = argparse.ArgumentParser(description="Lab 1 Training Pipeline CLI")
     parser.add_argument("--model", choices=["logistic", "mlp", "cnn"], default="logistic")
     parser.add_argument("--aug", action="store_true", help="Enable data augmentation on train")

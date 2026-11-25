@@ -480,6 +480,7 @@ def run_benchmark(
 
 
 def main() -> None:
+    """Điểm vào CLI đánh giá và benchmark toàn bộ ma trận thí nghiệm Lab 1."""
     parser = argparse.ArgumentParser(description="Lab 1 Evaluation & Benchmark CLI")
     parser.add_argument("--experiments-dir", type=Path, default=lab1_cfg.EXPERIMENT_DIR)
     args = parser.parse_args()

@@ -188,6 +188,7 @@ def benchmark_latency(
 
 
 def main() -> None:
+    """Điểm vào CLI suy luận đơn ảnh hoặc đo latency từ checkpoint Lab 1."""
     parser = argparse.ArgumentParser(description="Lab 1 Inference & Serving CLI")
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--sample-idx", type=int, default=18)

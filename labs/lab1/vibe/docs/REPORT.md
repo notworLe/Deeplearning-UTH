@@ -7,7 +7,7 @@ ai_agent: Antigravity
 created: 2026-11-18
 updated: 2026-11-20
 last_updated_by: Antigravity
-version: 0.11.0
+version: 0.14.0
 status: draft
 reviewers: []
 related_docs:
@@ -21,9 +21,9 @@ tags: [lab1, report, fashion-mnist, pytorch, logistic, mlp, cnn]
 
 # Abstract
 
-Báo cáo trình bày quy trình thiết kế, kiểm soát công bằng thí nghiệm và đánh giá 3 kiến trúc **Logistic Regression (7.850 tham số)**, **MLP (109.386 tham số)** và **CNN (105.866 tham số)** trên bài toán phân loại 10 lớp trang phục **Fashion-MNIST** bằng PyTorch. Toàn bộ cấu hình thí nghiệm kế thừa [`src/config.py`](../../../../src/config.py) và override tập trung tại [`labs/lab1/vibe/config.py`](../config.py) (`seed = 248`, `batch_size = 32`, `Adam`, `lr = 1e-3`, `20 epochs`).
+Báo cáo trình bày quy trình thiết kế, kiểm soát công bằng thí nghiệm và đánh giá 3 kiến trúc **Logistic Regression (7.850 tham số)**, **MLP (109.386 tham số)** và **CNN (105.866 tham số)** trên bài toán phân loại 10 lớp trang phục **Fashion-MNIST** bằng PyTorch.
 
-- **Kết quả nổi bật**: `CNN (no_aug)` đạt Test Accuracy **91.13%** và Macro F1 **91.04%**, vượt `MLP` (+2.8 điểm %) và `Logistic` (+7.3 điểm %). `CNN` (105.866) và `MLP` (109.386) cùng bậc ~105k tham số, nhưng `CNN` vượt nhờ tích chập 2D; `Logistic` chỉ có 7.850 tham số làm baseline. Augmentation không cải thiện test metrics cho bất kỳ kiến trúc nào trong 20 epoch, và làm `Logistic` giảm 9.1 điểm % accuracy. `Shirt` là lớp khó nhất (F1 54.56–74.50% ở nhánh `no_aug`, xuống 44.08% ở `Logistic aug` theo `per_class_metrics.json`) do tương đồng hình học với `T-shirt/top` và `Pullover`.
+- **Kết quả nổi bật**: `CNN (no_aug)` đạt Test Accuracy **91.13%** và Macro F1 **91.04%**, vượt `MLP` (+2.8 điểm %) và `Logistic` (+7.3 điểm %). `CNN` (105.866) và `MLP` (109.386) cùng bậc ~105k tham số, nhưng `CNN` vượt nhờ tích chập 2D; `Logistic` chỉ có 7.850 tham số làm baseline. Augmentation không cải thiện test metrics cho bất kỳ kiến trúc nào trong 20 epoch, và làm `Logistic` giảm 9.1 điểm % accuracy. `Shirt` là lớp khó nhất (F1 54.56–74.50% ở nhánh `no_aug`, xuống 44.08% ở `Logistic aug`) do tương đồng hình học với `T-shirt/top` và `Pullover`.
 
 ---
 
@@ -50,15 +50,13 @@ Báo cáo trình bày quy trình thiết kế, kiểm soát công bằng thí ng
 
 ## Hypotheses
 
-**H1** được đặt từ giai đoạn EDA (cosine similarity nhóm áo > 0.85 → CNN nên tách tốt hơn). **H2** và **H3** được phát biểu định tính trước khi train, nhưng tiêu chí định lượng (ngưỡng cụ thể) được xác lập sau khi có kết quả — ghi nhận đây là **post-hoc quantification**.
-
 Các tiêu chí đo trên Test set, dùng để **báo cáo cuối cùng**; Test không được dùng để chọn cấu hình hay điều chỉnh mô hình (xem [Nguyên tắc](#nguyên-tắc)).
 
-| Giả thuyết | Dự đoán | Tiêu chí đúng / bác bỏ (đo trên Test, chỉ báo cáo) |
-| :--- | :--- | :--- |
-| **H1** — Kiến trúc 2D vượt trội *(pre-hoc)* | CNN > MLP > Logistic về Test Accuracy | Chênh lệch giữa mỗi cặp liền kề > 0.5 điểm % |
-| **H2** — Augmentation cải thiện tổng quát hóa *(tiêu chí post-hoc)* | Cấu hình `aug` có Test Loss thấp hơn `no_aug` trên cùng kiến trúc | `test_loss(aug) < test_loss(no_aug)` cho ít nhất 2/3 kiến trúc |
-| **H3** — Lỗi tập trung ở nhóm áo thân trên *(tiêu chí post-hoc)* | Các cặp nhầm lẫn lớn nhất thuộc nhóm `{T-shirt, Pullover, Coat, Shirt}` | ≥ 4 trong 5 cặp nhầm nhiều nhất nằm trong nhóm áo thân trên |
+| Giả thuyết                                                          | Dự đoán                                                                 | Tiêu chí đúng / bác bỏ (đo trên Test, chỉ báo cáo)             |
+| :------------------------------------------------------------------ | :---------------------------------------------------------------------- | :------------------------------------------------------------- |
+| **H1** — Kiến trúc 2D vượt trội _(pre-hoc)_                         | CNN > MLP > Logistic về Test Accuracy                                   | Chênh lệch giữa mỗi cặp liền kề > 0.5 điểm %                   |
+| **H2** — Augmentation cải thiện tổng quát hóa _(tiêu chí post-hoc)_ | Cấu hình `aug` có Test Loss thấp hơn `no_aug` trên cùng kiến trúc       | `test_loss(aug) < test_loss(no_aug)` cho ít nhất 2/3 kiến trúc |
+| **H3** — Lỗi tập trung ở nhóm áo thân trên _(tiêu chí post-hoc)_    | Các cặp nhầm lẫn lớn nhất thuộc nhóm `{T-shirt, Pullover, Coat, Shirt}` | ≥ 4 trong 5 cặp nhầm nhiều nhất nằm trong nhóm áo thân trên    |
 
 > Kiểm chứng bằng số liệu thực nghiệm tại [Kiểm tra giả thuyết](#kiểm-tra-giả-thuyết).
 
@@ -75,15 +73,15 @@ Các tiêu chí đo trên Test set, dùng để **báo cáo cuối cùng**; Test
 
 ## Cleaning
 
-- Kiểm toán chất lượng 6 chiều trong [`lab1.ipynb`](../lab1.ipynb): 0 giá trị khuyết (`NaN`), toàn bộ pixel nằm đúng đoạn `[0, 255]`, nhãn lớp đầy đủ `{0..9}`, tensor đồng nhất `(28, 28)` → **bỏ qua bước Data Cleaning**.
+- Kiểm toán chất lượng 6 chiều trong [`lab1.ipynb`](../lab1.ipynb): 0 giá trị khuyết (`NaN`), toàn bộ pixel nằm đúng đoạn `[0, 255]`, nhãn lớp đầy đủ `{0..9}`, tensor đồng nhất `(28, 28)`
 
 ## Splitting
 
-| Tập dữ liệu    | Số lượng | Số mẫu / lớp | Ghi chú                                                                |
-| :------------- | :------: | :----------: | :--------------------------------------------------------------------- |
-| **Train**      | `55.000` |   `5.500`    | Tách phân tầng (`stratified split`) từ 60k gốc với `seed = 248`        |
-| **Validation** | `5.000`  |    `500`     | Dùng theo dõi hội tụ và chọn `best.pt`, tách biệt hoàn toàn khỏi Train |
-| **Test**       | `10.000` |   `1.000`    | Tập chuẩn Zalando cố định, chỉ đánh giá 1 lần cuối cùng                |
+| Tập dữ liệu    | Số lượng | Ghi chú                                                                |
+| :------------- | :------: | :--------------------------------------------------------------------- |
+| **Train**      | `55.000` | Tách phân tầng (`stratified split`) từ 60k gốc với `seed = 248`        |
+| **Validation** | `5.000`  | Dùng theo dõi hội tụ và chọn `best.pt`, tách biệt hoàn toàn khỏi Train |
+| **Test**       | `10.000` | Tập chuẩn Zalando cố định, chỉ đánh giá 1 lần cuối cùng                |
 
 ## EDA
 
@@ -92,13 +90,13 @@ Khảo sát theo mô hình 3 Thấu kính (Three Lenses) tại [`lab1.ipynb`](..
 ```text
                ┌────────────────────────────────────────────────────────┐
                │              LENS 1: GLOBAL TOPOLOGY                   │
-               │  Shape (60000, 28, 28) | 47.04 MB | 0 Null | 1 Channel │
+               │  Train (60000,28,28) 44.86 MiB | Test 7.48 MiB | 0 Null│
                └──────────────────────────┬─────────────────────────────┘
                                           │
                                           ▼
                ┌────────────────────────────────────────────────────────┐
                │          LENS 2: UNIVARIATE DISTRIBUTIONS              │
-               │  10 lớp cân bằng | Mean 0.2860 | Std 0.3530 | Zero 50.2%│
+               │  10 lớp cân bằng | Mean 0.2862 | Std 0.3531 | Zero 50.2%│
                └──────────────────────────┬─────────────────────────────┘
                                           │
                                           ▼
@@ -108,17 +106,70 @@ Khảo sát theo mô hình 3 Thấu kính (Three Lenses) tại [`lab1.ipynb`](..
                └────────────────────────────────────────────────────────┘
 ```
 
-- **Lens 1 (Global structure)**: Tensor gốc đồng nhất $28 \times 28$, không có nhiễu kích thước hay thiếu dữ liệu.
-- **Lens 2 (Distributions)**:
-  - Cân bằng lớp tuyệt đối ở cả 3 tập (`5.500 / 500 / 1.000` mỗi lớp) → loại bỏ nguy cơ thiên vị lớp.
-  - Pixel nền bằng `0` chiếm `50.21%`, phân bố lệch phải (`skewness = 0.695`, `kurtosis = -1.190`), giá trị trung bình $72.94 / 255 \approx 0.2860$ và độ lệch chuẩn $90.02 / 255 \approx 0.3530$.
-- **Lens 3 (Visual & class separability)**:
-  - Nhóm giày dép (`Sandal`, `Sneaker`, `Ankle boot`) và `Trouser` tách cụm rõ trên không gian PCA 2D.
-  - Nhóm trang phục thân trên (`T-shirt/top`, `Pullover`, `Coat`, `Shirt`) có độ tương đồng cấu trúc cosine $> 0.85$, tạo vùng chồng lấn hình học mạnh.
+- **Lens 1 (Global structure)**:
+  - **Kích thước & hình học tensor**: tập gốc gồm `raw_train` `(60.000, 28, 28)` và `raw_test` `(10.000, 28, 28)` (tổng `70.000` ảnh xám 1 kênh, mỗi ảnh $28 \times 28 = 784$ pixel). Toàn bộ mẫu đồng nhất kích thước nên không cần bước resize hay crop.
+  - **Kiểu dữ liệu & bộ nhớ**: lưu dưới dạng `torch.uint8` chiếm **44.86 MiB** (`raw_train`) và **7.48 MiB** (`raw_test`), tổng ~52.34 MiB — đủ nhỏ để nạp trọn vào RAM nhằm loại bỏ nút thắt I/O đĩa khi huấn luyện.
+  - **Tính toàn vẹn**: `0` giá trị khuyết (`NaN`/Null, completeness `100%`), miền pixel nằm đúng đoạn `[0, 255]`, nhãn lớp đầy đủ và nhất quán `{0..9}` → xác nhận dữ liệu thô sạch, không cần Data Cleaning.
+
+- **Lens 2 (Distributions)** _(thống kê cường độ pixel tính trên 55.000 mẫu Train)_:
+
+  **1. Phân bố số lượng mẫu theo lớp (Train / Validation / Test)**
+
+  ![EDA Class Balance](../../../../experiments/lab1/eda/eda_class_balance.png)
+  - Cân bằng lớp tuyệt đối ở cả 3 tập (`5.500 / 500 / 1.000` mẫu cho mỗi lớp trong 10 lớp) → loại bỏ hoàn toàn nguy cơ thiên vị lớp, đồng thời giải thích vì sao `Macro F1` luôn rất sát `Test Accuracy` ở bước đánh giá.
+
+  **2. Phân bố cường độ điểm ảnh (Toàn dải `[0, 255]` & Tiền cảnh `> 0`)**
+
+  ![EDA Pixel Distribution](../../../../experiments/lab1/eda/eda_pixel_distribution.png)
+  - **Toàn dải `[0, 255]`** _(trên toàn bộ 55.000 mẫu Train = 43,12 triệu pixel)_: điểm ảnh nền bằng `0` chiếm **50.21%** (trung vị `median = 0`), kéo phân bố lệch phải mạnh (`skewness = 0.694`, `kurtosis = -1.192`), với giá trị trung bình $72.97 / 255 \approx 0.2862$ và độ lệch chuẩn $90.04 / 255 \approx 0.3531$.
+  - **Tiền cảnh (`pixel > 0`)**: khi tách riêng nền đen, mật độ điểm ảnh vật thể trải rộng với đỉnh tập trung ở vùng sáng `190–230` (trên toàn 55k Train: `mean = 146.55`, `median = 164.0`), kèm một cụm nhỏ sát biên `1–5` từ các pixel viền chống răng cưa. _(Ghi chú: đồ thị trên lấy mẫu ngẫu nhiên 100.000 pixel với `seed = 248`, nên hiển thị `50.5%` nền và tiền cảnh `mean 145.9 / median 163.0`, sai lệch nhẹ do lấy mẫu.)_
+
+- **Lens 3 (Visual & class separability)** _(tính trên 55.000 mẫu Train để tránh rò rỉ dữ liệu)_:
+
+  **1. Lưới mẫu đại diện (10 lớp × 5 ảnh)**
+
+  ![EDA Sample Grid](../../../../experiments/lab1/eda/eda_sample_grid.png)
+  - Ảnh đồng nhất $28 \times 28$, nền đen sạch và đối tượng căn giữa khung hình. Nhìn trực quan, lớp `Shirt` rất đa dạng — vừa có mẫu dài tay gần giống `Coat`/`Pullover`, vừa có mẫu dáng ngắn giống `T-shirt/top` — tạo cơ sở trực quan cho giả thuyết lỗi tập trung ở nhóm áo (**H3**).
+
+  **2. Ảnh trung bình từng lớp (Class Prototypes)**
+
+  ![EDA Class Prototypes](../../../../experiments/lab1/eda/eda_class_prototypes.png)
+  - Ảnh trung bình pixel của `Pullover`, `Coat`, `Shirt` có hình bóng (silhouette) gần như trùng khít nhau, còn `T-shirt/top` chung phần thân và chỉ khác chủ yếu ở độ dài tay; ngược lại `Trouser`, `Bag` và nhóm giày dép có hình thái trung bình khác biệt rõ.
+
+  **3. Ma trận Cosine Similarity (giữa các Class Prototype) & PCA 2D**
+
+  ![EDA Cosine Similarity and PCA 2D](../../../../experiments/lab1/eda/eda_similarity_pca2d.png)
+  - **Cosine similarity đo giữa 10 vector class prototype (ảnh trung bình 784 chiều của từng lớp)**: toàn bộ các cặp trong nhóm áo thân trên (`T-shirt/top`, `Pullover`, `Coat`, `Shirt`) đều đạt **0.90–0.99** (`Coat ↔ Shirt: 0.99`, `Pullover ↔ Coat: 0.98`, `Pullover ↔ Shirt: 0.98`, `T-shirt/top ↔ Shirt: 0.95`, `T-shirt/top ↔ Coat: 0.91`, `T-shirt/top ↔ Pullover: 0.90`).
+  - **PCA 2D (10.000 mẫu Train, `seed = 248`)**: hai thành phần đầu chỉ giải thích **47.19%** tổng phương sai (`PC1 = 29.65%`, `PC2 = 17.54%`). Trên mặt phẳng chiếu này, nhóm giày dép gom về phía trái (`PC1 < -1000`), `Trouser` gom ở cạnh dưới (`PC2 < -1200`), còn 4 lớp áo thân trên trộn lẫn dày đặc ở phía phải (`PC1 > 0`). **Lưu ý**: vì PCA 2D bỏ qua hơn 52% phương sai còn lại, việc tách cụm hay chồng lấn trên đồ thị 2D chỉ là bằng chứng gián tiếp ở phép chiếu tuyến tính thấp chiều, không đủ kết luận ranh giới thực trong không gian 784 chiều.
+
 - **Quyết định cho bước tiếp theo**:
   1. Chuẩn hóa Z-Score với `mean`, `std` tính duy nhất trên 55.000 mẫu Train.
   2. Thử nghiệm Augmentation bảo toàn hướng đứng thời trang (lật ngang, dịch/xoay nhỏ) chỉ trên Train.
-  3. Cơ sở EDA cho [Hypotheses](#hypotheses): cosine similarity > 0.85 ở nhóm áo thân trên là căn cứ đặt giả thuyết lỗi sẽ tập trung ở nhóm này (**H3**) và cấu trúc lưới 2D của `CNN` sẽ tách tốt hơn `MLP` flatten (**H1**). (Riêng **H2** về augmentation xuất phát từ thiết kế thí nghiệm, không phải từ EDA.)
+  3. Cơ sở EDA cho [Hypotheses](#hypotheses): cosine similarity giữa các class prototype của nhóm áo thân trên đạt **0.90–0.99** (kèm chồng lấn trên PCA 2D) là căn cứ đặt giả thuyết lỗi sẽ tập trung ở nhóm này (**H3**) và cấu trúc lưới 2D của `CNN` sẽ tách tốt hơn `MLP` flatten (**H1**). (Riêng **H2** về augmentation xuất phát từ thiết kế thí nghiệm, không phải từ EDA.)
+
+---
+
+# Data processing
+
+Pipeline xử lý đặt tại `src/vibe_scripts/lab1/data.py` (đặc tả chi tiết tại [`pipelines/01_DATA_PREPARATION.md`](./pipelines/01_DATA_PREPARATION.md)):
+
+## Scaling
+
+- **Thứ tự bắt buộc**: `Augmentation → ToTensor → Normalize`.
+- `ToTensor`: chuyển ảnh `0–255` về `[0.0, 1.0]`, shape `[1, 28, 28]`.
+- `Normalize`: tính `mean`, `std` **duy nhất trên 55.000 mẫu Train** (`0.2862`, `0.3531`), áp dụng cố định cho Train, Validation và Test; dùng chung cho cả 3 mô hình.
+
+## Augmentation
+
+- Nhánh `no_aug`: chỉ `ToTensor → Normalize`.
+- Nhánh `aug` (**chỉ áp dụng trên Train**; tách 2 đối tượng `FashionMNIST` độc lập cho Train và Val để tránh rò rỉ):
+  - `RandomHorizontalFlip(p=0.5)`
+  - `RandomAffine(degrees=10, translate=(0.08, 0.08))`
+- Không dùng lật dọc vì ảnh quần áo/giày dép có hướng trọng lực cố định.
+
+## DataLoader
+
+- `batch_size = 32`, `num_workers = 8`, `shuffle = True` (chỉ Train), `pin_memory = True` (khi dùng GPU), `seed = 248` (`Generator` + `worker_init_fn`).
 
 ---
 
@@ -126,9 +177,9 @@ Khảo sát theo mô hình 3 Thấu kính (Three Lenses) tại [`lab1.ipynb`](..
 
 ## Lý do chọn mô hình
 
-- **`Logistic`**: Mô hình tuyến tính đơn giản nhất, làm mốc sàn (baseline) để đo mức cải thiện của mạng sâu.
+- **`Logistic`**: Mô hình tuyến tính đơn giản nhất, làm mốc sàn (baseline)
 - **`MLP`**: Bổ sung 2 tầng ẩn phi tuyến ReLU để vượt giới hạn siêu phẳng tuyến tính của `Logistic`; vẫn làm phẳng (flatten) ảnh thành vector 784 chiều nên đánh mất tương quan không gian 2D.
-- **`CNN`**: Bắt buộc theo bài học; giữ nguyên cấu trúc lưới 2D qua tích chập $3 \times 3$ và `MaxPool2d`, khai thác biên, cổ áo, tay áo với số tham số cùng bậc `MLP`.
+- **`CNN`**: Giữ nguyên cấu trúc lưới 2D qua tích chập $3 \times 3$ và `MaxPool2d`, khai thác biên, cổ áo, tay áo với số tham số cùng bậc `MLP`.
 
 ## Architecture
 
@@ -153,30 +204,6 @@ _(Chi tiết hợp đồng I/O và kiểm chứng toán học số tham số xem
 
 ---
 
-# Data processing
-
-Pipeline xử lý đặt tại `src/vibe_scripts/lab1/data.py` (đặc tả chi tiết tại [`pipelines/01_DATA_PREPARATION.md`](./pipelines/01_DATA_PREPARATION.md)):
-
-## Scaling
-
-- **Thứ tự bắt buộc**: `Augmentation → ToTensor → Normalize`.
-- `ToTensor`: chuyển ảnh `0–255` về `[0.0, 1.0]`, shape `[1, 28, 28]`.
-- `Normalize`: tính `mean`, `std` **duy nhất trên 55.000 mẫu Train** (`~0.2860`, `~0.3530`), áp dụng cố định cho Train, Validation và Test; dùng chung cho cả 3 mô hình.
-
-## Augmentation
-
-- Nhánh `no_aug`: chỉ `ToTensor → Normalize`.
-- Nhánh `aug` (**chỉ áp dụng trên Train**; tách 2 đối tượng `FashionMNIST` độc lập cho Train và Val để tránh rò rỉ):
-  - `RandomHorizontalFlip(p=0.5)`
-  - `RandomAffine(degrees=10, translate=(0.08, 0.08))`
-- Không dùng lật dọc vì ảnh quần áo/giày dép có hướng trọng lực cố định.
-
-## DataLoader
-
-- `batch_size = 32`, `num_workers = 8`, `shuffle = True` (chỉ Train), `pin_memory = True` (khi dùng GPU), `seed = 248` (`Generator` + `worker_init_fn`).
-
----
-
 # Training
 
 Pipeline huấn luyện đặt tại `src/vibe_scripts/lab1/train.py` (đặc tả chi tiết tại [`pipelines/03_TRAINING.md`](./pipelines/03_TRAINING.md)):
@@ -194,7 +221,7 @@ Pipeline huấn luyện đặt tại `src/vibe_scripts/lab1/train.py` (đặc t�
 
 ## Theo dõi & Lưu Checkpoint
 
-- Ghi log từng epoch (`train_loss`, `val_loss`, `train_acc`, `val_acc`, `epoch_time_sec`) ra `history.json` (không phụ thuộc `tensorboard` bị thiếu trong môi trường — xem [`logs/errors/0001.md`](../../../../logs/errors/0001.md)).
+- Ghi log từng epoch (`train_loss`, `val_loss`, `train_acc`, `val_acc`, `epoch_time_sec`) ra `history.json` .
 - Lưu nguyên tử (atomic write `.tmp → replace`): `best.pt` (theo `val_loss` thấp nhất) và `last.pt`, đính kèm `norm_stats`, `model_name`, `seed`, `hyperparams`.
 
 ---
@@ -222,7 +249,7 @@ Thực thi bằng `src/vibe_scripts/lab1/evaluate.py` và `infer.py` (đặc t�
 ## Nguyên tắc
 
 - Tập Test chỉ được đánh giá **đúng 1 lần** trên `best.pt` (chọn theo `val_loss` thấp nhất) để tránh thông tin rò rỉ từ Test vào quá trình điều chỉnh mô hình.
-- Toàn bộ suy luận dưới `model.eval()` + `torch.no_grad()`, warm-up 2 batch trước khi bấm giờ.
+- Toàn bộ suy luận dưới `model.eval()` + `torch.no_grad()`,
 - Kiểm chứng Save/Load: sai số tối đa `|logits_before − logits_after| < 1e-6`.
 
 ## Metric tổng hợp (3 mô hình × 2 cấu hình)
@@ -237,6 +264,11 @@ Thực thi bằng `src/vibe_scripts/lab1/evaluate.py` và `infer.py` (đặc t�
 | `CNN`      |  `aug`   | `105.866` |    `16`    |   `1250.82`    | `0.2653`  |   `90.74`    |   `90.72`    |      `2.211`       |
 
 - **Kiểm chứng Save/Load**: Sai số tối đa `|logits_before - logits_after|` = **`0.0`** cho cả 6 cấu hình ✅ (yêu cầu `< 1e-6`).
+- **Nhận xét metric tổng hợp**:
+  - **Xếp hạng kiến trúc (`no_aug`, bằng chứng cho H1)**: Test Accuracy (`83.82 → 88.30 → 91.13%`), Macro F1 (`83.47 → 88.25 → 91.04%`) và Test Loss (`0.4628 → 0.3378 → 0.2558`) đều xếp hạng đồng nhất `CNN > MLP > Logistic`. Macro F1 sát Accuracy (lệch `< 0.5` điểm % ở mọi cấu hình) do tập Test cân bằng tuyệt đối 1.000 mẫu/lớp.
+  - **Tác động của `aug` & mức độ chắc chắn (bằng chứng bác bỏ H2)**: Test Accuracy giảm lần lượt `−9.14 / −2.68 / −0.39` điểm % (`Logistic / MLP / CNN`) và Test Loss đều tăng (`+0.2584 / +0.0608 / +0.0095`); mức giảm co lại khi kiến trúc mạnh hơn _(quan sát đo được, nguyên nhân chưa kiểm chứng)_. Riêng ở `CNN`, chênh lệch `0.39` điểm % accuracy (và `+0.0095` test loss) trên 10.000 mẫu với 1 seed có thể nằm gần ngưỡng nhiễu ngẫu nhiên, nên kết luận "aug không cải thiện" yếu nhất ở `CNN` và rõ nhất ở `Logistic`. Tuy nhiên, tiêu chí **H2** (`≥ 2/3` kiến trúc có `test_loss(aug) < test_loss(no_aug)`) vẫn bị bác bỏ ngay cả khi bỏ qua `CNN`, vì cả `Logistic` lẫn `MLP` đều suy giảm rõ rệt.
+  - **Chi phí so với lợi ích**: `CNN` (`105.866` tham số, `1250.82 KB`) nhỏ hơn `MLP` (`109.386` tham số, `1289.59 KB`) khoảng `3,2%` nhưng vượt `+2.83` điểm % accuracy; vượt `Logistic` `+7.31` điểm % với số tham số gấp `~13,5` lần (`95.89 KB → 1250.82 KB`, kích thước checkpoint tỷ lệ thuận với số tham số).
+  - **Best epoch & Latency**: Nhánh `no_aug` đạt best epoch sớm (`4 / 7 / 8`), còn `aug` muộn hơn (`17 / 16 / 16`), nhất quán với việc augmentation làm bài toán huấn luyện khó hơn _(lưu ý về nhiễu val loss ở Logistic xem mục Learning Curves bên dưới)_. Cột `Infer Latency` chỉ mang tính tham khảo, không dùng để so sánh kiến trúc vì cùng kiến trúc `aug`/`no_aug` đã lệch **23.8–46.4%** so với `no_aug` (xem [Hạn chế và kết luận](#hạn-chế-và-kết-luận), mục 4).
 
 ## Đường cong học (Learning Curves)
 
@@ -282,43 +314,43 @@ Mỗi thí nghiệm có 1 biểu đồ riêng gồm 2 panel (Loss + Accuracy), �
 - **`no_aug`**: Tại best epoch 8: train_loss = 0.1521, val_loss = 0.2191, gap = +0.067. Overfit vừa phải tại thời điểm best, nhưng từ epoch 8 trở đi val loss tăng liên tục (0.408 ở epoch 20) → model ghi nhớ dữ liệu train nếu train tiếp.
 - **`aug`**: Tại best epoch 16: train_loss = 0.2632, val_loss = 0.2248, gap = −0.038 (artifact). Train và val loss đều giảm song song đến epoch 16, không có val loss tăng ngược; train loss vẫn giảm chậm đến epoch 20 nên giả thuyết "chưa đủ epoch" còn hợp lý. Mất 0.39 điểm % accuracy (91.13 → 90.74).
 
-| Thí nghiệm        | Best Epoch | Train Loss (@best) | Val Loss (@best) | Gap Loss (@best) | Nhận xét                                                    |
-| :---------------- | :--------: | :----------------: | :--------------: | :--------------: | :---------------------------------------------------------- |
-| `logistic_no_aug` |    `4`     |      `0.4267`      |     `0.4298`     |     `+0.003`     | Gần như không overfit tại best epoch                        |
+| Thí nghiệm        | Best Epoch | Train Loss (@best) | Val Loss (@best) | Gap Loss (@best) | Nhận xét                                                           |
+| :---------------- | :--------: | :----------------: | :--------------: | :--------------: | :----------------------------------------------------------------- |
+| `logistic_no_aug` |    `4`     |      `0.4267`      |     `0.4298`     |     `+0.003`     | Gần như không overfit tại best epoch                               |
 | `logistic_aug`    |    `17`    |      `0.8406`      |     `0.6846`     |     `−0.156`     | Gap âm là artifact; train loss phẳng từ ep2, test acc −9.14 điểm % |
-| `mlp_no_aug`      |    `7`     |      `0.2487`      |     `0.2978`     |     `+0.049`     | Overfit nhẹ tại best; sau epoch 7 val loss tăng ngược       |
-| `mlp_aug`         |    `16`    |      `0.4146`      |     `0.3520`     |     `−0.063`     | Gap âm là artifact; test acc −2.68 điểm % so với no_aug |
-| `cnn_no_aug`      |    `8`     |      `0.1521`      |     `0.2191`     |     `+0.067`     | Overfit vừa tại best; sau epoch 8 val loss tăng mạnh        |
-| `cnn_aug`         |    `16`    |      `0.2632`      |     `0.2248`     |     `−0.038`     | Gap âm là artifact; val loss giảm đều, mất 0.39 điểm % acc |
+| `mlp_no_aug`      |    `7`     |      `0.2487`      |     `0.2978`     |     `+0.049`     | Overfit nhẹ tại best; sau epoch 7 val loss tăng ngược              |
+| `mlp_aug`         |    `16`    |      `0.4146`      |     `0.3520`     |     `−0.063`     | Gap âm là artifact; test acc −2.68 điểm % so với no_aug            |
+| `cnn_no_aug`      |    `8`     |      `0.1521`      |     `0.2191`     |     `+0.067`     | Overfit vừa tại best; sau epoch 8 val loss tăng mạnh               |
+| `cnn_aug`         |    `16`    |      `0.2632`      |     `0.2248`     |     `−0.038`     | Gap âm là artifact; val loss giảm đều, mất 0.39 điểm % acc         |
 
 ## Phân tích theo lớp
 
 ![Per-class F1 Comparison](../../../../experiments/lab1/predictions/per_class_f1_comparison.png)
 
-| Class ID | Nhãn lớp      | Logistic F1 (%) | MLP F1 (%)  | CNN F1 (%)  | Nhận xét                                                        |
-| :------: | :------------ | :-------------: | :---------: | :---------: | :-------------------------------------------------------------- |
-|   `0`    | `T-shirt/top` |     `79.91`     |   `84.14`   |   `86.12`   | CNN tốt nhất, có thể nhờ bắt biên cổ áo                         |
-|   `1`    | `Trouser`     |     `96.44`     |   `98.07`   |   `98.59`   | Dễ nhất, hình dáng khác biệt rõ                                 |
-|   `2`    | `Pullover`    |     `72.28`     |   `78.71`   |   `85.91`   | CNN vượt MLP +7.2 điểm %                                        |
-|   `3`    | `Dress`       |     `84.43`     |   `88.37`   |   `90.63`   | CNN vượt MLP +2.3 điểm %, có thể nhờ nhận dạng viền váy qua 2D  |
-|   `4`    | `Coat`        |     `74.51`     |   `80.66`   |   `85.29`   | Thường nhầm với Pullover và Shirt                               |
-|   `5`    | `Sandal`      |     `92.69`     |   `96.04`   |   `98.40`   | Hình dáng riêng biệt, cả 3 mô hình đều cao                      |
-|   `6`    | `Shirt`       |   **`54.56`**   | **`69.85`** | **`74.50`** | **Khó nhất** — nhầm Shirt ↔ T-shirt ↔ Coat                      |
-|   `7`    | `Sneaker`     |     `91.87`     |   `94.85`   |   `96.46`   | Hình dáng rõ, cả 3 mô hình đều cao                              |
-|   `8`    | `Bag`         |     `93.76`     |   `96.32`   |   `97.38`   | Hình chữ nhật đặc trưng, dễ phân biệt                           |
-|   `9`    | `Ankle boot`  |     `94.27`     |   `95.50`   |   `97.09`   | Phân biệt tốt, có thể nhờ đặc trưng cổ cao                      |
+| Class ID | Nhãn lớp      | Logistic F1 (%) | MLP F1 (%)  | CNN F1 (%)  | Nhận xét                                                       |
+| :------: | :------------ | :-------------: | :---------: | :---------: | :------------------------------------------------------------- |
+|   `0`    | `T-shirt/top` |     `79.91`     |   `84.14`   |   `86.12`   | CNN tốt nhất, có thể nhờ bắt biên cổ áo                        |
+|   `1`    | `Trouser`     |     `96.44`     |   `98.07`   |   `98.59`   | Dễ nhất, hình dáng khác biệt rõ                                |
+|   `2`    | `Pullover`    |     `72.28`     |   `78.71`   |   `85.91`   | CNN vượt MLP +7.2 điểm %                                       |
+|   `3`    | `Dress`       |     `84.43`     |   `88.37`   |   `90.63`   | CNN vượt MLP +2.3 điểm %, có thể nhờ nhận dạng viền váy qua 2D |
+|   `4`    | `Coat`        |     `74.51`     |   `80.66`   |   `85.29`   | Thường nhầm với Pullover và Shirt                              |
+|   `5`    | `Sandal`      |     `92.69`     |   `96.04`   |   `98.40`   | Hình dáng riêng biệt, cả 3 mô hình đều cao                     |
+|   `6`    | `Shirt`       |   **`54.56`**   | **`69.85`** | **`74.50`** | **Khó nhất** — nhầm Shirt ↔ T-shirt ↔ Coat                     |
+|   `7`    | `Sneaker`     |     `91.87`     |   `94.85`   |   `96.46`   | Hình dáng rõ, cả 3 mô hình đều cao                             |
+|   `8`    | `Bag`         |     `93.76`     |   `96.32`   |   `97.38`   | Hình chữ nhật đặc trưng, dễ phân biệt                          |
+|   `9`    | `Ankle boot`  |     `94.27`     |   `95.50`   |   `97.09`   | Phân biệt tốt, có thể nhờ đặc trưng cổ cao                     |
 
-> *Bảng trên là kết quả nhánh `no_aug`. Với nhánh `aug` (nguồn [`per_class_metrics.json`](../../../../experiments/lab1/evaluation/per_class_metrics.json)), `Shirt` vẫn là lớp thấp nhất: `Logistic aug` F1 `44.08%`, `MLP aug` F1 `63.78%`, `CNN aug` F1 `74.00%`.*
+> _Bảng trên là kết quả nhánh `no_aug`. Với nhánh `aug` (nguồn [`per_class_metrics.json`](../../../../experiments/lab1/evaluation/per_class_metrics.json)), `Shirt` vẫn là lớp thấp nhất: `Logistic aug` F1 `44.08%`, `MLP aug` F1 `63.78%`, `CNN aug` F1 `74.00%`._
 
 ## Kiểm tra giả thuyết
 
 Đối chiếu kết quả thực nghiệm với tiêu chí đã đặt tại [Hypotheses](#hypotheses):
 
-| Giả thuyết | Tiêu chí                                                 | Kết quả thực nghiệm                                                                                                       | Kết luận  |
-| :--------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ | :-------: |
-| **H1**     | Chênh acc > 0.5% giữa mỗi cặp liền kề                    | CNN 91.13% (+2.83 điểm % so với MLP) > MLP 88.30% (+4.48 điểm % so với Logistic) > Logistic 83.82%. Mọi chênh lệch >> 0.5 điểm %                                       |  ✅ Đúng  |
-| **H2**     | `test_loss(aug) < test_loss(no_aug)` cho ≥ 2/3 kiến trúc | CNN: 0.2653 > 0.2558 ❌ · MLP: 0.3986 > 0.3378 ❌ · Logistic: 0.7212 > 0.4628 ❌ → 0/3 kiến trúc đạt tiêu chí             | ❌ Bác bỏ |
-| **H3**     | ≥ 4/5 cặp nhầm thuộc nhóm áo                             | Shirt→T-shirt (152), Coat→Pullover (92), Shirt→Pullover (67), Coat→Shirt (51), T-shirt→Shirt (49) → **5/5** thuộc nhóm áo |  ✅ Đúng  |
+| Giả thuyết | Tiêu chí                                                 | Kết quả thực nghiệm                                                                                                              | Kết luận  |
+| :--------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :-------: |
+| **H1**     | Chênh acc > 0.5% giữa mỗi cặp liền kề                    | CNN 91.13% (+2.83 điểm % so với MLP) > MLP 88.30% (+4.48 điểm % so với Logistic) > Logistic 83.82%. Mọi chênh lệch >> 0.5 điểm % |  ✅ Đúng  |
+| **H2**     | `test_loss(aug) < test_loss(no_aug)` cho ≥ 2/3 kiến trúc | CNN: 0.2653 > 0.2558 ❌ · MLP: 0.3986 > 0.3378 ❌ · Logistic: 0.7212 > 0.4628 ❌ → 0/3 kiến trúc đạt tiêu chí                    | ❌ Bác bỏ |
+| **H3**     | ≥ 4/5 cặp nhầm thuộc nhóm áo                             | Shirt→T-shirt (152), Coat→Pullover (92), Shirt→Pullover (67), Coat→Shirt (51), T-shirt→Shirt (49) → **5/5** thuộc nhóm áo        |  ✅ Đúng  |
 
 **Phân tích H2 (bác bỏ)**: Cả 3 kiến trúc đều có `test_loss(aug) > test_loss(no_aug)` (0/3 đạt tiêu chí). Overfit gap âm ở nhánh aug là **artifact** — train loss đo trên ảnh augmented (khó hơn ảnh gốc) nên val < train là hiển nhiên, không phải bằng chứng hết overfit. Để đánh giá tác động augmentation đúng cách, cần so sánh **test metrics** trên cùng test set sạch: CNN mất 0.39 điểm % acc, MLP mất 2.68 điểm %, Logistic mất 9.14 điểm %. Kết luận: trong thiết lập 20 epoch, augmentation không cải thiện test performance cho bất kỳ kiến trúc nào.
 
@@ -338,11 +370,11 @@ Mỗi thí nghiệm có 1 biểu đồ riêng gồm 2 panel (Loss + Accuracy), �
 - Từ `confusion_matrix_<exp_id>.png` và `per_class_f1_comparison.png` xác định class nào yếu nhất, cặp class nào nhầm nhau nhiều nhất.
 - Đối chiếu kỳ vọng (đặt trước theo per-class recall, tương đương accuracy trên từng lớp vì mỗi lớp test có đúng 1.000 mẫu) với kết quả thực tế của `CNN no_aug`:
 
-| Nhóm          | Classes                                             | Recall kỳ vọng | Thực tế (`CNN no_aug`, Recall / F1)                                 | Ghi chú                                            |
-| :------------ | :-------------------------------------------------- | :------------: | :------------------------------------------------------------------ | :------------------------------------------------- |
-| Dễ phân biệt  | `Trouser`, `Sandal`, `Sneaker`, `Bag`, `Ankle boot` |    ~96–98%     | Recall `96.6–98.7%` (F1 `96.46–98.59%`)                             | Khớp kỳ vọng; hình dáng khác biệt rõ               |
-| Khó phân biệt | `Pullover`, `Coat`                                  |      ~80%      | `Pullover` `89.0%` / `85.91%`; `Coat` `81.2%` / `85.29%`            | Tương đồng cấu trúc tay áo; cao hơn kỳ vọng nhẹ    |
-| Rất khó       | `Shirt`, `T-shirt/top`                              |      ~60%      | `Shirt` `69.4%` / `74.50%`; `T-shirt/top` `91.2%` / `86.12%`        | Chỉ `Shirt` thấp rõ; `T-shirt` recall cao nhưng bị giảm precision do nhận nhầm từ `Shirt` |
+| Nhóm          | Classes                                             | Recall kỳ vọng | Thực tế (`CNN no_aug`, Recall / F1)                          | Ghi chú                                                                                   |
+| :------------ | :-------------------------------------------------- | :------------: | :----------------------------------------------------------- | :---------------------------------------------------------------------------------------- |
+| Dễ phân biệt  | `Trouser`, `Sandal`, `Sneaker`, `Bag`, `Ankle boot` |    ~96–98%     | Recall `96.6–98.7%` (F1 `96.46–98.59%`)                      | Khớp kỳ vọng; hình dáng khác biệt rõ                                                      |
+| Khó phân biệt | `Pullover`, `Coat`                                  |      ~80%      | `Pullover` `89.0%` / `85.91%`; `Coat` `81.2%` / `85.29%`     | Tương đồng cấu trúc tay áo; cao hơn kỳ vọng nhẹ                                           |
+| Rất khó       | `Shirt`, `T-shirt/top`                              |      ~60%      | `Shirt` `69.4%` / `74.50%`; `T-shirt/top` `91.2%` / `86.12%` | Chỉ `Shirt` thấp rõ; `T-shirt` recall cao nhưng bị giảm precision do nhận nhầm từ `Shirt` |
 
 #### Confusion Matrix — CNN (mô hình tốt nhất)
 
@@ -385,7 +417,7 @@ Mỗi thí nghiệm có 1 biểu đồ riêng gồm 2 panel (Loss + Accuracy), �
 | ![Gallery CNN no_aug](../../../../experiments/lab1/predictions/predictions_gallery_cnn_no_aug.png) | ![Gallery CNN aug](../../../../experiments/lab1/predictions/predictions_gallery_cnn_aug.png) |
 
 - **Quan sát (trong 5 mẫu sai hiển thị của mỗi ảnh — Top Confident Errors)**:
-  - Cả `CNN no_aug` và `CNN aug` đều đạt **softmax 100% ở cả 5/5 mẫu sai hiển thị** (phản ánh cả cách lọc *Top Confident Errors* lẫn hiện tượng overconfidence của softmax trên mẫu dị biệt).
+  - Cả `CNN no_aug` và `CNN aug` đều đạt **softmax 100% ở cả 5/5 mẫu sai hiển thị** (phản ánh cả cách lọc _Top Confident Errors_ lẫn hiện tượng overconfidence của softmax trên mẫu dị biệt).
   - **`CNN no_aug`**: 5 lỗi tự tin nhất là `Shirt → Bag`, `Ankle boot → Sandal` (2 mẫu), `Trouser → Dress`, `T-shirt/top → Sandal` — đều là ảnh hình dáng đặc biệt hoặc rất giống lớp bị dự đoán (áo gập khối vuông như túi, bốt hở hông/mũi như sandal, quần dính hai ống như váy, ảnh tối lốm đốm). Đáng chú ý, **không có mẫu `Shirt → T-shirt/top`** trong top 5 này.
   - **`CNN aug`**: 5 lỗi tự tin nhất là `Dress → Trouser`, `Sneaker → Ankle boot`, `T-shirt/top → Dress` (2 mẫu), `Ankle boot → Sandal` — tương tự, các mẫu rất mơ hồ về hình dạng (váy có sọc đen chia giữa trông như hai ống quần, giày cổ cao giống bốt, áo dáng dài giống váy).
 
@@ -399,15 +431,15 @@ Mỗi thí nghiệm có 1 biểu đồ riêng gồm 2 panel (Loss + Accuracy), �
   - Cả `Logistic no_aug` và `MLP no_aug` cũng đạt **softmax 100% ở cả 5/5 mẫu sai hiển thị** (riêng ở 5 mẫu đúng hàng trên, `Logistic` có confidence thấp hơn rõ ở 3 mẫu: 81%, 92%, 50%, so với `MLP` 95–100%).
   - **`Logistic no_aug`**: `Sneaker → Ankle boot`, `Bag → Sneaker` (mẫu túi đeo ngang lạ), `Shirt → Coat`, `Sandal → Ankle boot`, `Dress → Trouser` — lỗi tự tin cao rải trên nhiều nhóm.
   - **`MLP no_aug`**: `T-shirt/top → Bag`, `Ankle boot → Sandal`, `Coat → Shirt`, `Trouser → Coat` (quần ống rộng), `Trouser → Dress` (trùng mẫu quần hẹp với `CNN no_aug`) — cũng tập trung vào các ảnh dị biệt ở nhiều lớp, không chỉ riêng nhóm áo.
-- **Lưu ý phạm vi**: Gallery lọc 5 *Top Confident Errors* mỗi mô hình nên chủ yếu phơi bày các mẫu outlier/mơ hồ cực đoan, chưa đại diện cho lỗi phổ biến nhất (`Shirt ↔ T-shirt/top`). Cần lấy mẫu ngẫu nhiên 20–50 ảnh sai thuộc cặp `Shirt ↔ T-shirt/top` nếu muốn kiểm chứng nguyên nhân nhầm lẫn ở nhóm áo.
+- **Lưu ý phạm vi**: Gallery lọc 5 _Top Confident Errors_ mỗi mô hình nên chủ yếu phơi bày các mẫu outlier/mơ hồ cực đoan, chưa đại diện cho lỗi phổ biến nhất (`Shirt ↔ T-shirt/top`). Cần lấy mẫu ngẫu nhiên 20–50 ảnh sai thuộc cặp `Shirt ↔ T-shirt/top` nếu muốn kiểm chứng nguyên nhân nhầm lẫn ở nhóm áo.
 
 ### Bước 3: Từ nguyên nhân → hành động
 
-| Quan sát                                    | Nguyên nhân                                 | Hướng sửa                                                                  |
-| :------------------------------------------ | :------------------------------------------ | :------------------------------------------------------------------------- |
+| Quan sát                                    | Nguyên nhân                                 | Hướng sửa                                                                               |
+| :------------------------------------------ | :------------------------------------------ | :-------------------------------------------------------------------------------------- |
 | Train acc cao, test thấp, sai ở class khó   | Overfit                                     | Dropout, weight decay, BatchNorm; augmentation (cần train lâu hơn để đánh giá — xem H2) |
-| Cả train lẫn test đều thấp ở class áo       | Capacity không đủ (nếu train acc cũng thấp) | Tăng depth/width — chỉ khi regularization đã áp dụng mà train acc vẫn thấp |
-| Ảnh 28×28 cũng khó phân biệt bằng mắt người | Có thể do label noise / giới hạn dữ liệu    | Chấp nhận trần accuracy, không ép                                          |
+| Cả train lẫn test đều thấp ở class áo       | Capacity không đủ (nếu train acc cũng thấp) | Tăng depth/width — chỉ khi regularization đã áp dụng mà train acc vẫn thấp              |
+| Ảnh 28×28 cũng khó phân biệt bằng mắt người | Có thể do label noise / giới hạn dữ liệu    | Chấp nhận trần accuracy, không ép                                                       |
 
 - **Phân tích thực tế** (so sánh tại best epoch — cùng checkpoint với test metrics):
   - Quy ước: gap acc = train − val (cùng chiều với gap loss = val − train; dương là overfit).
@@ -428,7 +460,7 @@ Train → Phân tích lỗi → Đặt giả thuyết → Sửa 1 thứ → Trai
 
 - [x] Per-class metrics (Precision/Recall/F1), không chỉ Accuracy tổng
 - [x] Confusion Matrix: cặp class nào nhầm nhau nhất → Shirt ↔ T-shirt (152 mẫu)
-- [x] Xem 20 mẫu sai tự tin nhất (5 mẫu × 4 gallery) bằng mắt → `predictions_gallery_*.png` *(lưu ý: chỉ là Top Confident Errors, chưa lấy mẫu ngẫu nhiên riêng cho cặp Shirt ↔ T-shirt/top)*
+- [x] Xem 20 mẫu sai tự tin nhất (5 mẫu × 4 gallery) bằng mắt → `predictions_gallery_*.png` _(lưu ý: chỉ là Top Confident Errors, chưa lấy mẫu ngẫu nhiên riêng cho cặp Shirt ↔ T-shirt/top)_
 - [x] So train error vs val error để phân biệt overfit/underfit (learning curve riêng từng model)
 - [x] Đánh giá tác động augmentation trên từng kiến trúc
 
@@ -437,7 +469,7 @@ Train → Phân tích lỗi → Đặt giả thuyết → Sửa 1 thứ → Trai
 1. **Overfit tiềm ẩn ở CNN no_aug**: Nếu train tiếp quá epoch 8, val loss tăng ngược (0.22 → 0.41) trong khi train loss → 0.05 — dấu hiệu kinh điển của overfitting. Tuy nhiên, checkpoint `best.pt` được chọn theo `val_loss` thấp nhất (epoch 8, gap +0.067) — thực chất đã là **early stopping**. Hướng cải thiện nếu muốn train lâu hơn: áp dụng regularization (dropout, weight decay, BatchNorm) trước khi tăng depth/width. Tăng depth/width chỉ cân nhắc khi có bằng chứng mô hình thiếu capacity (cả train lẫn val đều thấp).
 2. **Augmentation không cải thiện test metrics ở cả 3 kiến trúc**: CNN đủ capacity (train acc 98%) mà aug vẫn không giảm test loss, Logistic bị hại nặng (−9.14 điểm %). Nguyên nhân chưa kiểm chứng; các giả thuyết khả dĩ: với `MLP aug` và `CNN aug`, 20 epoch có thể chưa đủ (train loss vẫn giảm chậm đến epoch 20); với `Logistic aug`, mô hình đã hội tụ (train loss phẳng từ epoch 2) nên nghiêng về mô hình tuyến tính không tận dụng được aug hoặc distribution shift do flip/affine. Ngoài ra augmentation policy có thể chưa phù hợp, hoặc 55k mẫu đã đủ để aug không thêm thông tin mới.
 3. **Giả thuyết về trần accuracy**: Ảnh 28×28 mờ, `Shirt` và `T-shirt` gần như giống nhau → một phần lỗi có thể đến từ label noise hoặc giới hạn vật lý của dữ liệu, nhưng chưa kiểm chứng (cần đánh giá inter-annotator agreement hoặc test trên ảnh phân giải cao hơn).
-4. **Latency inference không đáng tin**: Cùng kiến trúc mà aug/no_aug chênh 25–46% (CNN: 1.51 vs 2.21 ms), dù augmentation chỉ áp dụng lúc training và không ảnh hưởng forward pass. Điều này cho thấy phép đo bị chi phối bởi nhiễu hệ thống (GPU warmup, system load) chứ không phản ánh sự khác biệt kiến trúc thực sự. Cột `Infer Latency` trong bảng metric chỉ mang tính tham khảo.
+4. **Latency inference không đáng tin**: Cùng kiến trúc mà độ lệch tương đối `|aug − no_aug| / no_aug` lên tới **23.8–46.4%** (`MLP`: 1.325 vs 1.641 ms → 23.8%; `Logistic`: 1.087 vs 0.813 ms → 25.2%; `CNN`: 1.510 vs 2.211 ms → 46.4%), dù augmentation chỉ áp dụng lúc training và không ảnh hưởng forward pass. Điều này cho thấy phép đo bị chi phối bởi nhiễu hệ thống (GPU warmup, system load) chứ không phản ánh sự khác biệt kiến trúc thực sự. Cột `Infer Latency` trong bảng metric chỉ mang tính tham khảo.
 
 ---
 
@@ -452,16 +484,20 @@ Train → Phân tích lỗi → Đặt giả thuyết → Sửa 1 thứ → Trai
 
 ## Lịch sử thay đổi
 
-| Version | Ngày       | Người sửa | Agent       | Mô tả thay đổi                                                                                                                                                               |
-| :------ | :--------- | :-------- | :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0.11.0 | 2026-11-20 | notworLe | Antigravity | Đối chiếu trực tiếp 4 ảnh predictions_gallery (sửa mô tả sai thực tế trước đó), dẫn nguồn 44.08% từ per_class_metrics.json, thêm cột đối chiếu Recall thực tế ở Bước 1, thêm "có thể" cho Dress/Ankle boot, tách H2 khỏi căn cứ EDA |
-| 0.10.0 | 2026-11-20 | notworLe | Antigravity | Sửa số liệu (Shirt recall 458/1000, CNN aug đổi kiểu lỗi 49→108), tách giả thuyết "chưa đủ epoch" theo từng mô hình, đổi quy ước gap acc = train − val, thống nhất "điểm %", ghi chú post-hoc cho H2/H3 |
-| 0.9.0   | 2026-11-20 | notworLe  | Antigravity | Sửa hướng cải thiện: overfit → regularization trước (dropout, weight decay, BatchNorm, early stopping), không khuyến nghị tăng depth/width khi chưa kiểm soát overfit        |
-| 0.8.0   | 2026-11-20 | notworLe  | Antigravity | Sửa gap đo sai điểm: chuyển toàn bộ metrics sang @best epoch (cùng checkpoint với test), bỏ so train_acc epoch 20 với test_acc epoch 8                                       |
-| 0.7.0   | 2026-11-20 | notworLe  | Antigravity | Sửa lỗi khái niệm: gap âm là artifact (train đo trên ảnh aug khó hơn), không phải bằng chứng hết overfit; bỏ nhãn "underfit" sai; loại mâu thuẫn "chưa hội tụ" vs "underfit" |
-| 0.6.0   | 2026-11-20 | notworLe  | Antigravity | Tách giả thuyết H1–H3: tuyên bố trước train (Define → Hypotheses), cơ sở từ EDA, kiểm chứng bằng bảng formal (H2 bác bỏ)                                                     |
-| 0.5.0   | 2026-11-20 | notworLe  | Antigravity | Embed toàn bộ ảnh Confusion Matrix (CNN, Logistic, MLP) và Predictions Gallery vào Error Analysis với phân tích trực quan                                                    |
-| 0.4.0   | 2026-11-20 | notworLe  | Antigravity | Điền toàn bộ số liệu thực nghiệm, phân tích lỗi 3 bước, kiểm tra giả thuyết H1–H3, checklist hoàn tất                                                                        |
-| 0.3.0   | 2026-11-20 | notworLe  | Antigravity | Bổ sung mục Evaluate chi tiết (learning curve riêng từng model, nguyên tắc) và Error Analysis 3 bước theo DL_PIPELINE.md                                                     |
-| 0.2.0   | 2026-11-18 | notworLe  | Antigravity | Làm mới REPORT.md rõ luồng 5 pipeline, tích hợp thông số EDA thật và đặt `[TBD]` cho số liệu train/eval                                                                      |
-| 0.1.0   | 2026-11-17 | notworLe  | —           | Bản phác thảo khung kim chỉ nam ban đầu                                                                                                                                      |
+| Version | Ngày       | Người sửa | Agent       | Mô tả thay đổi                                                                                                                                                                                                                      |
+| :------ | :--------- | :-------- | :---------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ---------------------------------------------------------------------------------------- |
+| 0.14.0  | 2026-11-20 | notworLe  | Antigravity | Chi tiết hóa EDA Lens 1 (shape, dtype, RAM, completeness), bổ sung 2 biểu đồ phân phối Lens 2 (`eda_class_balance.png`, `eda_pixel_distribution.png`) và đồng bộ `mean=0.2862`/`std=0.3531` theo đúng 55k Train                     |
+| 0.13.1  | 2026-11-20 | notworLe  | Antigravity | Thống nhất công thức & khoảng lệch latency `                                                                                                                                                                                        | aug − no_aug | / no_aug` (23.8–46.4%) ở 2 mục và làm rõ tiêu chí H2 (≥ 2/3) vẫn bị bác kể cả khi bỏ CNN |
+| 0.13.0  | 2026-11-20 | notworLe  | Antigravity | Bổ sung nhận xét đọc bảng Metric tổng hợp (xếp hạng H1, mức chắc chắn H2 ở CNN vs Logistic, chi phí/lợi ích, best epoch và lưu ý cột latency)                                                                                       |
+| 0.12.0  | 2026-11-20 | notworLe  | Antigravity | Bổ sung 3 ảnh EDA (sample grid 10×5, class prototypes, cosine similarity + PCA 2D), ghi rõ cosine đo giữa các class prototype (0.90–0.99) và tỷ lệ phương sai giải thích PCA 2D (47.19%)                                            |
+| 0.11.0  | 2026-11-20 | notworLe  | Antigravity | Đối chiếu trực tiếp 4 ảnh predictions_gallery (sửa mô tả sai thực tế trước đó), dẫn nguồn 44.08% từ per_class_metrics.json, thêm cột đối chiếu Recall thực tế ở Bước 1, thêm "có thể" cho Dress/Ankle boot, tách H2 khỏi căn cứ EDA |
+| 0.10.0  | 2026-11-20 | notworLe  | Antigravity | Sửa số liệu (Shirt recall 458/1000, CNN aug đổi kiểu lỗi 49→108), tách giả thuyết "chưa đủ epoch" theo từng mô hình, đổi quy ước gap acc = train − val, thống nhất "điểm %", ghi chú post-hoc cho H2/H3                             |
+| 0.9.0   | 2026-11-20 | notworLe  | Antigravity | Sửa hướng cải thiện: overfit → regularization trước (dropout, weight decay, BatchNorm, early stopping), không khuyến nghị tăng depth/width khi chưa kiểm soát overfit                                                               |
+| 0.8.0   | 2026-11-20 | notworLe  | Antigravity | Sửa gap đo sai điểm: chuyển toàn bộ metrics sang @best epoch (cùng checkpoint với test), bỏ so train_acc epoch 20 với test_acc epoch 8                                                                                              |
+| 0.7.0   | 2026-11-20 | notworLe  | Antigravity | Sửa lỗi khái niệm: gap âm là artifact (train đo trên ảnh aug khó hơn), không phải bằng chứng hết overfit; bỏ nhãn "underfit" sai; loại mâu thuẫn "chưa hội tụ" vs "underfit"                                                        |
+| 0.6.0   | 2026-11-20 | notworLe  | Antigravity | Tách giả thuyết H1–H3: tuyên bố trước train (Define → Hypotheses), cơ sở từ EDA, kiểm chứng bằng bảng formal (H2 bác bỏ)                                                                                                            |
+| 0.5.0   | 2026-11-20 | notworLe  | Antigravity | Embed toàn bộ ảnh Confusion Matrix (CNN, Logistic, MLP) và Predictions Gallery vào Error Analysis với phân tích trực quan                                                                                                           |
+| 0.4.0   | 2026-11-20 | notworLe  | Antigravity | Điền toàn bộ số liệu thực nghiệm, phân tích lỗi 3 bước, kiểm tra giả thuyết H1–H3, checklist hoàn tất                                                                                                                               |
+| 0.3.0   | 2026-11-20 | notworLe  | Antigravity | Bổ sung mục Evaluate chi tiết (learning curve riêng từng model, nguyên tắc) và Error Analysis 3 bước theo DL_PIPELINE.md                                                                                                            |
+| 0.2.0   | 2026-11-18 | notworLe  | Antigravity | Làm mới REPORT.md rõ luồng 5 pipeline, tích hợp thông số EDA thật và đặt `[TBD]` cho số liệu train/eval                                                                                                                             |
+| 0.1.0   | 2026-11-17 | notworLe  | —           | Bản phác thảo khung kim chỉ nam ban đầu                                                                                                                                                                                             |

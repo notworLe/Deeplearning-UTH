@@ -5,10 +5,10 @@ author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-18
-updated: 2026-11-19
+updated: 2026-11-20
 last_updated_by: Antigravity
-version: 0.3.0
-status: draft
+version: 0.4.0
+status: approved
 reviewers: []
 related_docs:
   - ../REPORT.md
@@ -31,7 +31,7 @@ tags: [lab1, pipe-04, evaluation, benchmark, error-analysis]
 - **Input**: Các thư mục kết quả `experiments/lab1/<exp_id>/{best.pt, history.json}` (ma trận 3×2) và `test_loader` (`10.000` mẫu, `shuffle=False`).
 - **Output (`experiments/lab1/evaluation/` & `predictions/`)**:
   - Bảng định lượng: `benchmark_summary.json`, `benchmark_table.csv`, `per_class_metrics.json`.
-  - Đồ thị chẩn đoán: `learning_curves_comparison.png`, `per_class_f1_comparison.png`, `confusion_matrix_<exp_id>.png`, `predictions_gallery_<exp_id>.png`.
+  - Đồ thị chẩn đoán: `learning_curves_comparison.png`, 6× `learning_curve_<exp_id>.png` (2 panel Loss/Acc đánh dấu Best Epoch & Overfit Gap), `per_class_f1_comparison.png`, `confusion_matrix_<exp_id>.png`, `predictions_gallery_<exp_id>.png`.
 
 ---
 
@@ -67,6 +67,7 @@ tags: [lab1, pipe-04, evaluation, benchmark, error-analysis]
 - Khử chuẩn hóa tường minh (`img * std + mean`, clip `[0.0, 1.0]`) trước khi vẽ `predictions_gallery_*.png`.
 - Thực hiện `warmup_batches` và gọi `torch.cuda.synchronize()` trước/sau vòng đo thời gian.
 - Luôn dùng `sharey=False` và `bbox_inches="tight"` để biểu đồ không lặp lại lỗi khoảng trắng dư (`Error 0001`).
+- Bảo vệ backend Matplotlib (`if "inline" not in matplotlib.get_backend().lower(): matplotlib.use("Agg")`) để tránh ghi đè `%matplotlib inline` khi import `evaluate.py` từ Jupyter Notebook.
 
 ---
 
@@ -81,5 +82,6 @@ tags: [lab1, pipe-04, evaluation, benchmark, error-analysis]
 
 | Version | Ngày | Người sửa | Agent | Mô tả thay đổi |
 | :--- | :--- | :--- | :--- | :--- |
+| 0.4.0 | 2026-11-20 | notworLe | Antigravity | Bổ sung 6 đồ thị `learning_curve_<exp_id>.png` (`plot_individual_learning_curves`) và cơ chế bảo vệ Matplotlib inline backend |
 | 0.3.0 | 2026-11-19 | notworLe | Antigravity | Viết lại theo cấu trúc phân tích đặc trưng `AI_FIRST_LIFECYCLE.md`, loại bỏ khung prompt mẫu |
 | 0.2.0 | 2026-11-18 | notworLe | Antigravity | Đồng bộ `labs/lab1/vibe/config.py` |
