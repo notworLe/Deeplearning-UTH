@@ -1,0 +1,4 @@
+exp_id,mode,trainable_params,total_params,best_epoch,train_time_sec,train_acc_at_best_pct,val_acc_at_best_pct,val_loss_at_best,test_loss,test_acc_pct,macro_f1_pct,cat_err_pct,dog_err_pct,save_load_max_diff
+resnet18_baseline,baseline,11195493,11195493,24,891.49,77.26,44.84,1.9605,1.9341,49.74,49.41,47.37,51.63,0.0
+resnet18_transfer,transfer,18981,11195493,17,859.08,98.59,90.22,0.3213,0.3225,89.31,89.19,16.35,8.0,0.0
+resnet18_finetune,finetune,8412709,11195493,1,925.81,93.04,89.4,0.3482,0.3859,88.52,88.33,16.35,9.16,0.0

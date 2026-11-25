@@ -1,0 +1,386 @@
+{
+  "total_images": 7349,
+  "trainval_size": 3680,
+  "test_raw_size": 3669,
+  "num_classes": 37,
+  "classes": [
+    "Abyssinian",
+    "American Bulldog",
+    "American Pit Bull Terrier",
+    "Basset Hound",
+    "Beagle",
+    "Bengal",
+    "Birman",
+    "Bombay",
+    "Boxer",
+    "British Shorthair",
+    "Chihuahua",
+    "Egyptian Mau",
+    "English Cocker Spaniel",
+    "English Setter",
+    "German Shorthaired",
+    "Great Pyrenees",
+    "Havanese",
+    "Japanese Chin",
+    "Keeshond",
+    "Leonberger",
+    "Maine Coon",
+    "Miniature Pinscher",
+    "Newfoundland",
+    "Persian",
+    "Pomeranian",
+    "Pug",
+    "Ragdoll",
+    "Russian Blue",
+    "Saint Bernard",
+    "Samoyed",
+    "Scottish Terrier",
+    "Shiba Inu",
+    "Siamese",
+    "Sphynx",
+    "Staffordshire Bull Terrier",
+    "Wheaten Terrier",
+    "Yorkshire Terrier"
+  ],
+  "species_map": {
+    "0": {
+      "class_id": 0,
+      "label": "Abyssinian",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "1": {
+      "class_id": 1,
+      "label": "American Bulldog",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "2": {
+      "class_id": 2,
+      "label": "American Pit Bull Terrier",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "3": {
+      "class_id": 3,
+      "label": "Basset Hound",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "4": {
+      "class_id": 4,
+      "label": "Beagle",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "5": {
+      "class_id": 5,
+      "label": "Bengal",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "6": {
+      "class_id": 6,
+      "label": "Birman",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "7": {
+      "class_id": 7,
+      "label": "Bombay",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "8": {
+      "class_id": 8,
+      "label": "Boxer",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "9": {
+      "class_id": 9,
+      "label": "British Shorthair",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "10": {
+      "class_id": 10,
+      "label": "Chihuahua",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "11": {
+      "class_id": 11,
+      "label": "Egyptian Mau",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "12": {
+      "class_id": 12,
+      "label": "English Cocker Spaniel",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "13": {
+      "class_id": 13,
+      "label": "English Setter",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "14": {
+      "class_id": 14,
+      "label": "German Shorthaired",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "15": {
+      "class_id": 15,
+      "label": "Great Pyrenees",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "16": {
+      "class_id": 16,
+      "label": "Havanese",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "17": {
+      "class_id": 17,
+      "label": "Japanese Chin",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "18": {
+      "class_id": 18,
+      "label": "Keeshond",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "19": {
+      "class_id": 19,
+      "label": "Leonberger",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "20": {
+      "class_id": 20,
+      "label": "Maine Coon",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "21": {
+      "class_id": 21,
+      "label": "Miniature Pinscher",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "22": {
+      "class_id": 22,
+      "label": "Newfoundland",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "23": {
+      "class_id": 23,
+      "label": "Persian",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "24": {
+      "class_id": 24,
+      "label": "Pomeranian",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "25": {
+      "class_id": 25,
+      "label": "Pug",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "26": {
+      "class_id": 26,
+      "label": "Ragdoll",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "27": {
+      "class_id": 27,
+      "label": "Russian Blue",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "28": {
+      "class_id": 28,
+      "label": "Saint Bernard",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "29": {
+      "class_id": 29,
+      "label": "Samoyed",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "30": {
+      "class_id": 30,
+      "label": "Scottish Terrier",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "31": {
+      "class_id": 31,
+      "label": "Shiba Inu",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "32": {
+      "class_id": 32,
+      "label": "Siamese",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "33": {
+      "class_id": 33,
+      "label": "Sphynx",
+      "is_cat": true,
+      "species": "Cat"
+    },
+    "34": {
+      "class_id": 34,
+      "label": "Staffordshire Bull Terrier",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "35": {
+      "class_id": 35,
+      "label": "Wheaten Terrier",
+      "is_cat": false,
+      "species": "Dog"
+    },
+    "36": {
+      "class_id": 36,
+      "label": "Yorkshire Terrier",
+      "is_cat": false,
+      "species": "Dog"
+    }
+  },
+  "species_filename_consistent": true,
+  "num_cat_classes": 12,
+  "num_dog_classes": 25,
+  "trainval_cat_images": 1188,
+  "trainval_dog_images": 2492,
+  "test_raw_cat_images": 1183,
+  "test_raw_dog_images": 2486,
+  "corrupt_count": 0,
+  "corrupt_files": [],
+  "color_modes": {
+    "RGB": 7346,
+    "RGBA": 3
+  },
+  "non_rgb_count": 3,
+  "duplicate_group_count": 0,
+  "within_trainval_dup_groups": 0,
+  "within_test_dup_groups": 0,
+  "cross_split_dup_groups": 0,
+  "duplicate_examples": [],
+  "trainval_class_counts": {
+    "Abyssinian": 100,
+    "American Bulldog": 100,
+    "American Pit Bull Terrier": 100,
+    "Basset Hound": 100,
+    "Beagle": 100,
+    "Bengal": 100,
+    "Birman": 100,
+    "Bombay": 96,
+    "Boxer": 100,
+    "British Shorthair": 100,
+    "Chihuahua": 100,
+    "Egyptian Mau": 93,
+    "English Cocker Spaniel": 96,
+    "English Setter": 100,
+    "German Shorthaired": 100,
+    "Great Pyrenees": 100,
+    "Havanese": 100,
+    "Japanese Chin": 100,
+    "Keeshond": 100,
+    "Leonberger": 100,
+    "Maine Coon": 100,
+    "Miniature Pinscher": 100,
+    "Newfoundland": 96,
+    "Persian": 100,
+    "Pomeranian": 100,
+    "Pug": 100,
+    "Ragdoll": 100,
+    "Russian Blue": 100,
+    "Saint Bernard": 100,
+    "Samoyed": 100,
+    "Scottish Terrier": 100,
+    "Shiba Inu": 100,
+    "Siamese": 99,
+    "Sphynx": 100,
+    "Staffordshire Bull Terrier": 100,
+    "Wheaten Terrier": 100,
+    "Yorkshire Terrier": 100
+  },
+  "test_raw_class_counts": {
+    "Abyssinian": 98,
+    "American Bulldog": 100,
+    "American Pit Bull Terrier": 100,
+    "Basset Hound": 100,
+    "Beagle": 100,
+    "Bengal": 100,
+    "Birman": 100,
+    "Bombay": 88,
+    "Boxer": 99,
+    "British Shorthair": 100,
+    "Chihuahua": 100,
+    "Egyptian Mau": 97,
+    "English Cocker Spaniel": 100,
+    "English Setter": 100,
+    "German Shorthaired": 100,
+    "Great Pyrenees": 100,
+    "Havanese": 100,
+    "Japanese Chin": 100,
+    "Keeshond": 99,
+    "Leonberger": 100,
+    "Maine Coon": 100,
+    "Miniature Pinscher": 100,
+    "Newfoundland": 100,
+    "Persian": 100,
+    "Pomeranian": 100,
+    "Pug": 100,
+    "Ragdoll": 100,
+    "Russian Blue": 100,
+    "Saint Bernard": 100,
+    "Samoyed": 100,
+    "Scottish Terrier": 99,
+    "Shiba Inu": 100,
+    "Siamese": 100,
+    "Sphynx": 100,
+    "Staffordshire Bull Terrier": 89,
+    "Wheaten Terrier": 100,
+    "Yorkshire Terrier": 100
+  },
+  "width_stats": {
+    "min": 114,
+    "median": 500.0,
+    "mean": 437.2374572753906,
+    "max": 3264
+  },
+  "height_stats": {
+    "min": 103,
+    "median": 375.0,
+    "mean": 391.38726806640625,
+    "max": 2606
+  },
+  "aspect_ratio_stats": {
+    "min": 0.41999998688697815,
+    "p05": 0.6660000085830688,
+    "median": 1.3333333730697632,
+    "mean": 1.1721726655960083,
+    "p95": 1.5060241222381592,
+    "max": 2.5641026496887207
+  }
+}
