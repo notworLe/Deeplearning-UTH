@@ -5,14 +5,16 @@ author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-21
-updated: 2026-11-23
+updated: 2026-11-25
 last_updated_by: notworLe
-version: 0.1.0
+version: 1.3.1
 status: approved
 reviewers: []
 ---
 
 # Deeplearning single agent delegation loop
+
+> **Version:** `v1.3.1` · **Source:** `notworLe/worskill/rules/DL_RULE`
 
 A single agent delegation loop for any agent helping an engineer solve problems through the "single agent delegation loop" norm.
 
@@ -96,3 +98,15 @@ Ghi nhận lịch sử thực thi, file thay đổi và kết quả đã xác mi
 
 Trích xuất tri thức kỹ thuật có thể tái sử dụng cho các task sau.
 - Agent đọc tại: [`KNOWLEDGE_EXTRACTION.md`](KNOWLEDGE_EXTRACTION.md)
+
+---
+
+## Lịch sử thay đổi
+
+| Version | Ngày | Mô tả thay đổi |
+| :--- | :--- | :--- |
+| `v1.3.1` | 2026-11-25 | Đồng bộ version header và bổ sung bảng lịch sử thay đổi trực tiếp trong `rules/DL_RULE/README.md` |
+| `v1.3.0` | 2026-11-24 | Thêm `# MODELING MINDSET` và *Project Reference* vào `ROLE_ALIGNMENT.md`; bổ sung cây thư mục `ROOT/` và ranh giới `configs/` vs `experiments/`, `scripts/`, `data/`, `models/` trong `PROJECT_RULE.md` |
+| `v1.2.0` | 2026-11-23 | Hoàn thiện 7 bước `DEPLOY_MODEL.md`, chuẩn hóa vai Senior ML Engineer, tách rõ Bước 4 (`PLAN.md` + Approval Gate) & Bước 5 (`EXECUTION.md`), tách Phase 7 (`LOGGING.md`) vs Phase 8 (`KNOWLEDGE_EXTRACTION.md`), thống nhất `.agents/`, sửa Mermaid & frontmatter |
+| `v1.1.0` | 2026-11-23 | Tái cấu trúc `DL_RULE` sang mô hình 8-stage single-agent delegation workflow (`ROLE_ALIGNMENT` → `KNOWLEDGE_EXTRACTURE`) |
+| `v1.0.0` | 2026-11-21 | Khởi tạo bộ `DL_RULE` ban đầu trong `rules/DL_RULE/` |
