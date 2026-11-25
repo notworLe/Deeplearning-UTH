@@ -47,10 +47,11 @@ labs/lab3/main/
 
 ---
 
-## 📚 Phân Tích Chuyên Sâu ML/DL Pipeline
+## 📚 Tài Liệu Thuyết Trình & Biểu Diễn Từng Notebook (`labs/lab3/docs/`)
 
-Chi tiết phân tích toán học và cơ chế chuyển đổi tensor theo 6 trục chuẩn mực (*Input, Output, Đặc trưng, Mục tiêu, Hạn chế, Giải pháp*) được lưu trữ tại:
-👉 **[`docs/lab3/PIPELINE_EXPLANATION.md`](../../../docs/lab3/PIPELINE_EXPLANATION.md)**.
+Chi tiết kịch bản thuyết trình từng cell, sơ đồ luồng biến đổi tensor và bộ câu hỏi phản biện (Q&A Defense) được lưu trữ tại:
+👉 **[`../docs/PRESENTATION_01_EX1_SENTIMENT_ANALYSIS.md`](../docs/PRESENTATION_01_EX1_SENTIMENT_ANALYSIS.md)** (Dành cho `01_ex1_sentiment_analysis.ipynb` & `main.ipynb`).
+👉 **[`../docs/PRESENTATION_02_EX2_FINETUNE_SENTIMENT.md`](../docs/PRESENTATION_02_EX2_FINETUNE_SENTIMENT.md)** (Dành cho `02_ex2_finetune_sentiment.ipynb` & `fine-tune.ipynb`).
 
 ---
 
@@ -122,4 +123,4 @@ Quá trình đánh giá được thực hiện tự động sau khi kết thúc 
 
 - Hugging Face Transformers Documentation: [https://huggingface.co/docs/transformers](https://huggingface.co/docs/transformers)
 - GLUE Benchmark Leaderboard: [https://gluebenchmark.com/](https://gluebenchmark.com/)
-- Bộ quy chuẩn tham chiếu AI: [`.agents/AI_REFERENCE.md`](../../../.agents/AI_REFERENCE.md)
+- Bộ quy chuẩn tham chiếu AI: [`.agents/rules/AI_REFERENCE.md`](../../../.agents/rules/AI_REFERENCE.md)

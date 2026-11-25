@@ -1,3 +1,4 @@
+import torch
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, DataCollatorWithPadding
 import matplotlib.pyplot as plt
@@ -46,14 +47,14 @@ args = TrainingArguments(
     learning_rate=2e-5,
     per_device_train_batch_size=32,
     per_device_eval_batch_size=64,
-    dataloader_num_workers=8,
+    dataloader_num_workers=0,
     num_train_epochs=3,
     weight_decay=0.01,
     eval_strategy="epoch",          # transformers cũ: evaluation_strategy
     save_strategy="epoch",
     load_best_model_at_end=True,
     metric_for_best_model="f1",
-    fp16=True,                      # có GPU nên bật
+    fp16=torch.cuda.is_available(), # có GPU nên bật
     # disable_tqdm=True,
     report_to="none",
 )

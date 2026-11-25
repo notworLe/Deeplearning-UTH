@@ -25,11 +25,12 @@ labs/lab3/
 
 ---
 
-## 📚 Tài Liệu Bóc Tách Kỹ Thuật Pipeline Chuẩn ML/DL
+## 📚 Tài Liệu Thuyết Trình & Bóc Tách Kỹ Thuật Pipeline (`labs/lab3/docs/`)
 
-Theo quy chuẩn `EXPLAIN_PIPELINE.md`, toàn bộ 10 module của pipeline xử lý Transformer được phân tích chi tiết tại:
-👉 **[docs/lab3/PIPELINE_EXPLANATION.md](../../docs/lab3/PIPELINE_EXPLANATION.md)** (Phân tích đủ 6 trục: *Input, Output, Đặc trưng, Mục tiêu, Hạn chế, Giải pháp*).
-👉 **[docs/lab3/README.md](../../docs/lab3/README.md)** (Tổng quan nghiên cứu & Báo cáo số liệu 5W1H).
+Toàn bộ sơ đồ luồng biểu diễn dữ liệu/tensor, kịch bản thuyết trình từng cell và bộ câu hỏi phản biện cho từng notebook được lưu trữ tại:
+👉 **[`docs/README.md`](docs/README.md)** (Mục lục tài liệu thuyết trình Lab 03).
+👉 **[`docs/PRESENTATION_01_EX1_SENTIMENT_ANALYSIS.md`](docs/PRESENTATION_01_EX1_SENTIMENT_ANALYSIS.md)** (Thuyết trình & biểu diễn tensor Notebook 1 — Exercise 1).
+👉 **[`docs/PRESENTATION_02_EX2_FINETUNE_SENTIMENT.md`](docs/PRESENTATION_02_EX2_FINETUNE_SENTIMENT.md)** (Thuyết trình & biểu diễn pipeline Notebook 2 — Exercise 2).
 
 ---
 
