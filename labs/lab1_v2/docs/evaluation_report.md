@@ -135,26 +135,43 @@ Mục này phân tích lỗi dự đoán của `mlp_default` trên tập Test (`
 
 Lọc riêng `366` mẫu sai của Top-3 cặp (`Shirt→T-shirt/top`, `Shirt→Pullover`, `Coat→Pullover`), tách 2 nhóm **16 lỗi tự tin cao (`99.2%–100%`)** và **16 lỗi lưỡng lự (`31.2%–42.6%`)**:
 
-| 16 Lỗi Confidence Cao (`99.2%–100%`) | 16 Lỗi Confidence Thấp — Vùng Ranh Giới (`31.2%–42.6%`) |
-| :---: | :---: |
+|                               16 Lỗi Confidence Cao (`99.2%–100%`)                               |                    16 Lỗi Confidence Thấp — Vùng Ranh Giới (`31.2%–42.6%`)                     |
+| :----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------: |
 | ![High-Conf Errors Top-3](../../../experiments/lab1_v2/figures/error_gallery_top3_high_conf.png) | ![Low-Conf Errors Top-3](../../../experiments/lab1_v2/figures/error_gallery_top3_low_conf.png) |
 
-- **Nhóm High-Conf:** Xuất hiện rõ 2 kiểu — (a) **nhiễu nhãn gốc** (áo thun cổ tròn `id=8745, 4886` hay áo len cổ tròn `id=5155, 6127, 3188` nhưng nhãn gốc là `Shirt`), và (b) **lỗi do MLP mất chi tiết cục bộ** (áo sơ-mi ngắn tay thấy rõ hàng khuy giữa thân `id=2856, 5806` vẫn bị đoán `T-shirt/top` ở mức `99.7%–100%`).
+- **Nhóm High-Conf:** Xuất hiện rõ 2 kiểu — (a) **chồng lấn định nghĩa lớp / nhiễu nhãn gốc (`Label Noise / Class Overlap`)** do lớp `Shirt` trong Fashion-MNIST gom quá đa dạng kiểu dáng (tay ngắn, tay dài, cổ tròn, có cổ), khi nén xuống `28×28` xám mất chất liệu vải nên nhiều mẫu trùng khít `T-shirt/top` (`id=8745, 4886`) hoặc `Pullover` (`id=5155, 6127, 3188`), và (b) **lỗi do MLP mất chi tiết cục bộ 2D** (áo sơ-mi ngắn tay thấy rõ hàng khuy giữa thân `id=2856, 5806` vẫn bị đoán `T-shirt/top` ở mức `99.7%–100%`).
 - **Nhóm Low-Conf (Boundary):** Gồm áo sơ-mi/áo khoác **có đặc trưng nhận diện rõ** (khóa kéo dọc `id=1142`, áo phao chần ngang `id=8580`, sơ-mi kẻ ca-rô `id=6407`, cổ đứng `id=2838, 8869`) nhưng MLP lưỡng lự `~35%–42%`, lẫn các mẫu trắng lóa / dáng hẹp không tay (`id=8005, 3481, 3510, 2144`).
 
 ### 4.3 Bước 3 — Nguyên nhân nào chiếm bao nhiêu %? (Gán nhãn định lượng `N = 60` ảnh)
 
-Kiểm tra trực quan **`60` ảnh lỗi phân tầng** (`20` ảnh/cặp × Top-3 cặp = `10` High-Conf + `10` Low-Conf mỗi cặp; bảng chi tiết từng mẫu lưu tại [`error_taxonomy_60.csv`](../../../experiments/lab1_v2/evaluation/error_taxonomy_60.csv) và 3 bảng ảnh gốc: [Sheet 1](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_1_shirt_t-shirt_top.png) · [Sheet 2](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_2_shirt_pullover.png) · [Sheet 3](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_3_coat_pullover.png)):
+Kiểm tra trực quan **`60` ảnh lỗi phân tầng** (`20` ảnh/cặp × Top-3 cặp = `10` High-Conf + `10` Low-Conf mỗi cặp; bảng chi tiết từng mẫu lưu tại [`error_taxonomy_60.csv`](../../../experiments/lab1_v2/evaluation/error_taxonomy_60.csv) và 3 bảng ảnh gốc: [`Sheet 1`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_1_shirt_t-shirt_top.png) · [`Sheet 2`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_2_shirt_pullover.png) · [`Sheet 3`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_3_coat_pullover.png)):
 
-| Nguyên nhân gốc | Tổng (`N = 60`) | High-Conf (`n = 30`) | Low-Conf (`n = 30`) | `Shirt→T-shirt` (`20`) | `Shirt→Pullover` (`20`) | `Coat→Pullover` (`20`) |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **`Model Limitation`** *(người thấy rõ, MLP sai)* | **`48.3%` (`29`)** | `43.3%` | **`53.3%`** | `7` (`35%`) | `8` (`40%`) | **`14` (`70%`)** |
-| **`Ambiguity`** *(nhập nhằng ở `28×28`)* | **`38.3%` (`23`)** | `33.3%` | `43.3%` | `10` (`50%`) | `7` (`35%`) | `6` (`30%`) |
-| **`Label Noise`** *(nhãn gốc rất đáng ngờ)* | **`13.3%` (`8`)** | **`23.3%`** | `3.3%` | `3` (`15%`) | `5` (`25%`) | `0` (`0%`) |
+| Nguyên nhân gốc                                                                       |  Tổng (`N = 60`)   | High-Conf (`n = 30`) | Low-Conf (`n = 30`) | `Shirt→T-shirt` (`20`) | `Shirt→Pullover` (`20`) | `Coat→Pullover` (`20`) |
+| :------------------------------------------------------------------------------------ | :----------------: | :------------------: | :-----------------: | :--------------------: | :---------------------: | :--------------------: |
+| **`Model Limitation`** _(người thấy rõ, MLP sai)_                                     | **`48.3%` (`29`)** |       `43.3%`        |     **`53.3%`**     |      `7` (`35%`)       |       `8` (`40%`)       |    **`14` (`70%`)**    |
+| **`Ambiguity`** _(nhập nhằng ở `28×28`)_                                              | **`38.3%` (`23`)** |       `33.3%`        |       `43.3%`       |      `10` (`50%`)      |       `7` (`35%`)       |      `6` (`30%`)       |
+| **`Label Noise / Class Overlap`** _(nhãn chồng lấn do `Shirt` quá đa dạng kiểu dáng)_ | **`13.3%` (`8`)**  |     **`23.3%`**      |       `3.3%`        |      `3` (`15%`)       |       `5` (`25%`)       |       `0` (`0%`)       |
 
 ![Error Taxonomy Breakdown](../../../experiments/lab1_v2/figures/error_taxonomy_breakdown.png)
 
-- **Insight cốt lõi:** **`Model Limitation` chiếm cao nhất (`48.3%`, đặc biệt `70%` ở cặp `Coat → Pullover` và `53.3%` ở vùng Low-Conf)** vì phép `Flatten(784)` xóa mất chi tiết 2D (hàng khuy dọc, khóa kéo, cổ bẻ, đường chần bông, áo mở vạt). Trong khi đó **`Label Noise` (`13.3%`) tập trung gấp `7×` ở nhóm High-Conf (`23.3%` vs `3.3%`)**, còn **`Ambiguity` (`38.3%`)** chủ yếu là ảnh trắng lóa/tối mất tương phản ở độ phân giải `28×28`. *(Ghi chú: 60 nhãn được gắn trực quan từ contact sheets, có thể rà soát/điều chỉnh trực tiếp trên `error_taxonomy_60.csv`.)*
+<details>
+<summary><b>Xem trực tiếp 3 bảng ảnh gốc kiểm toán 60 mẫu (#1–#60)</b></summary>
+
+#### Sheet 1 — `Shirt → T-shirt/top` (`#1–#20`)
+
+![`Sheet 1`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_1_shirt_t-shirt_top.png)
+
+#### Sheet 2 — `Shirt → Pullover` (`#21–#40`)
+
+![`Sheet 2`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_2_shirt_pullover.png)
+
+#### Sheet 3 — `Coat → Pullover` (`#41–#60`)
+
+![`Sheet 3`](../../../experiments/lab1_v2/evaluation/audit_sheets/audit_sheet_3_coat_pullover.png)
+
+</details>
+
+- **Insight cốt lõi:** **`Model Limitation` chiếm cao nhất (`48.3%`, đặc biệt `70%` ở cặp `Coat → Pullover` và `53.3%` ở vùng Low-Conf)** vì phép `Flatten(784)` xóa mất chi tiết 2D (hàng khuy dọc, khóa kéo, cổ bẻ, đường chần bông, áo mở vạt). Trong khi đó **`Label Noise / Class Overlap` (`13.3%`) tập trung gấp `7×` ở nhóm High-Conf (`23.3%` vs `3.3%`)** (không hẳn do đánh nhãn sai, mà do lớp `Shirt` gộp cả áo tay ngắn/dài cổ tròn không khuy nên mất chất liệu ở `28×28` là trùng hệt `T-shirt/top` hay `Pullover`), còn **`Ambiguity` (`38.3%`)** chủ yếu là ảnh trắng lóa/tối mất tương phản. _(Ghi chú: 60 nhãn được gắn trực quan từ contact sheets, có thể rà soát/điều chỉnh trực tiếp trên `error_taxonomy_60.csv`.)_
 
 ### 4.4 Bước 4 — Slice Analysis & Quyết định ưu tiên hành động
 
@@ -167,7 +184,7 @@ Kiểm tra trực quan **`60` ảnh lỗi phân tầng** (`20` ảnh/cặp × To
 - **Ưu tiên bỏ công (`MODEL_PIPELINE.md` Layer 9):**
   1. **Ưu tiên số 1 (`48.3%` Model Limitation → Layer 5 / 7.1):** Nâng cấp kiến trúc lên **CNN** (`Conv2d → BatchNorm → ReLU → MaxPool`) để giữ cấu trúc không gian 2D — đánh trực diện gần nửa số lỗi Top-3.
   2. **Ưu tiên số 2 (Slice `fg_ratio` & độ sáng → Layer 6.4):** Bổ sung nhẹ augmentation (dịch chuyển/scale nhỏ, chỉnh sáng nhẹ) khi train CNN.
-  3. **Không tốn công chỉnh thêm MLP (`38.3%` Ambiguity + `13.3%` Label Noise):** Gần một nửa lỗi là giới hạn dữ liệu/nhãn `28×28` và đã kiểm chứng `12+1` runs đều kẹt trần `~89.5%` Val Acc ([`experiment_report.md`](experiment_report.md)).
+  3. **Không tốn công chỉnh thêm MLP (`38.3%` Ambiguity + `13.3%` Label Noise / Class Overlap):** Gần một nửa lỗi là giới hạn dữ liệu/chồng lấn nhãn `28×28` và đã kiểm chứng `12+1` runs đều kẹt trần `~89.5%` Val Acc ([`experiment_report.md`](experiment_report.md)).
 
 ---
 
@@ -204,6 +221,6 @@ Thực thi lệnh kiểm chứng: `python labs/lab1_v2/inference.py --sample-idx
 
 | Version | Ngày       | Người sửa | Agent       | Mô tả thay đổi                                                                                                                                                                                                                                                                                                                                         |
 | :------ | :--------- | :-------- | :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `1.2.0` | 2026-11-26 | notworLe  | Antigravity | Nâng cấp §4 Error Analysis thành quy trình **4 bước định lượng**: (1) CM chuẩn hóa %, (2) Error Gallery Top-3 cặp tách High-Conf vs Low-Conf, (3) Gán nhãn nguyên nhân trên **`N = 60` ảnh thật** (`48.3%` Model Limitation / `38.3%` Ambiguity / `13.3%` Label Noise), (4) Slice Analysis theo độ sáng, kích thước vật thể & biên |
+| `1.2.0` | 2026-11-26 | notworLe  | Antigravity | Nâng cấp §4 Error Analysis thành quy trình **4 bước định lượng**: (1) CM chuẩn hóa %, (2) Error Gallery Top-3 cặp tách High-Conf vs Low-Conf, (3) Gán nhãn nguyên nhân trên **`N = 60` ảnh thật** (`48.3%` Model Limitation / `38.3%` Ambiguity / `13.3%` Label Noise), (4) Slice Analysis theo độ sáng, kích thước vật thể & biên                     |
 | `1.1.0` | 2026-11-26 | notworLe  | Antigravity | **Gom trọn vẹn Layer 8 về 1 chỗ:** chuyển mục **§2 Đánh giá chuỗi `12+1` runs & Chọn mô hình trên Validation (`ablation_comparison`, bảng xếp hạng và lý do chọn `mlp_default` thay vì `mlp_opt_sgd_ep40`)** từ `experiment_report.md` sang đây để đảm bảo tách biệt tuyệt đối Layer 7 (`experiment_report.md`) và Layer 8–10 (`evaluation_report.md`) |
 | `1.0.0` | 2026-11-26 | notworLe  | Antigravity | Tách riêng từ `experiment_report.md` (`v1.2.0`) cho Final Held-Out Test (10k), Error Analysis và Offline Inference                                                                                                                                                                                                                                     |

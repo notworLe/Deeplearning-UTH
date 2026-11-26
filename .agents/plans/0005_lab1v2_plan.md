@@ -6,8 +6,8 @@ ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-25
 updated: 2026-11-26
-version: 1.6.0
-status: approved
+version: 1.7.0
+status: completed
 ---
 
 # Plan: Lab 1 v2 — FashionMNIST Classification Mini-Project
@@ -135,7 +135,7 @@ Thực thi tuần tự từng bước, mỗi bước kết thúc bằng **Self A
   - Đọc toàn bộ số liệu & biểu đồ thật trong `experiments/lab1_v2/` do Kỹ sư tạo ra.
   - Điền 100% số liệu thật vào `labs/lab1_v2/docs/experiment_report.md` (convergence, stability, overfitting, error analysis, so sánh Baseline vs MLP).
   - Thực thi `labs/lab1_v2/experiment.ipynb` ở chế độ đọc artifacts & live inference demo (không chạy train lại).
-- [ ] **Step 8 — Testing Report, Execution Logging & Knowledge Extraction (Phase 6–8):**
+- [x] **Step 8 — Testing Report, Execution Logging & Knowledge Extraction (Phase 6–8):**
   - Lưu bằng chứng Dual Testing tại `.agents/tests/0005_lab1v2_test_report.md`.
   - Ghi Execution Log tại `.agents/logs/0005_lab1v2_log.md`.
   - Trích xuất tri thức tái sử dụng tại `.agents/knowledge_extraction/0005_lab1v2_knowledge.md`.
@@ -207,6 +207,7 @@ Thực thi tuần tự từng bước, mỗi bước kết thúc bằng **Self A
 
 | Version | Ngày | Người sửa | Agent | Mô tả thay đổi |
 | :--- | :--- | :--- | :--- | :--- |
+| `1.7.0` | 2026-11-26 | notworLe | Antigravity | Hoàn tất **Step 8 (Phase 6–8)**: tạo `.agents/tests/0005_lab1v2_test_report.md`, `.agents/logs/0005_lab1v2_log.md`, `.agents/knowledge_extraction/0005_lab1v2_knowledge.md`; cập nhật diễn đạt `Label Noise / Class Overlap` & nhúng `<details>` 3 Audit Sheets trong `evaluation_report.md`; chuyển trạng thái Plan sang `completed` |
 | `1.6.0` | 2026-11-26 | notworLe | Antigravity | Tách triệt để SRP theo Layer (`experiment_report.md` `v2.1.0` chỉ giữ Layer 4 & 7; `evaluation_report.md` `v1.2.0` gom trọn Layer 8–10); nâng cấp Error Analysis 4 bước định lượng (`evaluate.py --error-analysis`: CM chuẩn hóa %, Error Gallery Top-3 High/Low Conf, gán nhãn `N=60` ảnh thật `48.3%/38.3%/13.3%`, Slice Analysis); đồng bộ `modeling.md` (`v2.2.0`) và tất cả tham chiếu (`199/199` links pass, `13/13` pytest pass) |
 | `1.5.0` | 2026-11-26 | notworLe | Antigravity | Bổ sung hỗ trợ `--resume` + `optimizer_state_dict` và chạy bổ sung `mlp_opt_sgd_ep40` (ep `21 → 40`); bổ sung §8.1 *Tiêu Chí Đánh Giá & Chọn Mô Hình* + Output tường minh các tầng vào `modeling.md` (`v2.1.0`); tách `experiment_report.md` (`v2.0.0`, ablation & training diagnostics trên Val) khỏi `evaluation_report.md` (`v1.0.0`, Final Test 10k, Error Analysis & Inference) và đồng bộ toàn bộ tham chiếu |
 | `1.4.0` | 2026-11-25 | notworLe | Antigravity | Đồng bộ tên dự án `labs/lab1_v2/`, thống nhất log về `runs/<id>/historys/history.{json,csv}`, bỏ vẽ lặp curve vào `test_eval/`, bổ sung đủ 4 module `README.md`, đánh dấu hoàn tất Step 6–7 (`12/12` runs, `experiment_report.md` v1.1.0 tách Error Analysis & Training Diagnostics, chạy sạch `experiment.ipynb`) |
