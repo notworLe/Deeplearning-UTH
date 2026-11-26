@@ -1,0 +1,40 @@
+{
+  "baseline_run_id": "baseline_logistic",
+  "best_mlp_run_id": "mlp_default",
+  "comparison": [
+    {
+      "run_id": "baseline_logistic",
+      "model_type": "logistic",
+      "num_parameters": 7850,
+      "test_loss": 0.44726405811309816,
+      "test_accuracy": 0.8435,
+      "test_macro_f1": 0.8421339406864983,
+      "save_load_max_diff": 0.0,
+      "save_load_passed": true
+    },
+    {
+      "run_id": "mlp_default",
+      "model_type": "mlp",
+      "num_parameters": 235146,
+      "test_loss": 0.33624408292770386,
+      "test_accuracy": 0.8879,
+      "test_macro_f1": 0.8868198080587014,
+      "save_load_max_diff": 0.0,
+      "save_load_passed": true
+    }
+  ],
+  "mlp_gain_over_baseline": {
+    "accuracy_delta": 0.044399999999999995,
+    "macro_f1_delta": 0.04468586737220315,
+    "loss_delta": -0.1110199751853943
+  },
+  "figures": {
+    "loss_curves": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\loss_curves.png",
+    "accuracy_curves": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\accuracy_curves.png",
+    "confusion_matrix_baseline": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\confusion_matrix_baseline.png",
+    "confusion_matrix_mlp": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\confusion_matrix_mlp.png",
+    "predicted_vs_actual": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\predicted_vs_actual.png",
+    "error_gallery": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\error_gallery.png",
+    "ablation_comparison": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\ablation_comparison.png"
+  }
+}

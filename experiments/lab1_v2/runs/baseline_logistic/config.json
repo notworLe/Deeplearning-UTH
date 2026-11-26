@@ -1,0 +1,22 @@
+{
+  "run_id": "baseline_logistic",
+  "group": "Baseline",
+  "axis": "baseline",
+  "model_type": "logistic",
+  "hidden_dims": [],
+  "dropout": 0.0,
+  "optimizer": "adam",
+  "lr": 0.001,
+  "momentum": 0.0,
+  "weight_decay": 0.0,
+  "batch_size": 64,
+  "epochs": 20,
+  "is_baseline": true,
+  "seed": 248,
+  "device": "cuda",
+  "norm_stats": {
+    "mean": 0.2862969934940338,
+    "std": 0.35322320461273193
+  },
+  "num_parameters": 7850
+}

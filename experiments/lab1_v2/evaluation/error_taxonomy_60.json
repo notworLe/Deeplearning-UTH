@@ -1,0 +1,45 @@
+{
+  "total_audited": 60,
+  "overall_counts": {
+    "model_limitation": 29,
+    "ambiguity": 23,
+    "label_noise": 8
+  },
+  "overall_pct": {
+    "model_limitation": 48.3,
+    "ambiguity": 38.3,
+    "label_noise": 13.3
+  },
+  "by_conf_group_pct": {
+    "high_conf": {
+      "model_limitation": 43.3,
+      "ambiguity": 33.3,
+      "label_noise": 23.3
+    },
+    "low_conf": {
+      "model_limitation": 53.3,
+      "ambiguity": 43.3,
+      "label_noise": 3.3
+    }
+  },
+  "by_pair_counts": {
+    "Coat -> Pullover": {
+      "model_limitation": 14,
+      "ambiguity": 6,
+      "label_noise": 0
+    },
+    "Shirt -> Pullover": {
+      "model_limitation": 8,
+      "ambiguity": 7,
+      "label_noise": 5
+    },
+    "Shirt -> T-shirt/top": {
+      "model_limitation": 7,
+      "ambiguity": 10,
+      "label_noise": 3
+    }
+  },
+  "figure": "experiments\\lab1_v2\\figures\\error_taxonomy_breakdown.png",
+  "methodology": "Visual audit of 60 stratified errors (20/pair = 10 High-Conf + 10 Low-Conf across Top-3 confusion pairs)",
+  "rows_csv": "experiments\\lab1_v2\\evaluation\\error_taxonomy_60.csv"
+}

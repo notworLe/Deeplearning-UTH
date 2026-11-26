@@ -1,0 +1,61 @@
+{
+  "stage": "6.2 Data Cleaning",
+  "seed": 248,
+  "splits": {
+    "train": {
+      "num_samples": 55000,
+      "valid_shape_28x28": true,
+      "all_finite": true,
+      "pixel_min": 0,
+      "pixel_max": 255,
+      "out_of_range_pixels": 0,
+      "invalid_labels": 0,
+      "blank_images": 0,
+      "constant_images": 0,
+      "unique_images": 55000,
+      "intra_split_duplicates": 0
+    },
+    "val": {
+      "num_samples": 5000,
+      "valid_shape_28x28": true,
+      "all_finite": true,
+      "pixel_min": 0,
+      "pixel_max": 255,
+      "out_of_range_pixels": 0,
+      "invalid_labels": 0,
+      "blank_images": 0,
+      "constant_images": 0,
+      "unique_images": 5000,
+      "intra_split_duplicates": 0
+    },
+    "test": {
+      "num_samples": 10000,
+      "valid_shape_28x28": true,
+      "all_finite": true,
+      "pixel_min": 0,
+      "pixel_max": 255,
+      "out_of_range_pixels": 0,
+      "invalid_labels": 0,
+      "blank_images": 0,
+      "constant_images": 0,
+      "unique_images": 10000,
+      "intra_split_duplicates": 0
+    }
+  },
+  "duplicate_audit": {
+    "train_intra_duplicates": 0,
+    "val_intra_duplicates": 0,
+    "test_intra_duplicates": 0,
+    "cross_train_val_unique_shared": 0,
+    "cross_train_val_val_samples_affected": 0,
+    "cross_trainraw_test_unique_shared": 0,
+    "cross_trainraw_test_test_samples_affected": 0,
+    "conflicting_label_duplicate_groups": 0,
+    "conflicting_label_examples": []
+  },
+  "clean_status": {
+    "corrupt_or_invalid_total": 0,
+    "passed_integrity_checks": true,
+    "policy": "Không có ảnh corrupt/blank/nhãn lỗi. Giữ nguyên tập benchmark FashionMNIST chuẩn (55k/5k/10k) để bảo đảm tính tái lập và so sánh công bằng; ghi nhận công khai số lượng exact duplicates & conflicting labels để đưa vào phân tích Error Analysis."
+  }
+}

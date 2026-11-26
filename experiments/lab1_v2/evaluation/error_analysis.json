@@ -1,0 +1,223 @@
+{
+  "baseline_top_confusions": [
+    {
+      "true_class": "Shirt",
+      "pred_class": "T-shirt/top",
+      "count": 156
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Pullover",
+      "count": 129
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Pullover",
+      "count": 125
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Coat",
+      "count": 117
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Shirt",
+      "count": 99
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Coat",
+      "count": 97
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Shirt",
+      "count": 82
+    },
+    {
+      "true_class": "T-shirt/top",
+      "pred_class": "Shirt",
+      "count": 78
+    },
+    {
+      "true_class": "Sandal",
+      "pred_class": "Sneaker",
+      "count": 63
+    },
+    {
+      "true_class": "Dress",
+      "pred_class": "T-shirt/top",
+      "count": 44
+    }
+  ],
+  "best_mlp_top_confusions": [
+    {
+      "true_class": "Shirt",
+      "pred_class": "T-shirt/top",
+      "count": 158
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Pullover",
+      "count": 112
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Pullover",
+      "count": 96
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Coat",
+      "count": 86
+    },
+    {
+      "true_class": "T-shirt/top",
+      "pred_class": "Shirt",
+      "count": 75
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Coat",
+      "count": 72
+    },
+    {
+      "true_class": "Dress",
+      "pred_class": "Coat",
+      "count": 44
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Shirt",
+      "count": 42
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Shirt",
+      "count": 39
+    },
+    {
+      "true_class": "Sneaker",
+      "pred_class": "Ankle boot",
+      "count": 31
+    }
+  ],
+  "hardest_classes_mlp": [
+    [
+      "Shirt",
+      {
+        "baseline_f1": 0.596903363587827,
+        "mlp_f1": 0.6927744070601214,
+        "f1_gain": 0.09587104347229436
+      }
+    ],
+    [
+      "Pullover",
+      {
+        "baseline_f1": 0.7323529411764705,
+        "mlp_f1": 0.806949806949807,
+        "f1_gain": 0.07459686577333646
+      }
+    ],
+    [
+      "Coat",
+      {
+        "baseline_f1": 0.7345709984947315,
+        "mlp_f1": 0.8167641325536062,
+        "f1_gain": 0.08219313405887474
+      }
+    ]
+  ],
+  "best_mlp_top_confusions_enriched": [
+    {
+      "true_class": "Shirt",
+      "pred_class": "T-shirt/top",
+      "count": 158,
+      "true_id": 6,
+      "pred_id": 0,
+      "row_pct": 15.8
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Pullover",
+      "count": 112,
+      "true_id": 6,
+      "pred_id": 2,
+      "row_pct": 11.2
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Pullover",
+      "count": 96,
+      "true_id": 4,
+      "pred_id": 2,
+      "row_pct": 9.6
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Coat",
+      "count": 86,
+      "true_id": 2,
+      "pred_id": 4,
+      "row_pct": 8.6
+    },
+    {
+      "true_class": "T-shirt/top",
+      "pred_class": "Shirt",
+      "count": 75,
+      "true_id": 0,
+      "pred_id": 6,
+      "row_pct": 7.5
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Coat",
+      "count": 72,
+      "true_id": 6,
+      "pred_id": 4,
+      "row_pct": 7.2
+    },
+    {
+      "true_class": "Dress",
+      "pred_class": "Coat",
+      "count": 44,
+      "true_id": 3,
+      "pred_id": 4,
+      "row_pct": 4.4
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Shirt",
+      "count": 42,
+      "true_id": 2,
+      "pred_id": 6,
+      "row_pct": 4.2
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Shirt",
+      "count": 39,
+      "true_id": 4,
+      "pred_id": 6,
+      "row_pct": 3.9
+    },
+    {
+      "true_class": "Sneaker",
+      "pred_class": "Ankle boot",
+      "count": 31,
+      "true_id": 7,
+      "pred_id": 9,
+      "row_pct": 3.1
+    }
+  ],
+  "top3_pair_error_count": 366,
+  "total_test_errors": 1121,
+  "top3_pair_share_of_errors_pct": 32.65,
+  "deep_figures": {
+    "confusion_matrix_mlp_normalized": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\confusion_matrix_mlp_normalized.png",
+    "error_gallery_top3_high_conf": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\error_gallery_top3_high_conf.png",
+    "error_gallery_top3_low_conf": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\error_gallery_top3_low_conf.png",
+    "error_slice_analysis": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\figures\\error_slice_analysis.png"
+  }
+}

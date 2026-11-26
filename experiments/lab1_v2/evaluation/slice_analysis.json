@@ -1,0 +1,166 @@
+{
+  "overall_error_rate_pct": 11.21,
+  "garment4_error_rate_pct": 20.32,
+  "mean_intensity": [
+    {
+      "quartile": "Q1 Dark",
+      "range": [
+        0.0309,
+        0.1877
+      ],
+      "n_all": 2500,
+      "errors_all": 187,
+      "error_rate_all_pct": 7.48,
+      "n_garment4": 426,
+      "errors_garment4": 94,
+      "error_rate_garment4_pct": 22.07
+    },
+    {
+      "quartile": "Q2 Dim",
+      "range": [
+        0.1877,
+        0.2721
+      ],
+      "n_all": 2500,
+      "errors_all": 231,
+      "error_rate_all_pct": 9.24,
+      "n_garment4": 610,
+      "errors_garment4": 135,
+      "error_rate_garment4_pct": 22.13
+    },
+    {
+      "quartile": "Q3 Mid",
+      "range": [
+        0.2721,
+        0.3817
+      ],
+      "n_all": 2500,
+      "errors_all": 300,
+      "error_rate_all_pct": 12.0,
+      "n_garment4": 1090,
+      "errors_garment4": 220,
+      "error_rate_garment4_pct": 20.18
+    },
+    {
+      "quartile": "Q4 Bright",
+      "range": [
+        0.3817,
+        0.7112
+      ],
+      "n_all": 2500,
+      "errors_all": 403,
+      "error_rate_all_pct": 16.12,
+      "n_garment4": 1874,
+      "errors_garment4": 364,
+      "error_rate_garment4_pct": 19.42
+    }
+  ],
+  "fg_ratio": [
+    {
+      "quartile": "Q1 Small",
+      "range": [
+        0.0676,
+        0.3265
+      ],
+      "n_all": 2496,
+      "errors_all": 94,
+      "error_rate_all_pct": 3.77,
+      "n_garment4": 50,
+      "errors_garment4": 19,
+      "error_rate_garment4_pct": 38.0
+    },
+    {
+      "quartile": "Q2 Med-S",
+      "range": [
+        0.3265,
+        0.4643
+      ],
+      "n_all": 2500,
+      "errors_all": 222,
+      "error_rate_all_pct": 8.88,
+      "n_garment4": 320,
+      "errors_garment4": 108,
+      "error_rate_garment4_pct": 33.75
+    },
+    {
+      "quartile": "Q3 Med-L",
+      "range": [
+        0.4643,
+        0.5753
+      ],
+      "n_all": 2476,
+      "errors_all": 357,
+      "error_rate_all_pct": 14.42,
+      "n_garment4": 1539,
+      "errors_garment4": 279,
+      "error_rate_garment4_pct": 18.13
+    },
+    {
+      "quartile": "Q4 Full",
+      "range": [
+        0.5753,
+        0.9324
+      ],
+      "n_all": 2528,
+      "errors_all": 448,
+      "error_rate_all_pct": 17.72,
+      "n_garment4": 2091,
+      "errors_garment4": 407,
+      "error_rate_garment4_pct": 19.46
+    }
+  ],
+  "edge_strength": [
+    {
+      "quartile": "Q1 Smooth",
+      "range": [
+        0.0354,
+        0.1284
+      ],
+      "n_all": 2500,
+      "errors_all": 215,
+      "error_rate_all_pct": 8.6,
+      "n_garment4": 663,
+      "errors_garment4": 135,
+      "error_rate_garment4_pct": 20.36
+    },
+    {
+      "quartile": "Q2 Low-E",
+      "range": [
+        0.1284,
+        0.1498
+      ],
+      "n_all": 2500,
+      "errors_all": 240,
+      "error_rate_all_pct": 9.6,
+      "n_garment4": 776,
+      "errors_garment4": 150,
+      "error_rate_garment4_pct": 19.33
+    },
+    {
+      "quartile": "Q3 Mid-E",
+      "range": [
+        0.1498,
+        0.1776
+      ],
+      "n_all": 2500,
+      "errors_all": 304,
+      "error_rate_all_pct": 12.16,
+      "n_garment4": 1108,
+      "errors_garment4": 248,
+      "error_rate_garment4_pct": 22.38
+    },
+    {
+      "quartile": "Q4 High-E",
+      "range": [
+        0.1776,
+        0.5288
+      ],
+      "n_all": 2500,
+      "errors_all": 362,
+      "error_rate_all_pct": 14.48,
+      "n_garment4": 1453,
+      "errors_garment4": 280,
+      "error_rate_garment4_pct": 19.27
+    }
+  ]
+}

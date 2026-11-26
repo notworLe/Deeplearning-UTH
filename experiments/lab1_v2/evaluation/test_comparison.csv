@@ -1,0 +1,3 @@
+run_id,model_type,num_parameters,test_loss,test_accuracy,test_macro_f1,save_load_max_diff,save_load_passed
+baseline_logistic,logistic,7850,0.44726405811309816,0.8435,0.8421339406864983,0.0,True
+mlp_default,mlp,235146,0.33624408292770386,0.8879,0.8868198080587014,0.0,True

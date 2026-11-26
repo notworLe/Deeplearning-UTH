@@ -1,0 +1,90 @@
+{
+  "stage": "6.1 Data Collection",
+  "dataset": "FashionMNIST",
+  "provider": "torchvision.datasets.FashionMNIST",
+  "raw_directory": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\data\\FashionMNIST\\raw",
+  "source_uri": "http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/",
+  "collected_at": "2026-11-15T19:13:57+07:00",
+  "records": {
+    "raw_train": 60000,
+    "raw_test": 10000,
+    "total": 70000
+  },
+  "raw_tensor_contract": {
+    "train_images_shape": [
+      60000,
+      28,
+      28
+    ],
+    "train_images_dtype": "torch.uint8",
+    "test_images_shape": [
+      10000,
+      28,
+      28
+    ],
+    "test_images_dtype": "torch.uint8"
+  },
+  "manifest_integrity": {
+    "verified": true,
+    "checked_files": 8,
+    "mismatches": [],
+    "files": [
+      {
+        "file_name": "train-images-idx3-ubyte.gz",
+        "byte_size": 26421880,
+        "sha256": "3aede38d61863908ad78613f6a32ed271626dd12800ba2636569512369268a84",
+        "verified": true,
+        "total_records": 60000
+      },
+      {
+        "file_name": "train-labels-idx1-ubyte.gz",
+        "byte_size": 29515,
+        "sha256": "a04f17134ac03560a47e3764e11b92fc97de4d1bfaf8ba1a3aa29af54cc90845",
+        "verified": true,
+        "total_records": 60000
+      },
+      {
+        "file_name": "t10k-images-idx3-ubyte.gz",
+        "byte_size": 4422102,
+        "sha256": "346e55b948d973a97e58d2351dde16a484bd415d4595297633bb08f03db6a073",
+        "verified": true,
+        "total_records": 10000
+      },
+      {
+        "file_name": "t10k-labels-idx1-ubyte.gz",
+        "byte_size": 5148,
+        "sha256": "67da17c76eaffca5446c3361aaab5c3cd6d1c2608764d35dfb1850b086bf8dd5",
+        "verified": true,
+        "total_records": 10000
+      },
+      {
+        "file_name": "train-images-idx3-ubyte",
+        "byte_size": 47040016,
+        "sha256": "c59f468a2f672dc815687fe0f83887768d799fd8a3f3276145d20f83aa44d888",
+        "verified": true,
+        "total_records": 60000
+      },
+      {
+        "file_name": "train-labels-idx1-ubyte",
+        "byte_size": 60008,
+        "sha256": "bad3541b69d912435c50bb6ba87bec294ff4f6a2e1246121d8633921760443d9",
+        "verified": true,
+        "total_records": 60000
+      },
+      {
+        "file_name": "t10k-images-idx3-ubyte",
+        "byte_size": 7840016,
+        "sha256": "5b4141f0afbad91edebe8549f8fcffe087ea10ca49f1dbef5c9a5cd8815ce37b",
+        "verified": true,
+        "total_records": 10000
+      },
+      {
+        "file_name": "t10k-labels-idx1-ubyte",
+        "byte_size": 10008,
+        "sha256": "0402a96d92fd2663957122ceb108a494c5af83dab82d92729df917d7dec38c34",
+        "verified": true,
+        "total_records": 10000
+      }
+    ]
+  }
+}

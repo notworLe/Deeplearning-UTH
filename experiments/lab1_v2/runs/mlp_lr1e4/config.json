@@ -1,0 +1,25 @@
+{
+  "run_id": "mlp_lr1e4",
+  "group": "Ablation: Learning Rate",
+  "axis": "learning_rate",
+  "model_type": "mlp",
+  "hidden_dims": [
+    256,
+    128
+  ],
+  "dropout": 0.2,
+  "optimizer": "adam",
+  "lr": 0.0001,
+  "momentum": 0.0,
+  "weight_decay": 0.0,
+  "batch_size": 64,
+  "epochs": 20,
+  "is_baseline": false,
+  "seed": 248,
+  "device": "cuda",
+  "norm_stats": {
+    "mean": 0.2862969934940338,
+    "std": 0.35322320461273193
+  },
+  "num_parameters": 235146
+}

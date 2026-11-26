@@ -1,0 +1,301 @@
+{
+  "stage": "6.3 Exploratory Data Analysis",
+  "dataset": "FashionMNIST",
+  "seed": 248,
+  "image_shape": [
+    1,
+    28,
+    28
+  ],
+  "num_classes": 10,
+  "class_names": [
+    "T-shirt/top",
+    "Trouser",
+    "Pullover",
+    "Dress",
+    "Coat",
+    "Sandal",
+    "Shirt",
+    "Sneaker",
+    "Bag",
+    "Ankle boot"
+  ],
+  "splits": {
+    "train": 55000,
+    "val": 5000,
+    "test": 10000,
+    "total": 70000
+  },
+  "class_distribution": {
+    "train": {
+      "T-shirt/top": 5500,
+      "Trouser": 5500,
+      "Pullover": 5500,
+      "Dress": 5500,
+      "Coat": 5500,
+      "Sandal": 5500,
+      "Shirt": 5500,
+      "Sneaker": 5500,
+      "Bag": 5500,
+      "Ankle boot": 5500
+    },
+    "val": {
+      "T-shirt/top": 500,
+      "Trouser": 500,
+      "Pullover": 500,
+      "Dress": 500,
+      "Coat": 500,
+      "Sandal": 500,
+      "Shirt": 500,
+      "Sneaker": 500,
+      "Bag": 500,
+      "Ankle boot": 500
+    },
+    "test": {
+      "T-shirt/top": 1000,
+      "Trouser": 1000,
+      "Pullover": 1000,
+      "Dress": 1000,
+      "Coat": 1000,
+      "Sandal": 1000,
+      "Shirt": 1000,
+      "Sneaker": 1000,
+      "Bag": 1000,
+      "Ankle boot": 1000
+    },
+    "train_imbalance_ratio": 1.0
+  },
+  "train_pixel_stats": {
+    "mean": 0.2862969934940338,
+    "std": 0.35322320461273193,
+    "min": 0.0,
+    "max": 1.0,
+    "zero_pixel_ratio": 0.5020043253898621
+  },
+  "per_class_pixel_stats": {
+    "T-shirt/top": {
+      "mean_intensity": 0.326008141040802,
+      "std_intensity": 0.3510630130767822,
+      "zero_pixel_ratio": 0.4060709647495362
+    },
+    "Trouser": {
+      "mean_intensity": 0.22300083935260773,
+      "std_intensity": 0.3435884416103363,
+      "zero_pixel_ratio": 0.6511730055658627
+    },
+    "Pullover": {
+      "mean_intensity": 0.37677261233329773,
+      "std_intensity": 0.3588908016681671,
+      "zero_pixel_ratio": 0.35101229128014844
+    },
+    "Dress": {
+      "mean_intensity": 0.2591300904750824,
+      "std_intensity": 0.35456451773643494,
+      "zero_pixel_ratio": 0.5723559833024119
+    },
+    "Coat": {
+      "mean_intensity": 0.3854033946990967,
+      "std_intensity": 0.3762652277946472,
+      "zero_pixel_ratio": 0.3979993042671614
+    },
+    "Sandal": {
+      "mean_intensity": 0.13663163781166077,
+      "std_intensity": 0.26300057768821716,
+      "zero_pixel_ratio": 0.6789489795918368
+    },
+    "Shirt": {
+      "mean_intensity": 0.3330496847629547,
+      "std_intensity": 0.33988720178604126,
+      "zero_pixel_ratio": 0.37062036178107605
+    },
+    "Sneaker": {
+      "mean_intensity": 0.16775143146514893,
+      "std_intensity": 0.29492422938346863,
+      "zero_pixel_ratio": 0.6621681354359926
+    },
+    "Bag": {
+      "mean_intensity": 0.35383427143096924,
+      "std_intensity": 0.3654521405696869,
+      "zero_pixel_ratio": 0.41453780148423003
+    },
+    "Ankle boot": {
+      "mean_intensity": 0.30138811469078064,
+      "std_intensity": 0.3705250322818756,
+      "zero_pixel_ratio": 0.5151563079777366
+    }
+  },
+  "outlier_analysis_iqr": {
+    "q1_mean_intensity": 0.18575431406497955,
+    "q3_mean_intensity": 0.38227418065071106,
+    "iqr": 0.1965198665857315,
+    "low_fence": -0.1090254858136177,
+    "high_fence": 0.6770539805293083,
+    "low_intensity_outliers": 0,
+    "high_intensity_outliers": 23,
+    "min_image_mean": 0.019387755542993546,
+    "max_image_mean": 0.7522358894348145
+  },
+  "prototype_cosine_similarity": {
+    "matrix": [
+      [
+        0.9999999403953552,
+        0.8367902040481567,
+        0.8989953994750977,
+        0.9234901666641235,
+        0.9057518243789673,
+        0.6082868576049805,
+        0.9487473964691162,
+        0.5179069638252258,
+        0.7948039770126343,
+        0.6675071716308594
+      ],
+      [
+        0.8367902040481567,
+        0.9999997615814209,
+        0.7526553869247437,
+        0.924976110458374,
+        0.7913788557052612,
+        0.46982789039611816,
+        0.7933232188224792,
+        0.44074147939682007,
+        0.6231356263160706,
+        0.5296949148178101
+      ],
+      [
+        0.8989953994750977,
+        0.7526553869247437,
+        1.0,
+        0.8275814652442932,
+        0.9842029809951782,
+        0.7384928464889526,
+        0.9832360148429871,
+        0.6269498467445374,
+        0.8927998542785645,
+        0.756119430065155
+      ],
+      [
+        0.9234901666641235,
+        0.924976110458374,
+        0.8275814652442932,
+        1.0,
+        0.8674807548522949,
+        0.5664440393447876,
+        0.8853139877319336,
+        0.517119288444519,
+        0.7399945855140686,
+        0.6259684562683105
+      ],
+      [
+        0.9057518243789673,
+        0.7913788557052612,
+        0.9842029809951782,
+        0.8674807548522949,
+        1.0,
+        0.7318371534347534,
+        0.987228512763977,
+        0.632072925567627,
+        0.8935869932174683,
+        0.7498159408569336
+      ],
+      [
+        0.6082868576049805,
+        0.46982789039611816,
+        0.7384928464889526,
+        0.5664440393447876,
+        0.7318371534347534,
+        1.0000001192092896,
+        0.7220562696456909,
+        0.9125281572341919,
+        0.8865551352500916,
+        0.9268786907196045
+      ],
+      [
+        0.9487473964691162,
+        0.7933232188224792,
+        0.9832360148429871,
+        0.8853139877319336,
+        0.987228512763977,
+        0.7220562696456909,
+        1.0,
+        0.6155250072479248,
+        0.8937819004058838,
+        0.7486377954483032
+      ],
+      [
+        0.5179069638252258,
+        0.44074147939682007,
+        0.6269498467445374,
+        0.517119288444519,
+        0.632072925567627,
+        0.9125281572341919,
+        0.6155250072479248,
+        1.0000003576278687,
+        0.7876361012458801,
+        0.7945763468742371
+      ],
+      [
+        0.7948039770126343,
+        0.6231356263160706,
+        0.8927998542785645,
+        0.7399945855140686,
+        0.8935869932174683,
+        0.8865551352500916,
+        0.8937819004058838,
+        0.7876361012458801,
+        0.9999997615814209,
+        0.8633710145950317
+      ],
+      [
+        0.6675071716308594,
+        0.5296949148178101,
+        0.756119430065155,
+        0.6259684562683105,
+        0.7498159408569336,
+        0.9268786907196045,
+        0.7486377954483032,
+        0.7945763468742371,
+        0.8633710145950317,
+        0.9999996423721313
+      ]
+    ],
+    "top_similar_pairs": [
+      {
+        "class_a": "Coat",
+        "class_b": "Shirt",
+        "cosine_similarity": 0.987228512763977
+      },
+      {
+        "class_a": "Pullover",
+        "class_b": "Coat",
+        "cosine_similarity": 0.9842029809951782
+      },
+      {
+        "class_a": "Pullover",
+        "class_b": "Shirt",
+        "cosine_similarity": 0.9832360148429871
+      },
+      {
+        "class_a": "T-shirt/top",
+        "class_b": "Shirt",
+        "cosine_similarity": 0.9487473964691162
+      },
+      {
+        "class_a": "Sandal",
+        "class_b": "Ankle boot",
+        "cosine_similarity": 0.9268786907196045
+      }
+    ]
+  },
+  "integrity": {
+    "train_val_overlap": 0,
+    "manifest_verified": true,
+    "checked_files": 8
+  },
+  "artifacts": {
+    "class_distribution_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\eda\\eda_class_distribution.png",
+    "sample_grid_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\eda\\eda_sample_grid.png",
+    "pixel_distribution_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\eda\\eda_pixel_distribution.png",
+    "prototypes_similarity_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\eda\\eda_class_prototypes_similarity.png",
+    "outliers_class_stats_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\eda\\eda_outliers_and_class_stats.png"
+  }
+}

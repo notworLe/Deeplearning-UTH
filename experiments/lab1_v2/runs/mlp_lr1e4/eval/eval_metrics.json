@@ -1,0 +1,284 @@
+{
+  "run_id": "mlp_lr1e4",
+  "split": "val",
+  "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\runs\\mlp_lr1e4\\best.pt",
+  "model_config": {
+    "model_type": "mlp",
+    "input_shape": [
+      1,
+      28,
+      28
+    ],
+    "num_classes": 10,
+    "hidden_dims": [
+      256,
+      128
+    ],
+    "dropout": 0.2,
+    "num_parameters": 235146
+  },
+  "num_parameters": 235146,
+  "save_load_parity": {
+    "max_abs_diff": 0.0,
+    "tolerance": 1e-06,
+    "passed": true
+  },
+  "artifacts": {
+    "loss_curve": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\runs\\mlp_lr1e4\\eval\\loss_curve.png",
+    "accuracy_curve": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\runs\\mlp_lr1e4\\eval\\accuracy_curve.png",
+    "confusion_matrix_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\runs\\mlp_lr1e4\\eval\\confusion_matrix.png",
+    "predicted_vs_actual_plot": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab1_v2\\runs\\mlp_lr1e4\\eval\\predicted_vs_actual.png"
+  },
+  "num_samples": 5000,
+  "loss": 0.28662546081542967,
+  "accuracy": 0.8902,
+  "macro_precision": 0.8914660868481039,
+  "macro_recall": 0.8902000000000001,
+  "macro_f1": 0.8906909509973063,
+  "per_class": {
+    "T-shirt/top": {
+      "class_id": 0,
+      "precision": 0.847870182555781,
+      "recall": 0.836,
+      "f1": 0.8418932527693856,
+      "support": 500
+    },
+    "Trouser": {
+      "class_id": 1,
+      "precision": 0.9897750511247444,
+      "recall": 0.968,
+      "f1": 0.9787664307381193,
+      "support": 500
+    },
+    "Pullover": {
+      "class_id": 2,
+      "precision": 0.8224489795918367,
+      "recall": 0.806,
+      "f1": 0.8141414141414142,
+      "support": 500
+    },
+    "Dress": {
+      "class_id": 3,
+      "precision": 0.9118236472945892,
+      "recall": 0.91,
+      "f1": 0.9109109109109109,
+      "support": 500
+    },
+    "Coat": {
+      "class_id": 4,
+      "precision": 0.7972972972972973,
+      "recall": 0.826,
+      "f1": 0.8113948919449901,
+      "support": 500
+    },
+    "Sandal": {
+      "class_id": 5,
+      "precision": 0.9695740365111561,
+      "recall": 0.956,
+      "f1": 0.9627391742195368,
+      "support": 500
+    },
+    "Shirt": {
+      "class_id": 6,
+      "precision": 0.7073643410852714,
+      "recall": 0.73,
+      "f1": 0.718503937007874,
+      "support": 500
+    },
+    "Sneaker": {
+      "class_id": 7,
+      "precision": 0.9216061185468452,
+      "recall": 0.964,
+      "f1": 0.9423264907135875,
+      "support": 500
+    },
+    "Bag": {
+      "class_id": 8,
+      "precision": 0.9815950920245399,
+      "recall": 0.96,
+      "f1": 0.9706774519716885,
+      "support": 500
+    },
+    "Ankle boot": {
+      "class_id": 9,
+      "precision": 0.9653061224489796,
+      "recall": 0.946,
+      "f1": 0.9555555555555556,
+      "support": 500
+    }
+  },
+  "confusion_matrix": [
+    [
+      418,
+      1,
+      10,
+      10,
+      0,
+      0,
+      58,
+      0,
+      3,
+      0
+    ],
+    [
+      4,
+      484,
+      0,
+      10,
+      0,
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    [
+      4,
+      0,
+      403,
+      3,
+      47,
+      0,
+      42,
+      0,
+      1,
+      0
+    ],
+    [
+      9,
+      3,
+      3,
+      455,
+      14,
+      0,
+      15,
+      0,
+      1,
+      0
+    ],
+    [
+      2,
+      0,
+      42,
+      14,
+      413,
+      0,
+      28,
+      0,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      478,
+      0,
+      16,
+      0,
+      5
+    ],
+    [
+      53,
+      1,
+      31,
+      5,
+      42,
+      1,
+      365,
+      0,
+      2,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      5,
+      0,
+      482,
+      1,
+      12
+    ],
+    [
+      3,
+      0,
+      1,
+      1,
+      2,
+      2,
+      7,
+      4,
+      480,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      6,
+      0,
+      21,
+      0,
+      473
+    ]
+  ],
+  "top_confusions": [
+    {
+      "true_class": "T-shirt/top",
+      "pred_class": "Shirt",
+      "count": 58
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "T-shirt/top",
+      "count": 53
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Coat",
+      "count": 47
+    },
+    {
+      "true_class": "Pullover",
+      "pred_class": "Shirt",
+      "count": 42
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Pullover",
+      "count": 42
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Coat",
+      "count": 42
+    },
+    {
+      "true_class": "Shirt",
+      "pred_class": "Pullover",
+      "count": 31
+    },
+    {
+      "true_class": "Coat",
+      "pred_class": "Shirt",
+      "count": 28
+    },
+    {
+      "true_class": "Ankle boot",
+      "pred_class": "Sneaker",
+      "count": 21
+    },
+    {
+      "true_class": "Sandal",
+      "pred_class": "Sneaker",
+      "count": 16
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "run_id": "mlp_opt_adamw",
+  "group": "Ablation: Optimizer",
+  "axis": "optimizer",
+  "model_type": "mlp",
+  "hidden_dims": [
+    256,
+    128
+  ],
+  "dropout": 0.2,
+  "optimizer": "adamw",
+  "lr": 0.001,
+  "momentum": 0.0,
+  "weight_decay": 0.01,
+  "batch_size": 64,
+  "epochs": 20,
+  "is_baseline": false,
+  "seed": 248,
+  "device": "cuda",
+  "norm_stats": {
+    "mean": 0.2862969934940338,
+    "std": 0.35322320461273193
+  },
+  "num_parameters": 235146
+}
