@@ -53,12 +53,26 @@ Do not place unrelated logic into the same module.
 ```text
 ROOT/
 ├── experiments/
+│   └── runs/
+│       └── <run_name>/
+│           ├── monitor/      # Training logs (loss, metrics, curves)
+│           ├── val_eval/     # Validation evaluation results using best weight
+│           └── weights/      # Per-run checkpoints (best, last) for resume/comparison
 ├── docs/
+│   └── pipelines/
+│       ├── models/           # Contains n model architecture specs
+│       ├── pipeline_overall.md
+│       ├── experiment.md
+│       ├── evaluation.md
+│       └── deploy.md
 ├── data/
+│   ├── raw/
+│   ├── interim/
+│   └── processed/
 ├── src/
 ├── tests/
 ├── scripts/
-├── models/
+├── models/                   # Promoted final checkpoints & exported artifacts (ONNX, TensorRT)
 └── configs/
 ```
 
@@ -74,15 +88,16 @@ Each module has a clear responsibility.
 
 Responsible for
 
-- Experiment run results and metrics
-- Benchmark comparisons and plots
-- Per-run configuration snapshots
+- Per-run experiment directories (`experiments/runs/<run_name>/`)
+- Training monitor logs (`monitor/`), validation evaluation outputs (`val_eval/`), and per-run checkpoints (`weights/`: `best`, `last` for resume)
+- Benchmark comparisons, plots, and per-run configuration snapshots
 - Exploratory prototypes / notebooks (if any)
 
 Must NOT
 
 - Store production source code
 - Replace base configurations in `configs/`
+- Commit large binary checkpoints (`weights/`) directly to Git (use `.gitignore`, DVC, or artifact storage)
 
 ---
 
@@ -164,13 +179,14 @@ Must NOT
 
 Responsible for
 
-- Trained checkpoints
-- Exported models (e.g., ONNX, TensorRT)
-- Model artifacts
+- Promoted final checkpoints (selected after passing Validation & Test evaluation)
+- Exported deployment models (e.g., ONNX, TensorRT)
+- Final model artifacts and metadata
 
 Must NOT
 
 - Contain source code
+- Store temporary per-run training checkpoints (keep those in `experiments/runs/<run_name>/weights/`)
 - Commit large binary weights directly to Git (use `.gitignore`, DVC, or Model Registry)
 
 ---

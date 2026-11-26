@@ -106,10 +106,12 @@ Examples
 
 Deep Learning
 
-- Train one epoch
-- Evaluate validation dataset
+- Train one epoch (short verification run on mini-subset or 1 epoch to verify training loop, loss decrease, checkpointing)
+- Evaluate validation dataset (verification check)
 - Verify metrics
 - Compare baseline
+
+> **Training Boundary (khớp [`MODEL_PIPELINE.md`](MODEL_PIPELINE.md)):** Agent **được phép** chạy Smoke Test và Normal Test training ngắn (ví dụ 1–2 batch hoặc 1 epoch để xác minh pipeline không lỗi). **Full / production training** nhiều epoch trên tập dữ liệu đầy đủ do **Kỹ sư tự chạy** (Agent chuẩn bị script, lệnh chạy và progress bar log).
 
 Backend
 

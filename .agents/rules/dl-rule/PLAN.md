@@ -5,18 +5,18 @@ author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-23
-updated: 2026-11-23
+updated: 2026-11-26
 version: 0.1.0
 status: approved
 ---
 
 # Plan
 
-AGENT writes and submits plans at `.agents/plans/`.
+AGENT writes and submits plans at `.agents/tasks/<task_name>/plan.md`.
 
 ## Objective
 
-Task cần giải quyết (tham chiếu tới task tương ứng trong `.agents/tasks/`).
+Task cần giải quyết (tham chiếu tới `.agents/tasks/<task_name>/task.md`).
 
 ---
 

@@ -5,14 +5,14 @@ author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-23
-updated: 2026-11-23
+updated: 2026-11-26
 version: 0.1.0
 status: approved
 ---
 
 # Implement & Audit
 
-AGENT tracks execution progress against the approved plan in `.agents/plans/`.
+AGENT tracks execution progress against the approved plan in `.agents/tasks/<task_name>/plan.md`.
 
 ## Overview
 

@@ -113,7 +113,7 @@ Each completed task log should contain:
 
 ## Task
 
-Task name (and link to `.agents/tasks/...`).
+Task name (and link to `.agents/tasks/<task_name>/task.md` and `plan.md`).
 
 ## Objective
 

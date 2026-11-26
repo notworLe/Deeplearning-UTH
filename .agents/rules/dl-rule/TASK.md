@@ -5,14 +5,14 @@ author: notworLe
 ai_assisted: true
 ai_agent: Antigravity
 created: 2026-11-23
-updated: 2026-11-23
+updated: 2026-11-26
 version: 0.1.0
 status: approved
 ---
 
 # Task
 
-ENGINEER and AGENT write, track at `.agents/tasks/`.
+ENGINEER and AGENT write, track at `.agents/tasks/<task_name>/task.md`.
 
 ## Metadata
 
