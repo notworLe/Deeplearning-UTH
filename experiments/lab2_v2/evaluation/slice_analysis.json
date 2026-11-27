@@ -1,0 +1,155 @@
+{
+  "overall_error_rate_pct": 8.09,
+  "cat_error_rate_pct": 11.83,
+  "dog_error_rate_pct": 6.31,
+  "brightness": [
+    {
+      "quartile": "Q1 Dark",
+      "range": [
+        0.0616,
+        0.3685
+      ],
+      "n_all": 596,
+      "errors_all": 46,
+      "error_rate_all_pct": 7.72,
+      "error_rate_cat_pct": 10.96,
+      "error_rate_dog_pct": 5.71
+    },
+    {
+      "quartile": "Q2 Dim",
+      "range": [
+        0.3685,
+        0.4387
+      ],
+      "n_all": 596,
+      "errors_all": 45,
+      "error_rate_all_pct": 7.55,
+      "error_rate_cat_pct": 12.43,
+      "error_rate_dog_pct": 5.62
+    },
+    {
+      "quartile": "Q3 Mid",
+      "range": [
+        0.4387,
+        0.5175
+      ],
+      "n_all": 596,
+      "errors_all": 52,
+      "error_rate_all_pct": 8.72,
+      "error_rate_cat_pct": 12.87,
+      "error_rate_dog_pct": 7.06
+    },
+    {
+      "quartile": "Q4 Bright",
+      "range": [
+        0.5175,
+        0.9157
+      ],
+      "n_all": 597,
+      "errors_all": 50,
+      "error_rate_all_pct": 8.38,
+      "error_rate_cat_pct": 11.44,
+      "error_rate_dog_pct": 6.82
+    }
+  ],
+  "aspect_ratio": [
+    {
+      "quartile": "Q1 Tall",
+      "range": [
+        0.42,
+        0.75
+      ],
+      "n_all": 459,
+      "errors_all": 30,
+      "error_rate_all_pct": 6.54,
+      "error_rate_cat_pct": 7.81,
+      "error_rate_dog_pct": 6.04
+    },
+    {
+      "quartile": "Q2 Port",
+      "range": [
+        0.75,
+        1.3333
+      ],
+      "n_all": 619,
+      "errors_all": 55,
+      "error_rate_all_pct": 8.89,
+      "error_rate_cat_pct": 11.24,
+      "error_rate_dog_pct": 7.3
+    },
+    {
+      "quartile": "Q3 Square",
+      "range": [
+        1.3333,
+        1.497
+      ],
+      "n_all": 680,
+      "errors_all": 56,
+      "error_rate_all_pct": 8.24,
+      "error_rate_cat_pct": 15.42,
+      "error_rate_dog_pct": 4.64
+    },
+    {
+      "quartile": "Q4 Wide",
+      "range": [
+        1.497,
+        2.2124
+      ],
+      "n_all": 627,
+      "errors_all": 52,
+      "error_rate_all_pct": 8.29,
+      "error_rate_cat_pct": 10.91,
+      "error_rate_dog_pct": 7.36
+    }
+  ],
+  "orig_area": [
+    {
+      "quartile": "Q1 LowRes",
+      "range": [
+        17400.0,
+        166500.0
+      ],
+      "n_all": 461,
+      "errors_all": 62,
+      "error_rate_all_pct": 13.45,
+      "error_rate_cat_pct": 20.41,
+      "error_rate_dog_pct": 5.56
+    },
+    {
+      "quartile": "Q2 Med-L",
+      "range": [
+        166500.0,
+        167500.0
+      ],
+      "n_all": 709,
+      "errors_all": 53,
+      "error_rate_all_pct": 7.48,
+      "error_rate_cat_pct": 7.74,
+      "error_rate_dog_pct": 7.4
+    },
+    {
+      "quartile": "Q3 Med-H",
+      "range": [
+        167500.0,
+        187500.0
+      ],
+      "n_all": 251,
+      "errors_all": 17,
+      "error_rate_all_pct": 6.77,
+      "error_rate_cat_pct": 6.58,
+      "error_rate_dog_pct": 6.86
+    },
+    {
+      "quartile": "Q4 HiRes",
+      "range": [
+        187500.0,
+        3110400.0
+      ],
+      "n_all": 964,
+      "errors_all": 61,
+      "error_rate_all_pct": 6.33,
+      "error_rate_cat_pct": 8.19,
+      "error_rate_dog_pct": 5.51
+    }
+  ]
+}

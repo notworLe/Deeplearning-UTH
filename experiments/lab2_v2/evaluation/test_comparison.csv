@@ -1,0 +1,3 @@
+run_id,arch,mode,total_params,trainable_params,test_loss,test_accuracy,test_macro_f1,species_accuracy,save_load_passed
+resnet18_scratch,resnet18,scratch,11195493,11195493,1.7642688039463772,0.4708595387840671,0.46263971264862197,0.8834381551362683,True
+densenet121_transfer,densenet121,transfer,6991781,37925,0.2678124445976701,0.919077568134172,0.9175531020512995,0.9970649895178197,True

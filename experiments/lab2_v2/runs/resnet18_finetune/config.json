@@ -1,0 +1,43 @@
+{
+  "run_id": "resnet18_finetune",
+  "group": "Fine-Tune (layer4)",
+  "axis": "transfer_mode",
+  "arch": "resnet18",
+  "mode": "finetune",
+  "pretrained": true,
+  "optimizer": "adamw",
+  "lr": 0.001,
+  "lr_backbone": 0.0001,
+  "weight_decay": 0.0001,
+  "batch_size": 32,
+  "epochs": 15,
+  "is_baseline": false,
+  "seed": 248,
+  "device": "cuda",
+  "use_amp": true,
+  "tensorboard_active": true,
+  "norm_stats": {
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "param_counts": {
+    "total": 11195493,
+    "trainable": 8412709,
+    "frozen": 2782784,
+    "trainable_pct": 75.1437
+  },
+  "split_sizes": {
+    "train": 3680,
+    "val": 1284,
+    "test": 2385
+  },
+  "resumed": null
+}

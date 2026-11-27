@@ -1,0 +1,373 @@
+{
+  "baseline_top_confusions": [
+    {
+      "true_id": 27,
+      "pred_id": 9,
+      "true_class": "Russian Blue",
+      "pred_class": "British Shorthair",
+      "count": 22,
+      "row_pct": 33.85,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 32,
+      "pred_id": 6,
+      "true_class": "Siamese",
+      "pred_class": "Birman",
+      "count": 20,
+      "row_pct": 30.77,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 22,
+      "pred_id": 30,
+      "true_class": "Newfoundland",
+      "pred_class": "Scottish Terrier",
+      "count": 18,
+      "row_pct": 27.69,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 15,
+      "pred_id": 29,
+      "true_class": "Great Pyrenees",
+      "pred_class": "Samoyed",
+      "count": 15,
+      "row_pct": 23.08,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 11,
+      "pred_id": 5,
+      "true_class": "Egyptian Mau",
+      "pred_class": "Bengal",
+      "count": 14,
+      "row_pct": 22.22,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 10,
+      "pred_id": 31,
+      "true_class": "Chihuahua",
+      "pred_class": "Shiba Inu",
+      "count": 14,
+      "row_pct": 21.54,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 31,
+      "pred_id": 24,
+      "true_class": "Shiba Inu",
+      "pred_class": "Pomeranian",
+      "count": 14,
+      "row_pct": 21.54,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 26,
+      "pred_id": 6,
+      "true_class": "Ragdoll",
+      "pred_class": "Birman",
+      "count": 13,
+      "row_pct": 20.0,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 14,
+      "pred_id": 34,
+      "true_class": "German Shorthaired",
+      "pred_class": "Staffordshire Bull Terrier",
+      "count": 12,
+      "row_pct": 18.46,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 4,
+      "pred_id": 3,
+      "true_class": "Beagle",
+      "pred_class": "Basset Hound",
+      "count": 10,
+      "row_pct": 15.38,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 6,
+      "pred_id": 26,
+      "true_class": "Birman",
+      "pred_class": "Ragdoll",
+      "count": 10,
+      "row_pct": 15.38,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 9,
+      "pred_id": 27,
+      "true_class": "British Shorthair",
+      "pred_class": "Russian Blue",
+      "count": 10,
+      "row_pct": 15.38,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 10,
+      "pred_id": 33,
+      "true_class": "Chihuahua",
+      "pred_class": "Sphynx",
+      "count": 10,
+      "row_pct": 15.38,
+      "same_species": false,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 20,
+      "pred_id": 23,
+      "true_class": "Maine Coon",
+      "pred_class": "Persian",
+      "count": 10,
+      "row_pct": 15.38,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 4,
+      "pred_id": 28,
+      "true_class": "Beagle",
+      "pred_class": "Saint Bernard",
+      "count": 9,
+      "row_pct": 13.85,
+      "same_species": true,
+      "true_species": "Dog"
+    }
+  ],
+  "best_top_confusions": [
+    {
+      "true_id": 2,
+      "pred_id": 34,
+      "true_class": "American Pit Bull Terrier",
+      "pred_class": "Staffordshire Bull Terrier",
+      "count": 14,
+      "row_pct": 21.54,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 26,
+      "pred_id": 6,
+      "true_class": "Ragdoll",
+      "pred_class": "Birman",
+      "count": 11,
+      "row_pct": 16.92,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 34,
+      "pred_id": 1,
+      "true_class": "Staffordshire Bull Terrier",
+      "pred_class": "American Bulldog",
+      "count": 10,
+      "row_pct": 17.24,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 34,
+      "pred_id": 2,
+      "true_class": "Staffordshire Bull Terrier",
+      "pred_class": "American Pit Bull Terrier",
+      "count": 10,
+      "row_pct": 17.24,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 2,
+      "pred_id": 1,
+      "true_class": "American Pit Bull Terrier",
+      "pred_class": "American Bulldog",
+      "count": 8,
+      "row_pct": 12.31,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 27,
+      "pred_id": 7,
+      "true_class": "Russian Blue",
+      "pred_class": "Bombay",
+      "count": 7,
+      "row_pct": 10.77,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 27,
+      "pred_id": 9,
+      "true_class": "Russian Blue",
+      "pred_class": "British Shorthair",
+      "count": 6,
+      "row_pct": 9.23,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 8,
+      "pred_id": 1,
+      "true_class": "Boxer",
+      "pred_class": "American Bulldog",
+      "count": 5,
+      "row_pct": 7.81,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 20,
+      "pred_id": 5,
+      "true_class": "Maine Coon",
+      "pred_class": "Bengal",
+      "count": 5,
+      "row_pct": 7.69,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 26,
+      "pred_id": 23,
+      "true_class": "Ragdoll",
+      "pred_class": "Persian",
+      "count": 5,
+      "row_pct": 7.69,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 11,
+      "pred_id": 5,
+      "true_class": "Egyptian Mau",
+      "pred_class": "Bengal",
+      "count": 4,
+      "row_pct": 6.35,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 3,
+      "pred_id": 4,
+      "true_class": "Basset Hound",
+      "pred_class": "Beagle",
+      "count": 4,
+      "row_pct": 6.15,
+      "same_species": true,
+      "true_species": "Dog"
+    },
+    {
+      "true_id": 6,
+      "pred_id": 26,
+      "true_class": "Birman",
+      "pred_class": "Ragdoll",
+      "count": 4,
+      "row_pct": 6.15,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 20,
+      "pred_id": 26,
+      "true_class": "Maine Coon",
+      "pred_class": "Ragdoll",
+      "count": 4,
+      "row_pct": 6.15,
+      "same_species": true,
+      "true_species": "Cat"
+    },
+    {
+      "true_id": 32,
+      "pred_id": 6,
+      "true_class": "Siamese",
+      "pred_class": "Birman",
+      "count": 4,
+      "row_pct": 6.15,
+      "same_species": true,
+      "true_species": "Cat"
+    }
+  ],
+  "hardest_classes_best": [
+    [
+      "Staffordshire Bull Terrier",
+      {
+        "species": "Dog",
+        "baseline_f1": 0.18556701030927836,
+        "best_f1": 0.6181818181818182,
+        "f1_gain": 0.4326148078725398
+      }
+    ],
+    [
+      "American Pit Bull Terrier",
+      {
+        "species": "Dog",
+        "baseline_f1": 0.09433962264150944,
+        "best_f1": 0.6666666666666666,
+        "f1_gain": 0.5723270440251572
+      }
+    ],
+    [
+      "Ragdoll",
+      {
+        "species": "Cat",
+        "baseline_f1": 0.37333333333333335,
+        "best_f1": 0.7559055118110236,
+        "f1_gain": 0.38257217847769026
+      }
+    ],
+    [
+      "American Bulldog",
+      {
+        "species": "Dog",
+        "baseline_f1": 0.36220472440944884,
+        "best_f1": 0.7837837837837838,
+        "f1_gain": 0.42157905937433493
+      }
+    ],
+    [
+      "Maine Coon",
+      {
+        "species": "Cat",
+        "baseline_f1": 0.4369747899159664,
+        "best_f1": 0.8387096774193549,
+        "f1_gain": 0.4017348875033885
+      }
+    ]
+  ],
+  "total_test_errors": 193,
+  "top3_pair_error_count": 35,
+  "gallery_scope": "Top-3 Pairs (35 errors)",
+  "species_metrics": {
+    "species_accuracy": 0.9970649895178197,
+    "cat_breed_accuracy": 0.881664499349805,
+    "dog_breed_accuracy": 0.9368811881188119,
+    "total_errors": 193,
+    "intra_cat_errors": 87,
+    "intra_dog_errors": 99,
+    "cross_species_errors": 7,
+    "cat_samples": 769,
+    "dog_samples": 1616
+  },
+  "deep_figures": {
+    "confusion_matrix_best_normalized": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\confusion_matrix_best_normalized.png",
+    "error_gallery_top3_high_conf": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\error_gallery_top3_high_conf.png",
+    "error_gallery_top3_low_conf": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\error_gallery_top3_low_conf.png",
+    "error_slice_analysis": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\error_slice_analysis.png"
+  }
+}

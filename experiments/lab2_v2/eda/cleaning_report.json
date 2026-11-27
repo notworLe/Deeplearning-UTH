@@ -1,0 +1,49 @@
+{
+  "total_scanned": 7349,
+  "corrupt_count": 0,
+  "corrupt_files": [],
+  "invalid_label_count": 0,
+  "color_mode_counts": {
+    "RGB": 7346,
+    "RGBA": 3
+  },
+  "non_rgb_count": 3,
+  "non_rgb_samples": [
+    {
+      "split": "train",
+      "file": "Egyptian_Mau_14.jpg",
+      "mode": "RGBA"
+    },
+    {
+      "split": "train",
+      "file": "Egyptian_Mau_186.jpg",
+      "mode": "RGBA"
+    },
+    {
+      "split": "test",
+      "file": "Abyssinian_5.jpg",
+      "mode": "RGBA"
+    }
+  ],
+  "non_rgb_handling": "Mọi ảnh đều ép `.convert('RGB')` trong PetImageDataset và preprocess_image() nên không mất mẫu.",
+  "internal_exact_duplicates": {
+    "train": 0,
+    "val": 0,
+    "test": 0
+  },
+  "cross_split_exact_duplicates": 0,
+  "cross_split_duplicate_examples": [],
+  "conflicting_label_duplicates": 0,
+  "dimensions": {
+    "width_min": 114,
+    "width_median": 500.0,
+    "width_max": 3264,
+    "height_min": 103,
+    "height_median": 375.0,
+    "height_max": 2606,
+    "aspect_ratio_min": 0.42,
+    "aspect_ratio_median": 1.333,
+    "aspect_ratio_max": 2.564,
+    "tiny_images_below_128px": 8
+  }
+}

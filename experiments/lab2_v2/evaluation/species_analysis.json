@@ -1,0 +1,24 @@
+{
+  "baseline": {
+    "species_accuracy": 0.8834381551362683,
+    "cat_breed_accuracy": 0.4967490247074122,
+    "dog_breed_accuracy": 0.45853960396039606,
+    "total_errors": 1262,
+    "intra_cat_errors": 276,
+    "intra_dog_errors": 708,
+    "cross_species_errors": 278,
+    "cat_samples": 769,
+    "dog_samples": 1616
+  },
+  "best": {
+    "species_accuracy": 0.9970649895178197,
+    "cat_breed_accuracy": 0.881664499349805,
+    "dog_breed_accuracy": 0.9368811881188119,
+    "total_errors": 193,
+    "intra_cat_errors": 87,
+    "intra_dog_errors": 99,
+    "cross_species_errors": 7,
+    "cat_samples": 769,
+    "dog_samples": 1616
+  }
+}

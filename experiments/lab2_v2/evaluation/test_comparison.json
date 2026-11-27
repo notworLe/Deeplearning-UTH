@@ -1,0 +1,44 @@
+{
+  "baseline_run_id": "resnet18_scratch",
+  "best_run_id": "densenet121_transfer",
+  "comparison": [
+    {
+      "run_id": "resnet18_scratch",
+      "arch": "resnet18",
+      "mode": "scratch",
+      "total_params": 11195493,
+      "trainable_params": 11195493,
+      "test_loss": 1.7642688039463772,
+      "test_accuracy": 0.4708595387840671,
+      "test_macro_f1": 0.46263971264862197,
+      "species_accuracy": 0.8834381551362683,
+      "save_load_passed": true
+    },
+    {
+      "run_id": "densenet121_transfer",
+      "arch": "densenet121",
+      "mode": "transfer",
+      "total_params": 6991781,
+      "trainable_params": 37925,
+      "test_loss": 0.2678124445976701,
+      "test_accuracy": 0.919077568134172,
+      "test_macro_f1": 0.9175531020512995,
+      "species_accuracy": 0.9970649895178197,
+      "save_load_passed": true
+    }
+  ],
+  "gain_over_baseline": {
+    "accuracy_delta": 0.44821802935010485,
+    "macro_f1_delta": 0.4549133894026775,
+    "loss_delta": -1.496456359348707
+  },
+  "figures": {
+    "loss_curves": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\loss_curves.png",
+    "accuracy_curves": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\accuracy_curves.png",
+    "confusion_matrix_baseline": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\confusion_matrix_baseline.png",
+    "confusion_matrix_best": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\confusion_matrix_best.png",
+    "predicted_vs_actual": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\predicted_vs_actual.png",
+    "cat_vs_dog_error_comparison": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\cat_vs_dog_error_comparison.png",
+    "ablation_comparison": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\figures\\ablation_comparison.png"
+  }
+}

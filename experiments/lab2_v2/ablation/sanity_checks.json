@@ -1,0 +1,12 @@
+{
+  "num_classes": 37,
+  "expected_init_loss": 3.6109,
+  "actual_init_loss": 4.6785,
+  "init_loss_passed": true,
+  "overfit_batch_size": 16,
+  "overfit_steps": 5,
+  "overfit_final_loss": 0.1357,
+  "overfit_final_acc": 1.0,
+  "overfit_passed": true,
+  "passed": true
+}

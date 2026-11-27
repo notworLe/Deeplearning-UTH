@@ -1,0 +1,276 @@
+{
+  "num_classes": 37,
+  "split_sizes": {
+    "train": 3680,
+    "val": 1284,
+    "test": 2385
+  },
+  "train_min_per_class": 93,
+  "train_max_per_class": 100,
+  "train_imbalance_ratio": 1.075,
+  "species_counts": {
+    "train": {
+      "Cat": 1188,
+      "Dog": 2492
+    },
+    "val": {
+      "Cat": 414,
+      "Dog": 870
+    },
+    "test": {
+      "Cat": 769,
+      "Dog": 1616
+    }
+  },
+  "train_rgb_mean": [
+    0.4843,
+    0.4544,
+    0.4048
+  ],
+  "train_rgb_std": [
+    0.262,
+    0.2574,
+    0.2653
+  ],
+  "imagenet_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "imagenet_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "per_class_counts": {
+    "Abyssinian": {
+      "species": "Cat",
+      "train": 100,
+      "val": 34,
+      "test": 64
+    },
+    "American Bulldog": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "American Pit Bull Terrier": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Basset Hound": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Beagle": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Bengal": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Birman": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Bombay": {
+      "species": "Cat",
+      "train": 96,
+      "val": 31,
+      "test": 57
+    },
+    "Boxer": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 64
+    },
+    "British Shorthair": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Chihuahua": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Egyptian Mau": {
+      "species": "Cat",
+      "train": 93,
+      "val": 34,
+      "test": 63
+    },
+    "English Cocker Spaniel": {
+      "species": "Dog",
+      "train": 96,
+      "val": 35,
+      "test": 65
+    },
+    "English Setter": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "German Shorthaired": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Great Pyrenees": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Havanese": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Japanese Chin": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Keeshond": {
+      "species": "Dog",
+      "train": 100,
+      "val": 34,
+      "test": 65
+    },
+    "Leonberger": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Maine Coon": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Miniature Pinscher": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Newfoundland": {
+      "species": "Dog",
+      "train": 96,
+      "val": 35,
+      "test": 65
+    },
+    "Persian": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Pomeranian": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Pug": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Ragdoll": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Russian Blue": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Saint Bernard": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Samoyed": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Scottish Terrier": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 64
+    },
+    "Shiba Inu": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Siamese": {
+      "species": "Cat",
+      "train": 99,
+      "val": 35,
+      "test": 65
+    },
+    "Sphynx": {
+      "species": "Cat",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Staffordshire Bull Terrier": {
+      "species": "Dog",
+      "train": 100,
+      "val": 31,
+      "test": 58
+    },
+    "Wheaten Terrier": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    },
+    "Yorkshire Terrier": {
+      "species": "Dog",
+      "train": 100,
+      "val": 35,
+      "test": 65
+    }
+  },
+  "figures": [
+    "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\eda\\eda_class_distribution.png",
+    "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\eda\\eda_species_ratio.png",
+    "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\eda\\eda_size_aspect_ratio.png",
+    "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\eda\\eda_sample_grid.png",
+    "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\eda\\eda_rgb_stats.png"
+  ]
+}

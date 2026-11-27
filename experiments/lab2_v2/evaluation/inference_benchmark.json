@@ -1,0 +1,107 @@
+{
+  "resnet18_scratch": {
+    "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\runs\\resnet18_scratch\\best.pt",
+    "checkpoint_size_mb": 128.25,
+    "device": "cuda",
+    "arch": "resnet18",
+    "mode": "scratch",
+    "batches": {
+      "bs_1": {
+        "batch_size": 1,
+        "mean_batch_ms": 3.332,
+        "p95_batch_ms": 3.961,
+        "ms_per_sample": 3.3318
+      },
+      "bs_32": {
+        "batch_size": 32,
+        "mean_batch_ms": 17.836,
+        "p95_batch_ms": 18.569,
+        "ms_per_sample": 0.5574
+      }
+    }
+  },
+  "resnet18_transfer": {
+    "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\runs\\resnet18_transfer\\best.pt",
+    "checkpoint_size_mb": 42.93,
+    "device": "cuda",
+    "arch": "resnet18",
+    "mode": "transfer",
+    "batches": {
+      "bs_1": {
+        "batch_size": 1,
+        "mean_batch_ms": 3.168,
+        "p95_batch_ms": 3.368,
+        "ms_per_sample": 3.1677
+      },
+      "bs_32": {
+        "batch_size": 32,
+        "mean_batch_ms": 17.719,
+        "p95_batch_ms": 17.894,
+        "ms_per_sample": 0.5537
+      }
+    }
+  },
+  "resnet18_finetune": {
+    "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\runs\\resnet18_finetune\\best.pt",
+    "checkpoint_size_mb": 106.98,
+    "device": "cuda",
+    "arch": "resnet18",
+    "mode": "finetune",
+    "batches": {
+      "bs_1": {
+        "batch_size": 1,
+        "mean_batch_ms": 3.203,
+        "p95_batch_ms": 3.675,
+        "ms_per_sample": 3.2032
+      },
+      "bs_32": {
+        "batch_size": 32,
+        "mean_batch_ms": 18.01,
+        "p95_batch_ms": 18.614,
+        "ms_per_sample": 0.5628
+      }
+    }
+  },
+  "densenet121_transfer": {
+    "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\runs\\densenet121_transfer\\best.pt",
+    "checkpoint_size_mb": 27.55,
+    "device": "cuda",
+    "arch": "densenet121",
+    "mode": "transfer",
+    "batches": {
+      "bs_1": {
+        "batch_size": 1,
+        "mean_batch_ms": 20.129,
+        "p95_batch_ms": 21.614,
+        "ms_per_sample": 20.1288
+      },
+      "bs_32": {
+        "batch_size": 32,
+        "mean_batch_ms": 60.149,
+        "p95_batch_ms": 61.11,
+        "ms_per_sample": 1.8797
+      }
+    }
+  },
+  "vgg16_transfer": {
+    "checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab2_v2\\runs\\vgg16_transfer\\best.pt",
+    "checkpoint_size_mb": 513.91,
+    "device": "cuda",
+    "arch": "vgg16",
+    "mode": "transfer",
+    "batches": {
+      "bs_1": {
+        "batch_size": 1,
+        "mean_batch_ms": 5.939,
+        "p95_batch_ms": 6.081,
+        "ms_per_sample": 5.9391
+      },
+      "bs_32": {
+        "batch_size": 32,
+        "mean_batch_ms": 120.663,
+        "p95_batch_ms": 121.019,
+        "ms_per_sample": 3.7707
+      }
+    }
+  }
+}
