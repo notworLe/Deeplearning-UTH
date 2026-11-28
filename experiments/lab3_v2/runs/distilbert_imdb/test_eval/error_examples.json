@@ -1,0 +1,240 @@
+{
+  "total_test_samples": 1000,
+  "total_errors": 109,
+  "error_rate_pct": 10.9,
+  "false_positives_neg_as_pos": 62,
+  "false_negatives_pos_as_neg": 47,
+  "truncation_slice": {
+    "max_length": 256,
+    "truncated_samples": 408,
+    "truncated_errors": 59,
+    "truncated_error_rate_pct": 14.46,
+    "non_truncated_samples": 592,
+    "non_truncated_errors": 50,
+    "non_truncated_error_rate_pct": 8.45
+  },
+  "high_confidence_errors": [
+    {
+      "test_idx": 745,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9654,
+      "true_probability": 0.0346,
+      "orig_token_len": 987,
+      "was_truncated": true,
+      "text_snippet": "1969 was the year. New York City was the place. Putney Swoope was the second Robert Downey film to achieve some recognition. The first was Chaffed Elbows (1966). Putney Swoope achieved a much wider release. Pound (1970) and Greasers Palace (1972) were even more profane and obnoxious. Those 2 films were mean spirited to the point that they actually stalled the Prince's feature film career for several years.<br /><br /",
+      "text_tail": "'s time. A time when very few indys' played outside of New York, Chicago, San Francisco and L.A. Anyone who loves satire and comedy should see this at least twice. Downey's Putney Swoope is Ahead of and Beyond it's time."
+    },
+    {
+      "test_idx": 231,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9646,
+      "true_probability": 0.0354,
+      "orig_token_len": 455,
+      "was_truncated": true,
+      "text_snippet": "Tipping the Velvet has just three weeks ago been released in the UK and already I watch as countless letters flood to the national papers and TV guides, claiming that it possesses a thin plot, weak performances and an even weaker script.<br /><br />You find me incensed. This is heresy.<br /><br />I would really like to dispel all doubt by first congratulating Andrew Davies on enabling Geoffrey Sax to create this wond",
+      "text_tail": "mpelling. As a whole, it's polished and well delivered, the sex is undertaken with tenderness and delicacy - and although many will not class it as a real \"film\", it will remain among my favourites for some time to come."
+    },
+    {
+      "test_idx": 0,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9584,
+      "true_probability": 0.0416,
+      "orig_token_len": 218,
+      "was_truncated": false,
+      "text_snippet": "Okay, this may not be the most sophisticated movie you'll ever see. Actually, there isn't a bit of \"sophisticatedlyness\"* in it. It's puerile, adolescent, inoffensive, idiotic..And utterly hilarious. Basically, Richie and Eddie run the worst hotel in Britain. Cue some ridiculous antics with the guests while they beat each other up, try to get the rent money out of the only resident who is daft enough to stay, have an",
+      "text_tail": "e it a try if you're a fan of Rik and Ade and their work. If you're not...Don't get the movie. Simple as that.<br /><br />*I'm not being thick, this is a word from another one of Rik's fab jaunts into the movie world ^_^"
+    },
+    {
+      "test_idx": 551,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.9572,
+      "true_probability": 0.0428,
+      "orig_token_len": 66,
+      "was_truncated": false,
+      "text_snippet": "This film features two of my favorite guilty pleasures. Sure, the effects are laughable, the story confused, but just watching Hasselhoff in his Knight Rider days is always fun. I especially like the old hotel they used to shoot this in, it added to what little suspense was mustered. Give it a 3.",
+      "text_tail": ""
+    },
+    {
+      "test_idx": 233,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.9559,
+      "true_probability": 0.0441,
+      "orig_token_len": 252,
+      "was_truncated": false,
+      "text_snippet": "Not as bad as some people say...This is a unofficial Bond movie and a remake of \"Thunderball\", written by Kevin McClory (co- producer in \"Thunderball\"). Well, the cast is very very interesting, Maria Brandauer is a great Bond- villain, Kim Basinger and Barbara Carrera are just like the \"original\" Bond- girls, plus Rowan Atkinson and a truly great Edward Fox, who looks really refreshing in the \"M\" role. In fact, the w",
+      "text_tail": "t missing. All in one, a nice try to make a difference from the comic and silly Roger Moore movies like \"Moonraker\". Only if there was another story, \"Thunderball\" was a excellent movie and really did not needed a remake"
+    },
+    {
+      "test_idx": 269,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9555,
+      "true_probability": 0.0445,
+      "orig_token_len": 614,
+      "was_truncated": true,
+      "text_snippet": "First of all , you should watch this only if you don't mind the lack of subtitles , pornography , kinky sex and utter , horrifying and truly shocking depravity . I mentioned kinky sex , but to call sex in the second half of the movie \" kinky \" would be a great understatement . It's more like a punch in the face if you aren't prepared for this sort of sickness . That being said , I can go back to reviewing this morbid",
+      "text_tail": " no subtitles available . But the movie still works without them . So , if you are into ultra sickness , extreme sadism and other beauties of this beloved genre , check this out . I hope you won't have nightmares .8/10 ."
+    },
+    {
+      "test_idx": 656,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.95,
+      "true_probability": 0.05,
+      "orig_token_len": 238,
+      "was_truncated": false,
+      "text_snippet": "The only reason I watched this movie a second time, was to learn the name of the \"second banana\" girl playing opposite Katie Holms. Her name is Marisa Coughlan. Never heard of her before. She is lovely. Captivating. With an animated face, and cute bod, she is highly watchable... She's got real, \"Poisenality\"... More than a passing vibe of Grace Kelly... with youthful exuberance. I think she is Irish in gene pool, (my",
+      "text_tail": "ds me of another silly, worthless movie with the only redemption being the Pretty Girl in it. It was \"Career Opportunites\" with the first time I saw Jennifer Conoly. Or \"Grease II\" the first time I saw Michelle Pfeiffer."
+    },
+    {
+      "test_idx": 528,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9438,
+      "true_probability": 0.0562,
+      "orig_token_len": 435,
+      "was_truncated": true,
+      "text_snippet": "OK...i have seen just about everything....and some are considered classics that shouldn't be ( like all those Halloween movies that suck crap or even Steven king junk).......and some are considered just OK that are really great.....( like carnival of souls )........and then some are just plain ignored............like ( evil ed ) or ( pumpkin head and brain dead \"the bud Cort one\" ) then some stick in your head once s",
+      "text_tail": "nd came totally unexpected.......not to mention the dummies wax figures puppets etc.......it should be right there with psycho,last house,Texas chainsaw,etc....... it's a classic..............and deservedly so..........."
+    },
+    {
+      "test_idx": 68,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9411,
+      "true_probability": 0.0589,
+      "orig_token_len": 465,
+      "was_truncated": true,
+      "text_snippet": "Overall, a well done movie. There were the parts that made me wince, and there were the parts that I threw my hands up at, but I came away with something more than I gone in with.<br /><br />I think the movie suffers from some serious excess ambition. Without spoiling it, let me say that the obvious references to the trial by fire in Ramayana, is way beyond what this movie stands for. The Ramayana is an epic. Not a 2",
+      "text_tail": "that respect it succeeds as much as it fails. Just take everything you see with a pinch of salt. The dark secrets of India are not being revealed. Just two girls are falling in love. Just like it happens everywhere else."
+    },
+    {
+      "test_idx": 498,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.9264,
+      "true_probability": 0.0736,
+      "orig_token_len": 843,
+      "was_truncated": true,
+      "text_snippet": "To say I wasn't expecting much sitting down to watch \"The Couch Trip\" is an understatement. I had no idea what it was about - I thought it was going to be a journey into the realm of sexuality when I heard Chevy Chase played a condom man and the movie's title involves the word \"couch trip,\" *wink, wink.* Then I figured out that it had something to do with a mental institute and a patient escaping. My expectations dro",
+      "text_tail": "eas are essentially ludicrous and not at all realistic, but Dan Aykroyd gives a truly spirited performance as a half-a-loon that makes \"The Couch Trip\" a trip worth taking. <br /><br />3.5/5 stars -<br /><br />John Ulmer"
+    }
+  ],
+  "low_confidence_boundary_errors": [
+    {
+      "test_idx": 446,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.5138,
+      "true_probability": 0.4862,
+      "orig_token_len": 642,
+      "was_truncated": true,
+      "text_snippet": "I only watched this because I saw a couple of good reviews for this, so I was expecting at the very least a half-way cheesy movie. Toybox doesn't even deliver that. There are so many problems with this flick, that I don't even know where to start, so I will list a couple of main issues (Once again, spoiler warning. Just read them, it'll save you the trouble of watching this later).<br /><br />One, this movie starts o",
+      "text_tail": " reason I give it two stars at all is because a) Berenice is kinda cute, and b) It mentioned pies. Save yourself the money of renting this and dear god don't even think about buying it, unless wasting money is a new fad."
+    },
+    {
+      "test_idx": 578,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.515,
+      "true_probability": 0.485,
+      "orig_token_len": 170,
+      "was_truncated": false,
+      "text_snippet": "The movie has a good story line, the action is good in some parts, but not all of them. Some of the parts, I just felt like the bad guys wouldn't have dosed off yet, from my experience from taking Martial arts. Some are the actions are long, like always mostly for the boss, but for the least important ones, they were killed or dosed off with a few hits, but some where quite unrealistic or could have done a better job",
+      "text_tail": "unt people were the right picks for the movie, my girlfriend started to have a crush on them that she started to watch the movie more than she spends her time with me.<br /><br />The movie is good, that is all I can say."
+    },
+    {
+      "test_idx": 169,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.5165,
+      "true_probability": 0.4835,
+      "orig_token_len": 199,
+      "was_truncated": false,
+      "text_snippet": "i was looking forward to this, and to be honest there were some bright spots, but it would have worked better if it had concentrated on one story rather than shooting all over the world. The many dogs were a lot of fun but i got bored of the wine fascists pompously whining (;-)) on about their achievements.<br /><br />I felt it would have worked better as an hour long TV documentary, concentrating on one of the many ",
+      "text_tail": ", a nicely timed election arrived, and a communist mayor was elected, who turned it down, much to the exasperation of the American wine execs...<br /><br />hopefully the director's cut will be shorter than the original.."
+    },
+    {
+      "test_idx": 991,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.5171,
+      "true_probability": 0.4829,
+      "orig_token_len": 300,
+      "was_truncated": true,
+      "text_snippet": "Many believe this movie is a baseball movie. Such people are disappointed because it's about a baseball player, but the movie isn't about baseball.<br /><br />Some think this movie is a romantic comedy and are disappointed because the relationship isn't really developed. This movie is not a romantic comedy.<br /><br />This movie is about culture. An arrogant American Major Leaguer and a stern traditional Japanese bas",
+      "text_tail": "e did quite well in that it didn't overly romanticize the Japanese culture nor overdo it in its portrayal.<br /><br />Overall, I believe this is an enjoyable and relaxing movie if one understands what it is really about."
+    },
+    {
+      "test_idx": 247,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.5316,
+      "true_probability": 0.4684,
+      "orig_token_len": 291,
+      "was_truncated": true,
+      "text_snippet": "Tiny Tweet and Sly the sneak are locked up in cages for a train ride to who knows where. Swinging Tweety begins belting out an insufferable song as soon as the train leaves the station, so lets hope that Puddy Tad gets him this time. Sly tries out a couple of funny hand tricks but spoil sport conductor man puts the bird in a safer place amongst the baggage. The cat's next attempt has him ending up in the coal oven of",
+      "text_tail": "ranny's new place, (Gower Gulch, population 86) the cat's final attempt involves cross-dressing. But you know what happens to men in dresses, they always get more attention than they bargained for.<br /><br />7 out of 10"
+    },
+    {
+      "test_idx": 92,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.5438,
+      "true_probability": 0.4562,
+      "orig_token_len": 226,
+      "was_truncated": false,
+      "text_snippet": "The Paul Kersey of DEATH WISH 3 is very far removed from the Paul Kersey of the original film . If you remember the 1974 film then you will remember Kersey was a \" Conchie \" during the Korean war and that he was physically sick after he committed his first execution . Ten years later Kersey seems to have learned unarmed combat and how to handle anti tank weapons in his spare time . But I`ll overlook that gaffe becaus",
+      "text_tail": "m Kersey and the innocent citizens . Who needs Mayor Rudy when you`ve got Paul Kersey , an anti tank rocket and a bunch of old age pensioners to reclaim the streets from the criminal creeps . Paul Kersey I salute you sir"
+    },
+    {
+      "test_idx": 624,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.5445,
+      "true_probability": 0.4555,
+      "orig_token_len": 458,
+      "was_truncated": true,
+      "text_snippet": "Young Warriors (1983) <br /><br />While this is a deeply flawed (and in some ways idiotic) movie, the way it continually defies expectations makes it decent viewing for the adventurous sleaze fan.<br /><br />Meet yuppie college student Kevin and his gang of lovable frat boy buddies. In what starts out as a particularly egregious teen sex comedy, we follow this bunch of jerk-offs and their antics, which involve, among",
+      "text_tail": "cularly ludicrous situations and rather stupid dialogue, this won't be topping anyone's list of forgotten classics anytime soon. I got a kick out of it though, and I'm sure anyone reading this knows if they're up for it."
+    },
+    {
+      "test_idx": 662,
+      "true_label": "Positive",
+      "pred_label": "Negative",
+      "pred_confidence": 0.5466,
+      "true_probability": 0.4534,
+      "orig_token_len": 300,
+      "was_truncated": true,
+      "text_snippet": "One day a red alley cat is fed up of being kicked by people and attacked by dogs and muses that life would be better if he were a skunk. He then paints himself black with a white stripe down his back and adds a bit of Limburger cheese to make him stink. At first life couldn't be better for him, the dog flees and the butcher abandons his shop letting the cat walk off with a pile of meat. Just as he is thinking everyth",
+      "text_tail": "en up to.<br /><br />This was a fairly funny introduction to Pepé Le Pew who back then was just overly amorous but now looks like a randy sexually harassing stalker, although he was punished for his behaviour in the end."
+    },
+    {
+      "test_idx": 980,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.5468,
+      "true_probability": 0.4532,
+      "orig_token_len": 161,
+      "was_truncated": false,
+      "text_snippet": "If you've ever heard the saying, \"the book is always better than the movie,\" Heart of Darkness is no exception to the rule. I believe that it was much easier for me to comprehend the details of the novel over the movie because I read the book aloud with my English class. We discussed each paragraph in great detail so I grasped the concept pretty quickly. I couldn't really understand the plot as well while watching th",
+      "text_tail": "so because I couldn't paint my own pictures in my mind of the events of the novel. If you're the type of person who believes in that well-known saying, then leave watching the Heart of Darkness movie off your to-do list."
+    },
+    {
+      "test_idx": 730,
+      "true_label": "Negative",
+      "pred_label": "Positive",
+      "pred_confidence": 0.5524,
+      "true_probability": 0.4476,
+      "orig_token_len": 226,
+      "was_truncated": false,
+      "text_snippet": "I never figured out what the attraction of Karen Black was. She always had those beady eyes and kind of an odd look about her. She seemed to often be eccentric or cast as the \"other\" woman. In this one, she is the psychic adviser and expert on the occult to a crummy producer of bad commercials as he learns astral projection. He is a mean sucker, even without the new baggage. Apparently this is the avenue to immortali",
+      "text_tail": "ike them. You can see the ending coming from the back row in left field. It's a very harsh, humorless movie. Most of it must be taken as truth. Why are some called but few chosen? I found it long and not very satisfying."
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "seed": 248,
+  "device": "cuda",
+  "fp16": true,
+  "tensorboard_active": true,
+  "train_samples": 4000,
+  "val_samples": 1000,
+  "max_length": 256,
+  "epochs": 3.0,
+  "learning_rate": 2e-05,
+  "train_batch_size": 16,
+  "eval_batch_size": 32,
+  "weight_decay": 0.01,
+  "param_counts": {
+    "total": 66955010,
+    "trainable": 66955010,
+    "frozen": 0,
+    "trainable_pct": 100.0
+  },
+  "train_time_sec": 91.41,
+  "global_step": 750,
+  "train_loss_final": 0.243496444384257,
+  "best_metric_eval_loss": 0.27643725275993347,
+  "best_model_checkpoint": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\runs\\distilbert_imdb\\weights\\checkpoint-250",
+  "best_model_dir": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\runs\\distilbert_imdb\\weights\\best_model",
+  "baseline_before_finetune": {
+    "eval_loss": 0.6956802010536194,
+    "eval_model_preparation_time": 0.0033,
+    "eval_accuracy": 0.497,
+    "eval_f1": 0.0,
+    "eval_macro_f1": 0.331997327989312,
+    "eval_runtime": 2.8933,
+    "eval_samples_per_second": 345.631,
+    "eval_steps_per_second": 11.06,
+    "epoch": 0.0
+  },
+  "after_finetune_val": {
+    "eval_loss": 0.27643725275993347,
+    "eval_model_preparation_time": 0.0033,
+    "eval_accuracy": 0.878,
+    "eval_f1": 0.8810916179337231,
+    "eval_macro_f1": 0.8779174722112147,
+    "eval_runtime": 2.005,
+    "eval_samples_per_second": 498.762,
+    "eval_steps_per_second": 15.96,
+    "epoch": 3.0
+  },
+  "val_accuracy_gain_pp": 38.1,
+  "val_f1_gain_pp": 88.11,
+  "artifacts": {
+    "loss_curve": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\runs\\distilbert_imdb\\monitor\\loss_curve.png",
+    "val_comparison": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\runs\\distilbert_imdb\\val_eval\\val_comparison.png",
+    "log_history": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\runs\\distilbert_imdb\\monitor\\trainer_log_history.json"
+  }
+}

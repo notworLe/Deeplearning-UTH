@@ -1,0 +1,15 @@
+{
+  "dataset": "imdb",
+  "label_names": [
+    "Negative",
+    "Positive"
+  ],
+  "raw_train_total": 25000,
+  "raw_test_total": 25000,
+  "seed": 248,
+  "split_sizes": {
+    "train": 4000,
+    "validation": 1000,
+    "test": 1000
+  }
+}

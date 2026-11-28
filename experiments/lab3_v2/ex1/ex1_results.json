@@ -1,0 +1,241 @@
+{
+  "model_name": "distilbert-base-uncased-finetuned-sst-2-english",
+  "task": "text-classification (sentiment-analysis)",
+  "device": "cuda",
+  "tokenizer_demo": {
+    "original_text": "Hugging Face transformers make fine-tuning unbelievable and surprisingly enjoyable!",
+    "num_tokens": 14,
+    "tokens": [
+      "[CLS]",
+      "hugging",
+      "face",
+      "transformers",
+      "make",
+      "fine",
+      "-",
+      "tuning",
+      "unbelievable",
+      "and",
+      "surprisingly",
+      "enjoyable",
+      "!",
+      "[SEP]"
+    ],
+    "input_ids": [
+      101,
+      17662,
+      2227,
+      19081,
+      2191,
+      2986,
+      1011,
+      17372,
+      23653,
+      1998,
+      10889,
+      22249,
+      999,
+      102
+    ],
+    "attention_mask": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "subword_pieces": [],
+    "special_tokens_map": {
+      "cls_token": "[CLS]",
+      "cls_token_id": 101,
+      "sep_token": "[SEP]",
+      "sep_token_id": 102,
+      "pad_token": "[PAD]",
+      "pad_token_id": 0
+    },
+    "decoded_with_special": "[CLS] hugging face transformers make fine - tuning unbelievable and surprisingly enjoyable! [SEP]",
+    "decoded_clean": "hugging face transformers make fine - tuning unbelievable and surprisingly enjoyable!"
+  },
+  "batch_padding_demo": {
+    "texts": [
+      "Great movie!",
+      "This movie was surprisingly thoughtful and well directed."
+    ],
+    "input_ids_shape": [
+      2,
+      11
+    ],
+    "attention_mask_shape": [
+      2,
+      11
+    ],
+    "dtype": "torch.int64",
+    "rows": [
+      {
+        "text": "Great movie!",
+        "tokens": [
+          "[CLS]",
+          "great",
+          "movie",
+          "!",
+          "[SEP]",
+          "[PAD]",
+          "[PAD]",
+          "[PAD]",
+          "[PAD]",
+          "[PAD]",
+          "[PAD]"
+        ],
+        "input_ids": [
+          101,
+          2307,
+          3185,
+          999,
+          102,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "attention_mask": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "real_tokens": 5,
+        "pad_tokens": 6
+      },
+      {
+        "text": "This movie was surprisingly thoughtful and well directed.",
+        "tokens": [
+          "[CLS]",
+          "this",
+          "movie",
+          "was",
+          "surprisingly",
+          "thoughtful",
+          "and",
+          "well",
+          "directed",
+          ".",
+          "[SEP]"
+        ],
+        "input_ids": [
+          101,
+          2023,
+          3185,
+          2001,
+          10889,
+          16465,
+          1998,
+          2092,
+          2856,
+          1012,
+          102
+        ],
+        "attention_mask": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "real_tokens": 11,
+        "pad_tokens": 0
+      }
+    ]
+  },
+  "num_samples": 8,
+  "matched_expected": 5,
+  "predictions": [
+    {
+      "category": "positive_clear",
+      "text": "I absolutely loved this movie! The acting was brilliant and the story kept me hooked from start to finish.",
+      "expected": "POSITIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.9999,
+      "matches_expected": true
+    },
+    {
+      "category": "positive_clear",
+      "text": "This library makes working with pretrained transformer models surprisingly intuitive and fast.",
+      "expected": "POSITIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.9995,
+      "matches_expected": true
+    },
+    {
+      "category": "negative_clear",
+      "text": "What a complete waste of two hours. The plot made zero sense and the dialogue was awful.",
+      "expected": "NEGATIVE",
+      "predicted_label": "NEGATIVE",
+      "score": 0.9998,
+      "matches_expected": true
+    },
+    {
+      "category": "negative_clear",
+      "text": "The service was painfully slow, the staff were rude, and the food arrived completely cold.",
+      "expected": "NEGATIVE",
+      "predicted_label": "NEGATIVE",
+      "score": 0.9997,
+      "matches_expected": true
+    },
+    {
+      "category": "negation_contrast",
+      "text": "I expected this film to be terrible, yet it turned out not bad at all and genuinely entertaining.",
+      "expected": "POSITIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.9992,
+      "matches_expected": true
+    },
+    {
+      "category": "mixed_contrast",
+      "text": "The cinematography is breathtaking, although the pacing drags terribly and the ending ruins everything.",
+      "expected": "NEGATIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.9968,
+      "matches_expected": false
+    },
+    {
+      "category": "sarcasm_hard",
+      "text": "Oh great, another three-hour sequel with absolutely nothing new to say. Just what I wanted.",
+      "expected": "NEGATIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.6246,
+      "matches_expected": false
+    },
+    {
+      "category": "sarcasm_hard",
+      "text": "Yeah, waiting four hours at a delayed airport gate was definitely the highlight of my vacation.",
+      "expected": "NEGATIVE",
+      "predicted_label": "POSITIVE",
+      "score": 0.9947,
+      "matches_expected": false
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "max_length": 256,
+  "class_counts": {
+    "train": {
+      "Negative": 2000,
+      "Positive": 2000
+    },
+    "validation": {
+      "Negative": 500,
+      "Positive": 500
+    },
+    "test": {
+      "Negative": 500,
+      "Positive": 500
+    }
+  },
+  "word_length_stats": {
+    "train": {
+      "min": 10,
+      "p25": 127.0,
+      "median": 175.0,
+      "mean": 234.8,
+      "p75": 287.0,
+      "p95": 609.0,
+      "max": 1839
+    },
+    "validation": {
+      "min": 31,
+      "p25": 127.0,
+      "median": 180.0,
+      "mean": 237.7,
+      "p75": 294.0,
+      "p95": 611.1,
+      "max": 1014
+    },
+    "test": {
+      "min": 32,
+      "p25": 126.0,
+      "median": 170.0,
+      "mean": 225.6,
+      "p75": 267.5,
+      "p95": 584.0,
+      "max": 1001
+    }
+  },
+  "token_length_stats": {
+    "train": {
+      "min": 13,
+      "p25": 167.0,
+      "median": 235.0,
+      "mean": 315.3,
+      "p75": 388.0,
+      "p95": 817.0,
+      "max": 2315
+    },
+    "validation": {
+      "min": 44,
+      "p25": 170.0,
+      "median": 241.0,
+      "mean": 319.9,
+      "p75": 393.2,
+      "p95": 819.3,
+      "max": 1474
+    },
+    "test": {
+      "min": 42,
+      "p25": 167.0,
+      "median": 225.0,
+      "mean": 302.5,
+      "p75": 359.0,
+      "p95": 808.2,
+      "max": 1396
+    }
+  },
+  "truncated_pct_above_max_length": {
+    "train": 45.07,
+    "validation": 45.3,
+    "test": 40.8
+  },
+  "sample_previews": [
+    {
+      "label": "Negative",
+      "token_len": 180,
+      "snippet": "Okay, I've always been a fan of Batman. I loved the animated series, and even Batman Beyond. I even read a batman comic now and then. So as can be imagined--I was a little excited "
+    },
+    {
+      "label": "Positive",
+      "token_len": 318,
+      "snippet": "This is a musical adaptation of Dicken's \"Oliver Twist\". For the most part, the original story has been maintained, though for the flow of the film certain subplots (such as the su"
+    },
+    {
+      "label": "Positive",
+      "token_len": 705,
+      "snippet": "THE BRAIN THAT WOULDN'T DIE was considered so distasteful in 1959 that several cuts and the passage of three years was required before it was released in 1962. Today it is difficul"
+    },
+    {
+      "label": "Positive",
+      "token_len": 228,
+      "snippet": "OK, this movie is stupid. I mean that in a good way though.It was stupid on purpose, and was one of the better \"stupid\" movies I've seen. The jokes and gags are purposefully bad, b"
+    }
+  ],
+  "figures": {
+    "class_distribution": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\eda\\eda_class_distribution.png",
+    "token_length": "D:\\notworLe\\Desktop\\gitvanhub\\Deeplearning-UTH\\experiments\\lab3_v2\\eda\\eda_token_length.png"
+  }
+}

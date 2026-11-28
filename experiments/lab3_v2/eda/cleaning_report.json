@@ -1,0 +1,23 @@
+{
+  "empty_or_whitespace_texts": {
+    "train": 0,
+    "validation": 0,
+    "test": 0
+  },
+  "reviews_with_html_br_tag": {
+    "train": 2341,
+    "validation": 586,
+    "test": 553
+  },
+  "internal_exact_duplicates": {
+    "train": 3,
+    "validation": 0,
+    "test": 0
+  },
+  "cross_split_exact_duplicates": {
+    "train_val": 2,
+    "train_test": 0,
+    "val_test": 1
+  },
+  "note": "Giữ nguyên văn bản gốc IMDB (không xóa thủ công `<br />`) để bảo toàn tính tái lập của benchmark chuẩn và kiểm chứng khả năng xử lý nhiễu nhẹ của DistilBERT."
+}
